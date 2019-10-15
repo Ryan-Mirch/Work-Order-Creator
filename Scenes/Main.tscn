@@ -321,8 +321,8 @@ window_title = "Open a Directory"
 resizable = true
 mode = 2
 access = 2
-current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work Order Creator"
-current_path = "C:/Users/rwmir/Development/Godot/Projects/Work Order Creator/"
+current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
+current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 3 )
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_Export_pressed"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
