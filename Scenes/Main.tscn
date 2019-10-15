@@ -153,41 +153,41 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Header" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 1 )]
-rect_min_size = Vector2( 850, 300 )
+rect_min_size = Vector2( 850, 320 )
 
 [node name="Small Row" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 300.0
-margin_bottom = 350.0
+margin_top = 320.0
+margin_bottom = 370.0
 rect_min_size = Vector2( 850, 50 )
 
 [node name="Small Row2" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 350.0
-margin_bottom = 400.0
+margin_top = 370.0
+margin_bottom = 420.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row3" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 400.0
-margin_bottom = 450.0
+margin_top = 420.0
+margin_bottom = 470.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row4" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 450.0
-margin_bottom = 500.0
+margin_top = 470.0
+margin_bottom = 520.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row5" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 500.0
-margin_bottom = 550.0
+margin_top = 520.0
+margin_bottom = 570.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row6" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 550.0
-margin_bottom = 600.0
+margin_top = 570.0
+margin_bottom = 620.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row7" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 600.0
-margin_bottom = 650.0
+margin_top = 620.0
+margin_bottom = 670.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Side Bar" type="ColorRect" parent="."]
