@@ -13,6 +13,7 @@ margin_bottom = 47.0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
