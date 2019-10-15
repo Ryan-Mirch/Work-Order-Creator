@@ -1,0 +1,134 @@
+[gd_scene format=2]
+
+[node name="ColorRect" type="ColorRect"]
+margin_right = 850.0
+margin_bottom = 50.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = 3.0
+margin_right = 847.0
+margin_bottom = 47.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 850.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="Box" type="ColorRect" parent="HBoxContainer"]
+margin_right = 121.5
+margin_bottom = 50.0
+rect_min_size = Vector2( 121.5, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box"]
+margin_left = 3.0
+margin_right = 121.5
+margin_bottom = 47.0
+rect_min_size = Vector2( 118.5, 0 )
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box"]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 40.0
+
+[node name="Box2" type="ColorRect" parent="HBoxContainer"]
+margin_left = 121.0
+margin_right = 242.5
+margin_bottom = 50.0
+rect_min_size = Vector2( 121.5, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box2"]
+margin_left = 3.0
+margin_right = 121.5
+margin_bottom = 47.0
+rect_min_size = Vector2( 118.5, 0 )
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box2"]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 40.0
+
+[node name="Box3" type="ColorRect" parent="HBoxContainer"]
+margin_left = 242.0
+margin_right = 363.5
+margin_bottom = 50.0
+rect_min_size = Vector2( 121.5, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box3"]
+margin_left = 3.0
+margin_right = 121.5
+margin_bottom = 47.0
+rect_min_size = Vector2( 118.5, 0 )
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box3"]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 40.0
+
+[node name="Box4" type="ColorRect" parent="HBoxContainer"]
+margin_left = 363.0
+margin_right = 484.5
+margin_bottom = 50.0
+rect_min_size = Vector2( 121.5, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box4"]
+margin_left = 3.0
+margin_right = 121.5
+margin_bottom = 47.0
+rect_min_size = Vector2( 118.5, 0 )
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box4"]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 40.0
+
+[node name="Box5" type="ColorRect" parent="HBoxContainer"]
+margin_left = 484.0
+margin_right = 727.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 243, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box5"]
+margin_left = 3.0
+margin_right = 121.5
+margin_bottom = 47.0
+rect_min_size = Vector2( 240, 0 )
+mouse_filter = 2
+
+[node name="Box7" type="ColorRect" parent="HBoxContainer"]
+margin_left = 727.0
+margin_right = 848.5
+margin_bottom = 50.0
+rect_min_size = Vector2( 121.5, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box7"]
+margin_left = 3.0
+margin_right = 121.5
+margin_bottom = 47.0
+rect_min_size = Vector2( 118.5, 0 )
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box7"]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 40.0
