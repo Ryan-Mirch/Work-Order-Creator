@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Fonts/Roboto28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scenes/Entry.gd" type="Script" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends ColorRect
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+export var label = \"\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$\"Label Bg/Label\".text = label
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[node name="Date Recieved" type="ColorRect"]
+margin_right = 173.0
+margin_bottom = 103.0
+rect_min_size = Vector2( 173, 0 )
+color = Color( 0, 0, 0, 1 )
+script = SubResource( 1 )
+
+[node name="Entry Bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 38.0
+margin_right = -3.0
+margin_bottom = -6.0
+
+[node name="Entry Text" type="Label" parent="Entry Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+
+[node name="Entry" type="LineEdit" parent="Entry Bg" groups=[
+"Line Edit",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+max_length = 15
+script = ExtResource( 3 )
+
+[node name="Label Bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 6.0
+margin_right = -3.0
+margin_bottom = -67.0
+
+[node name="Label" type="Label" parent="Label Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1

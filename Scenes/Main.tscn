@@ -79,15 +79,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if folder == null:
-		return
+	pass
 		
-	if pause >= 0:
-		pause += delta
-		
-	if pause > 0.1:
-		_take_screenshot()
-		_finished()
+func _on_FileDialog_dir_selected(dir):
+	folder = dir
+	_take_screenshot()
+	_finished()
 		
 func _take_screenshot():
 	var img = PageViewport.get_texture().get_data()
@@ -99,13 +96,15 @@ func _finished():
 	
 	folder = null
 	pause = 0	
+	for lineEdit in get_tree().get_nodes_in_group(\"Line Edit\"):
+		lineEdit.visible = true
 
 func _on_Export_pressed():
 	PageViewport.gui_disable_input = true
+	for lineEdit in get_tree().get_nodes_in_group(\"Line Edit\"):
+		lineEdit.visible = false
+	
 	popup()
-
-func _on_FileDialog_dir_selected(dir):
-	folder = dir
 
 func _on_Save_Pages_As_PNG_popup_hide():
 	if folder == null:
@@ -116,7 +115,6 @@ func _on_Save_Pages_As_PNG_popup_hide():
 script = SubResource( 1 )
 
 [node name="Page" type="ScrollContainer" parent="."]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -268,11 +266,11 @@ access = 2
 current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
 current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 3 )
-[connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_Export_pressed"]
+[connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
 [connection signal="confirmed" from="Save Pages As PNG" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_FileDialog_confirmed"]
-[connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
 [connection signal="dir_selected" from="Save Pages As PNG" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_FileDialog_dir_selected"]
+[connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]
 [connection signal="popup_hide" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_Save_Pages_As_PNG_popup_hide"]
 [connection signal="tree_exited" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_tree_exited"]

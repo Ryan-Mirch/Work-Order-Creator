@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/SmallHeaderEntry.tscn" type="PackedScene" id=1]
 
 [node name="ColorRect" type="ColorRect"]
 margin_right = 850.0
@@ -26,220 +26,25 @@ margin_bottom = 103.0
 rect_min_size = Vector2( 850, 103 )
 custom_constants/separation = -4
 
-[node name="Date Recieved" type="ColorRect" parent="VBoxContainer/HBoxContainer"]
-margin_right = 173.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 173, 0 )
-color = Color( 0, 0, 0, 1 )
+[node name="Date Recieved" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+label = "Date Received"
 
-[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Recieved"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 38.0
-margin_right = -3.0
-margin_bottom = -6.0
-
-[node name="Entry" type="LineEdit" parent="VBoxContainer/HBoxContainer/Date Recieved/Entry Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_fonts/font = ExtResource( 1 )
-align = 1
-max_length = 15
-
-[node name="Label Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Recieved"]
-editor/display_folded = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 6.0
-margin_right = -3.0
-margin_bottom = -67.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Date Recieved/Label Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Date Received"
-align = 1
-valign = 1
-
-[node name="Date Written" type="ColorRect" parent="VBoxContainer/HBoxContainer"]
+[node name="Date Written" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 169.0
 margin_right = 342.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 173, 0 )
-color = Color( 0, 0, 0, 1 )
+label = "Date Written"
 
-[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Written"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 38.0
-margin_right = -3.0
-margin_bottom = -6.0
-
-[node name="Entry" type="LineEdit" parent="VBoxContainer/HBoxContainer/Date Written/Entry Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_fonts/font = ExtResource( 1 )
-align = 1
-max_length = 15
-
-[node name="Label Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Written"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 6.0
-margin_right = -3.0
-margin_bottom = -67.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Date Written/Label Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Date Written"
-align = 1
-valign = 1
-
-[node name="Date Promised" type="ColorRect" parent="VBoxContainer/HBoxContainer"]
+[node name="Date Promised" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 338.0
 margin_right = 511.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 173, 0 )
-color = Color( 0, 0, 0, 1 )
+label = "Date Promised"
 
-[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Promised"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 38.0
-margin_right = -3.0
-margin_bottom = -6.0
-
-[node name="Entry" type="LineEdit" parent="VBoxContainer/HBoxContainer/Date Promised/Entry Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_fonts/font = ExtResource( 1 )
-align = 1
-max_length = 15
-
-[node name="Label Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Promised"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 6.0
-margin_right = -3.0
-margin_bottom = -67.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Date Promised/Label Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Date Promised"
-align = 1
-valign = 1
-
-[node name="Date Completed" type="ColorRect" parent="VBoxContainer/HBoxContainer"]
+[node name="Date Completed" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 507.0
 margin_right = 680.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 173, 0 )
-color = Color( 0, 0, 0, 1 )
+label = "Date Completed"
 
-[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Completed"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 38.0
-margin_right = -3.0
-margin_bottom = -6.0
-
-[node name="Entry" type="LineEdit" parent="VBoxContainer/HBoxContainer/Date Completed/Entry Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_fonts/font = ExtResource( 1 )
-align = 1
-max_length = 15
-
-[node name="Label Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Date Completed"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 6.0
-margin_right = -3.0
-margin_bottom = -67.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Date Completed/Label Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Date Completed"
-align = 1
-valign = 1
-
-[node name="Page" type="ColorRect" parent="VBoxContainer/HBoxContainer"]
+[node name="Page Name" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 676.0
 margin_right = 849.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 173, 0 )
-color = Color( 0, 0, 0, 1 )
-
-[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Page"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 38.0
-margin_right = -3.0
-margin_bottom = -6.0
-
-[node name="Entry" type="LineEdit" parent="VBoxContainer/HBoxContainer/Page/Entry Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 1 )
-align = 1
-max_length = 15
-
-[node name="Label Bg" type="ColorRect" parent="VBoxContainer/HBoxContainer/Page"]
-editor/display_folded = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 6.0
-margin_right = -3.0
-margin_bottom = -67.0
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Page/Label Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Page"
-align = 1
-valign = 1
+label = "Page"
