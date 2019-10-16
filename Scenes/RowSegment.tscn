@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends LineEdit
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.connect(\"text_changed\", self, \"_update_label\")
+	max_length = get_parent().rect_size.x / 13
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _update_label(newText):
+	get_parent().get_node(\"Entry Text\").text = newText
+"
+
+[node name="Box" type="ColorRect"]
+margin_right = 121.5
+margin_bottom = 150.0
+rect_min_size = Vector2( 121.5, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+rect_min_size = Vector2( 118.5, 0 )
+
+[node name="Entry Text" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_bottom = -3.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="." groups=[
+"Line Edit",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -3.0
+margin_bottom = -6.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+max_length = 10
+caret_blink = true
+script = SubResource( 1 )

@@ -164,9 +164,9 @@ color = Color( 0, 0, 0, 1 )
 [node name="Edges" type="Label" parent="VBoxContainer/Header Row"]
 editor/display_folded = true
 margin_left = 484.0
-margin_right = 727.0
+margin_right = 724.0
 margin_bottom = 26.0
-rect_min_size = Vector2( 243, 26 )
+rect_min_size = Vector2( 240, 26 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Edges"
@@ -182,9 +182,8 @@ rect_min_size = Vector2( 3, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Part Mark" type="Label" parent="VBoxContainer/Header Row"]
-editor/display_folded = true
-margin_left = 727.0
-margin_right = 848.0
+margin_left = 724.0
+margin_right = 845.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 121, 26 )
 custom_fonts/font = ExtResource( 2 )
@@ -192,10 +191,3 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Part Mark"
 align = 1
 valign = 1
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Part Mark"]
-anchor_bottom = 1.0
-margin_left = 121.0
-margin_right = 124.0
-rect_min_size = Vector2( 3, 0 )
-color = Color( 0, 0, 0, 1 )

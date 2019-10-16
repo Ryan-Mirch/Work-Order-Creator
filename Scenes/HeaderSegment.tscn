@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Fonts/Roboto28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Scenes/Entry.gd" type="Script" id=3]
 
@@ -43,6 +43,7 @@ custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
+autowrap = true
 
 [node name="Entry" type="LineEdit" parent="Entry Bg" groups=[
 "Line Edit",
@@ -57,6 +58,7 @@ theme = SubResource( 2 )
 custom_fonts/font = ExtResource( 2 )
 align = 1
 max_length = 15
+caret_blink = true
 script = ExtResource( 3 )
 
 [node name="Label Bg" type="ColorRect" parent="."]

@@ -115,6 +115,7 @@ func _on_Save_Pages_As_PNG_popup_hide():
 script = SubResource( 1 )
 
 [node name="Page" type="ScrollContainer" parent="."]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -127,12 +128,14 @@ rect_clip_content = false
 scroll_horizontal_enabled = false
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Page"]
+editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 1100.0
 rect_min_size = Vector2( 850, 1100 )
 mouse_filter = 2
 
 [node name="Viewport" type="Viewport" parent="Page/ViewportContainer"]
+editor/display_folded = true
 size = Vector2( 850, 1100 )
 transparent_bg = true
 handle_input_locally = false
@@ -147,6 +150,7 @@ mouse_filter = 2
 color = Color( 0.870588, 0.870588, 0.870588, 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Page/ViewportContainer/Viewport"]
+editor/display_folded = true
 margin_right = 600.0
 margin_bottom = 600.0
 mouse_filter = 2
@@ -162,32 +166,32 @@ rect_min_size = Vector2( 850, 50 )
 
 [node name="Small Row2" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 370.0
-margin_bottom = 420.0
-rect_min_size = Vector2( 600, 50 )
+margin_bottom = 520.0
+rect_min_size = Vector2( 600, 150 )
 
 [node name="Small Row3" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 420.0
-margin_bottom = 470.0
-rect_min_size = Vector2( 600, 50 )
-
-[node name="Small Row4" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 470.0
-margin_bottom = 520.0
-rect_min_size = Vector2( 600, 50 )
-
-[node name="Small Row5" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 520.0
 margin_bottom = 570.0
 rect_min_size = Vector2( 600, 50 )
 
-[node name="Small Row6" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Small Row4" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 570.0
 margin_bottom = 620.0
 rect_min_size = Vector2( 600, 50 )
 
-[node name="Small Row7" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
+[node name="Small Row5" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 620.0
 margin_bottom = 670.0
+rect_min_size = Vector2( 600, 50 )
+
+[node name="Small Row6" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 670.0
+margin_bottom = 720.0
+rect_min_size = Vector2( 600, 50 )
+
+[node name="Small Row7" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 720.0
+margin_bottom = 770.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Side Bar" type="ColorRect" parent="."]
@@ -201,7 +205,6 @@ margin_bottom = 40.0
 mouse_filter = 0
 
 [node name="Top Bar" type="ViewportContainer" parent="."]
-editor/display_folded = true
 margin_right = 1195.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 850, 50 )
