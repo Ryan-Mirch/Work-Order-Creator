@@ -1,0 +1,264 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Images/Arch.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/CheckBox Custom.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Images/LShape.png" type="Texture" id=4]
+[ext_resource path="res://Images/Rectangle.png" type="Texture" id=5]
+[ext_resource path="res://Images/Square.png" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends ColorRect
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+export var ID = 0
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	if ID == 0:
+		$\"HBoxContainer/Box5/OptionMenu ShortTall\".selected = 0
+	if ID == 1:
+		$\"HBoxContainer/Box5/OptionMenu ShortTall\".selected = 1
+		$\"AnimationPlayer\".play(\"Row\")
+		
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_OptionMenu_ShortTall_item_selected(ID):
+	
+	if ID == 0:
+		$\"AnimationPlayer\".play_backwards(\"Row\")
+		
+	if ID == 1:
+		$\"AnimationPlayer\".play(\"Row\")
+"
+
+[sub_resource type="Animation" id=4]
+resource_name = "Row"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 850, 50 ), Vector2( 850, 150 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_min_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 50 ), Vector2( 0, 150 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HBoxContainer/Box5/Arch:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 83.6127, 4.58229 ), Vector2( 52.2988, 29.8191 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HBoxContainer/Box5/Arch:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.28, 0.28 ), Vector2( 0.5, 0.5 ) ]
+}
+
+[node name="Row" type="ColorRect" groups=[
+"Row",
+]]
+margin_right = 850.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+script = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Row = SubResource( 4 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 50, 50 )
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="Box" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_bottom = 50.0
+
+[node name="Box2" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 121.0
+margin_right = 242.5
+margin_bottom = 50.0
+
+[node name="Box3" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 242.0
+margin_right = 363.5
+margin_bottom = 50.0
+
+[node name="Box4" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 363.0
+margin_right = 484.5
+margin_bottom = 50.0
+
+[node name="Box5" type="ColorRect" parent="HBoxContainer"]
+margin_left = 484.0
+margin_right = 724.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 240, 50 )
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_bottom = -3.0
+mouse_filter = 2
+
+[node name="OptionMenu ShortTall" type="OptionButton" parent="HBoxContainer/Box5" groups=[
+"Editor Only",
+]]
+margin_left = 2.92188
+margin_top = 0.106232
+margin_right = 76.9219
+margin_bottom = 20.1062
+text = "Short"
+items = [ "Short", null, false, 0, null, "Tall", null, false, 1, null ]
+selected = 0
+
+[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5" groups=[
+"Editor Only",
+]]
+margin_left = 165.67
+margin_top = 0.233429
+margin_right = 239.67
+margin_bottom = 20.2334
+text = "Square"
+items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L", null, false, 2, null, "Arch", null, false, 3, null ]
+selected = 0
+
+[node name="Arch" type="TextureRect" parent="HBoxContainer/Box5"]
+margin_left = 83.6127
+margin_top = 4.58229
+margin_right = 365.613
+margin_bottom = 162.582
+rect_scale = Vector2( 0.28, 0.28 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="CheckBox Custom" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+margin_left = 28.3649
+margin_top = 97.5476
+margin_right = 68.3649
+margin_bottom = 137.548
+
+[node name="TFO?" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 119.721
+margin_top = 39.0536
+margin_right = 159.721
+margin_bottom = 79.0536
+
+[node name="Label" parent="HBoxContainer/Box5/Arch/TFO?" index="0"]
+margin_left = -36.3402
+margin_top = -10.4168
+margin_right = 73.6598
+margin_bottom = 60.5832
+text = "TFO"
+
+[node name="CheckBox Custom3" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+margin_left = 119.063
+margin_top = 89.0036
+margin_right = 159.063
+margin_bottom = 129.004
+
+[node name="CheckBox Custom4" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+margin_left = 119.721
+margin_top = -8.92459
+margin_right = 159.721
+margin_bottom = 31.0754
+
+[node name="CheckBox Custom 5" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 216.334
+margin_top = 95.5759
+margin_right = 256.334
+margin_bottom = 135.576
+
+[node name="LShape" type="TextureRect" parent="HBoxContainer/Box5"]
+visible = false
+margin_left = 3.0
+margin_top = 15.0
+margin_right = 1333.0
+margin_bottom = 103.0
+rect_scale = Vector2( 0.18, 0.18 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 4
+
+[node name="Rectangle" type="TextureRect" parent="HBoxContainer/Box5"]
+visible = false
+margin_left = 3.37744
+margin_top = 12.8868
+margin_right = 801.377
+margin_bottom = 100.887
+rect_scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 4
+
+[node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
+visible = false
+margin_left = 3.0
+margin_top = 17.0
+margin_right = 1601.0
+margin_bottom = 105.0
+rect_scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 724.0
+margin_right = 845.5
+margin_bottom = 50.0
+[connection signal="item_selected" from="HBoxContainer/Box5/OptionMenu ShortTall" to="." method="_on_OptionMenu_ShortTall_item_selected"]
+
+[editable path="HBoxContainer/Box5/Arch/TFO?"]

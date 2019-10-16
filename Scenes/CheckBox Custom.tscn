@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fonts/Roboto-Medium.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 60
+font_data = ExtResource( 1 )
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var checked = false
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	visible = false
+	checked = $\"../CheckBox\".pressed
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _on_CheckBox_toggled(button_pressed):
+	checked = button_pressed
+
+
+func _on_CheckBox_visibility_changed():
+	if $\"../CheckBox\".visible == false:
+		visible = checked
+"
+
+[node name="CheckBox Custom" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="." groups=[
+"Export Only",
+]]
+margin_left = -0.191971
+margin_top = -15.0175
+margin_right = 37.808
+margin_bottom = 55.9825
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "X"
+align = 1
+valign = 1
+script = SubResource( 1 )
+
+[node name="CheckBox" type="CheckBox" parent="." groups=[
+"Editor Only",
+]]
+margin_left = -11.2165
+margin_top = -11.2165
+margin_right = 12.7835
+margin_bottom = 12.7835
+rect_scale = Vector2( 2.5, 2.5 )
+[connection signal="toggled" from="CheckBox" to="Label" method="_on_CheckBox_toggled"]
+[connection signal="visibility_changed" from="CheckBox" to="Label" method="_on_CheckBox_visibility_changed"]
