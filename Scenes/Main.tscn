@@ -44,7 +44,6 @@ func _screen_size_changed():
 	else:
 		Page.rect_position.x = SideBar.rect_size.x
 
-
 	"
 
 [sub_resource type="GDScript" id=2]
@@ -96,13 +95,22 @@ script/source = "extends Button
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
+onready var row = load(\"res://Scenes/Row.tscn\")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+#func _process(delta):
+#	pass
+
+
+func _on_Add_Row_pressed():
+	var row_instance = row.instance()
+	
+	for page in get_tree().get_nodes_in_group(\"Page Instance\"):
+		if page.visible:
+			page.add_child(row_instance)
 "
 
 [node name="Main" type="Node2D"]
@@ -124,7 +132,6 @@ current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Page" type="ScrollContainer" parent="."]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -137,7 +144,6 @@ rect_clip_content = false
 scroll_horizontal_enabled = false
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Page"]
-editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 1100.0
 rect_min_size = Vector2( 850, 1100 )
@@ -159,9 +165,11 @@ margin_bottom = 1200.0
 mouse_filter = 2
 color = Color( 0.870588, 0.870588, 0.870588, 1 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Page/ViewportContainer/Viewport"]
-margin_right = 600.0
-margin_bottom = 600.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Page/ViewportContainer/Viewport" groups=[
+"Page Instance",
+]]
+margin_right = 850.0
+margin_bottom = 623.0
 mouse_filter = 2
 custom_constants/separation = 0
 
@@ -257,6 +265,7 @@ margin_right = 657.0
 margin_bottom = 40.0
 mouse_filter = 1
 text = "+ Row"
+script = SubResource( 3 )
 
 [node name="Export" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
 margin_left = 661.0
@@ -264,10 +273,10 @@ margin_right = 713.0
 margin_bottom = 40.0
 mouse_filter = 1
 text = "Export"
-script = SubResource( 3 )
 [connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]
 [connection signal="popup_hide" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_Save_Pages_As_PNG_popup_hide"]
 [connection signal="tree_exited" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_tree_exited"]
 [connection signal="visibility_changed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_visibility_changed"]
+[connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Add Row" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Add Row" method="_on_Add_Row_pressed"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]

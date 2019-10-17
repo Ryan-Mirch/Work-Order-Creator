@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Images/Rectangle.png" type="Texture" id=6]
 [ext_resource path="res://Images/Square.png" type="Texture" id=7]
 [ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=8]
+[ext_resource path="res://Images/bin.png" type="Texture" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -42,6 +43,10 @@ func _on_Short_pressed():
 	if ID == 1:
 		$\"AnimationPlayer\".play_backwards(\"Row\")
 		ID = 0
+
+
+func _on_Button_pressed():
+	get_parent().remove_child(self)
 "
 
 [sub_resource type="Animation" id=2]
@@ -230,7 +235,6 @@ func _on_OptionMenu_Shape_item_selected(ID):
 [node name="Row" type="ColorRect" groups=[
 "Row",
 ]]
-editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 50.4353
 rect_min_size = Vector2( 0, 50 )
@@ -250,7 +254,6 @@ margin_bottom = -3.0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 50, 50 )
@@ -334,6 +337,7 @@ margin_bottom = 82.6311
 rect_scale = Vector2( 1, 1 )
 
 [node name="LShape" type="TextureRect" parent="HBoxContainer/Box5"]
+editor/display_folded = true
 visible = false
 margin_left = 94.0
 margin_top = 2.29719
@@ -498,11 +502,10 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-editor/display_folded = true
-margin_left = -30.8655
-margin_top = -210.057
-margin_right = 270.135
-margin_bottom = -60.0567
+margin_left = -31.0
+margin_top = -210.0
+margin_right = 413.0
+margin_bottom = -60.0
 rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
 script = SubResource( 3 )
@@ -516,15 +519,15 @@ margin_right = -8.0
 margin_bottom = -36.0
 
 [node name="Row1" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
-margin_right = 301.0
-margin_bottom = 24.0
+margin_right = 455.0
+margin_bottom = 46.0
 custom_constants/separation = 40
 alignment = 1
 
 [node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
-margin_left = 13.0
-margin_right = 133.0
-margin_bottom = 24.0
+margin_left = 44.0
+margin_right = 164.0
+margin_bottom = 46.0
 rect_min_size = Vector2( 120, 0 )
 text = "Square"
 clip_text = true
@@ -533,14 +536,14 @@ selected = 0
 script = SubResource( 4 )
 
 [node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
-margin_left = 173.0
-margin_right = 288.0
-margin_bottom = 24.0
+margin_left = 204.0
+margin_right = 319.0
+margin_bottom = 46.0
 alignment = 1
 
 [node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall"]
 margin_right = 61.0
-margin_bottom = 24.0
+margin_bottom = 46.0
 pressed = true
 group = ExtResource( 8 )
 text = "Short"
@@ -548,9 +551,16 @@ text = "Short"
 [node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall"]
 margin_left = 65.0
 margin_right = 115.0
-margin_bottom = 24.0
+margin_bottom = 46.0
 group = ExtResource( 8 )
 text = "Tall"
+
+[node name="Button" type="Button" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
+margin_left = 359.0
+margin_right = 411.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 30, 30 )
+icon = ExtResource( 9 )
 
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
@@ -560,3 +570,4 @@ margin_bottom = 50.0
 [connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Short" to="." method="_on_Short_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Tall" to="." method="_on_Tall_pressed"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Button" to="." method="_on_Button_pressed"]
