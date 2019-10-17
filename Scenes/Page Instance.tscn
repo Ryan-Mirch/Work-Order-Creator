@@ -12,7 +12,7 @@ script/source = "extends VBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var pageList = $\"../../../../Side Bar/PageList Background/ItemList\"
+	var pageList = $\"../../../../Side Bar/PageList Background/PageList\"
 	pageList.add_item(name)
 	
 	var index = pageList.get_item_count() - 1

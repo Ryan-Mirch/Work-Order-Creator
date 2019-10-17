@@ -49,31 +49,50 @@ script/source = "extends FileDialog
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-onready var PageViewport = $\"../Page/ViewportContainer/Viewport\"
+onready var PageViewport = $\"../Page View/ViewportContainer/Viewport\"
+onready var pageList = $\"../Side Bar/PageList Background/PageList\"
 
 var folder
 var pause = 0
+var d = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-		
+	d = delta
+	
 func _on_FileDialog_dir_selected(dir):
 	folder = dir
-	_take_screenshot()
+	_take_screenshots()
 	_finished()
 		
-func _take_screenshot():
-	var img = PageViewport.get_texture().get_data()
-	img.flip_y()
-	img.save_png(folder + \"/test.png\")
+func _take_screenshots():
+	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
+		pageInstance.visible = false
+	
+	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
+		pageInstance.visible = true
+		print(pageInstance.name)
+		while pause < 1:
+			pause = pause + d
+			print(pause)
+		pause = 0
+		
+		var img = PageViewport.get_texture().get_data()
+		var name = pageInstance.name
+		img.flip_y()
+		img.save_png(folder + \"/\" + name + \".png\")
+		
+		pageInstance.visible = false
+	
+	pageList._open_page(0)
+	
+
 	
 func _finished():
 	folder = null
-	pause = 0
 	Global._editing_start()
 	
 
@@ -197,6 +216,7 @@ mouse_filter = 2
 [node name="Viewport" type="Viewport" parent="Page View/ViewportContainer" groups=[
 "Viewport",
 ]]
+editor/display_folded = true
 size = Vector2( 850, 1100 )
 transparent_bg = true
 handle_input_locally = false
@@ -226,7 +246,7 @@ margin_right = -15.0
 margin_bottom = -20.0
 color = Color( 0.772549, 0.772549, 0.772549, 1 )
 
-[node name="ItemList" type="ItemList" parent="Side Bar/PageList Background"]
+[node name="PageList" type="ItemList" parent="Side Bar/PageList Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/vseparation = 15
@@ -294,8 +314,7 @@ text = "Export"
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]
 [connection signal="popup_hide" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_Save_Pages_As_PNG_popup_hide"]
 [connection signal="tree_exited" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_tree_exited"]
-[connection signal="visibility_changed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_visibility_changed"]
-[connection signal="item_selected" from="Side Bar/PageList Background/ItemList" to="Side Bar/PageList Background/ItemList" method="_on_ItemList_item_selected"]
+[connection signal="item_selected" from="Side Bar/PageList Background/PageList" to="Side Bar/PageList Background/PageList" method="_on_ItemList_item_selected"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Add Page" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Add Page" method="_on_Add_Page_pressed"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Add Row" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Add Row" method="_on_Add_Row_pressed"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
