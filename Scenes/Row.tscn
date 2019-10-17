@@ -311,7 +311,6 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-visible = true
 margin_left = -30.8655
 margin_top = -210.057
 margin_right = 270.135
