@@ -5,7 +5,7 @@
 
 [node name="ColorRect" type="ColorRect"]
 margin_right = 850.0
-margin_bottom = 320.0
+margin_bottom = 323.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -95,7 +95,7 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Quantity"
 align = 1
-valign = 1
+valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Quantity"]
 anchor_bottom = 1.0
@@ -114,7 +114,7 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Thickness"
 align = 1
-valign = 1
+valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Thickness"]
 anchor_bottom = 1.0
@@ -133,7 +133,7 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Width"
 align = 1
-valign = 1
+valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Width"]
 anchor_bottom = 1.0
@@ -152,7 +152,7 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Length"
 align = 1
-valign = 1
+valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Length"]
 anchor_bottom = 1.0
@@ -171,7 +171,7 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Edges"
 align = 1
-valign = 1
+valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Edges"]
 anchor_left = 1.0
@@ -190,4 +190,4 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Part Mark"
 align = 1
-valign = 1
+valign = 2

@@ -43,32 +43,16 @@ func _screen_size_changed():
 		Page.rect_position.x = SideBar.rect_size.x + (page_space - 850)*0.5
 	else:
 		Page.rect_position.x = SideBar.rect_size.x
+
+
 	"
 
-[sub_resource type="GDScript" id=5]
-script/source = "extends Button
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
-"
-
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=2]
 script/source = "extends FileDialog
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-onready var SideBar = $\"../Side Bar\"
-onready var TopBar = $\"../Top Bar/Viewport/Top Bar\"
 onready var PageViewport = $\"../Page/ViewportContainer/Viewport\"
 
 var folder
@@ -91,22 +75,14 @@ func _take_screenshot():
 	img.flip_y()
 	img.save_png(folder + \"/test.png\")
 	
-func _finished():	
-	PageViewport.gui_disable_input = false
-	
+func _finished():
 	folder = null
-	pause = 0	
-	for lineEdit in get_tree().get_nodes_in_group(\"Editor Only\"):
-		lineEdit.visible = true
-		
-	for lineEdit in get_tree().get_nodes_in_group(\"Export Only\"):
-		lineEdit.visible = false
+	pause = 0
+	Global._editing_start()
+	
 
 func _on_Export_pressed():
-	PageViewport.gui_disable_input = true
-	for lineEdit in get_tree().get_nodes_in_group(\"Editor Only\"):
-		lineEdit.visible = false
-	
+	Global._exporting_start()	
 	popup()
 
 func _on_Save_Pages_As_PNG_popup_hide():
@@ -114,8 +90,38 @@ func _on_Save_Pages_As_PNG_popup_hide():
 		_finished()
 "
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="GDScript" id=3]
+script/source = "extends Button
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Main" type="Node2D"]
 script = SubResource( 1 )
+
+[node name="Save Pages As PNG" type="FileDialog" parent="."]
+margin_left = 165.0
+margin_top = 74.0
+margin_right = 677.0
+margin_bottom = 426.0
+focus_mode = 2
+popup_exclusive = true
+window_title = "Open a Directory"
+resizable = true
+mode = 2
+access = 2
+current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
+current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
+script = SubResource( 2 )
 
 [node name="Page" type="ScrollContainer" parent="."]
 editor/display_folded = true
@@ -136,7 +142,9 @@ margin_bottom = 1100.0
 rect_min_size = Vector2( 850, 1100 )
 mouse_filter = 2
 
-[node name="Viewport" type="Viewport" parent="Page/ViewportContainer"]
+[node name="Viewport" type="Viewport" parent="Page/ViewportContainer" groups=[
+"Viewport",
+]]
 size = Vector2( 850, 1100 )
 transparent_bg = true
 handle_input_locally = false
@@ -157,42 +165,42 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Header" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 1 )]
-rect_min_size = Vector2( 850, 320 )
+rect_min_size = Vector2( 850, 323 )
 
 [node name="Small Row" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 320.0
-margin_bottom = 370.0
+margin_top = 323.0
+margin_bottom = 373.0
 rect_min_size = Vector2( 850, 50 )
 
 [node name="Small Row2" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 370.0
-margin_bottom = 520.0
+margin_top = 373.0
+margin_bottom = 523.0
 rect_min_size = Vector2( 600, 150 )
 ID = 1
 
 [node name="Small Row3" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 520.0
-margin_bottom = 570.0
+margin_top = 523.0
+margin_bottom = 573.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row4" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 570.0
-margin_bottom = 620.0
+margin_top = 573.0
+margin_bottom = 623.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row5" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 620.0
-margin_bottom = 670.0
+margin_top = 623.0
+margin_bottom = 673.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row6" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 670.0
-margin_bottom = 720.0
+margin_top = 673.0
+margin_bottom = 723.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Small Row7" parent="Page/ViewportContainer/Viewport/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 720.0
-margin_bottom = 770.0
+margin_top = 723.0
+margin_bottom = 773.0
 rect_min_size = Vector2( 600, 50 )
 
 [node name="Side Bar" type="ColorRect" parent="."]
@@ -206,15 +214,15 @@ margin_bottom = 40.0
 mouse_filter = 0
 
 [node name="Top Bar" type="ViewportContainer" parent="."]
-editor/display_folded = true
 margin_right = 1195.0
-margin_bottom = 50.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 850, 50 )
-mouse_filter = 2
 stretch = true
 
-[node name="Viewport" type="Viewport" parent="Top Bar"]
-size = Vector2( 1195, 50 )
+[node name="Viewport" type="Viewport" parent="Top Bar" groups=[
+"Viewport",
+]]
+size = Vector2( 1195, 60 )
 transparent_bg = true
 handle_input_locally = false
 disable_3d = true
@@ -222,62 +230,51 @@ usage = 0
 render_target_update_mode = 3
 
 [node name="Top Bar Background" type="ColorRect" parent="Top Bar/Viewport"]
-margin_right = 1200.0
-margin_bottom = 50.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 color = Color( 0.478431, 0.478431, 0.478431, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background"]
-editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_top = 10.0
-margin_right = 1022.0
-margin_bottom = 40.0
-mouse_filter = 0
+margin_bottom = -10.0
+mouse_filter = 2
 alignment = 1
 
 [node name="Projects" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 395.0
-margin_right = 459.0
-margin_bottom = 30.0
+margin_left = 481.0
+margin_right = 545.0
+margin_bottom = 40.0
+mouse_filter = 1
 text = "Projects"
 
 [node name="Add Page" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 463.0
-margin_right = 517.0
-margin_bottom = 30.0
+margin_left = 549.0
+margin_right = 603.0
+margin_bottom = 40.0
+mouse_filter = 1
 text = "+ Page"
 
 [node name="Add Row" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 521.0
-margin_right = 571.0
-margin_bottom = 30.0
+margin_left = 607.0
+margin_right = 657.0
+margin_bottom = 40.0
+mouse_filter = 1
 text = "+ Row"
 
 [node name="Export" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 575.0
-margin_right = 627.0
-margin_bottom = 30.0
+margin_left = 661.0
+margin_right = 713.0
+margin_bottom = 40.0
+mouse_filter = 1
 text = "Export"
-script = SubResource( 5 )
-
-[node name="Save Pages As PNG" type="FileDialog" parent="."]
-margin_left = 165.0
-margin_top = 74.0
-margin_right = 677.0
-margin_bottom = 426.0
-popup_exclusive = true
-window_title = "Open a Directory"
-resizable = true
-mode = 2
-access = 2
-current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
-current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
-script = SubResource( 6 )
-[connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
-[connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_Export_pressed"]
-[connection signal="confirmed" from="Save Pages As PNG" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_FileDialog_confirmed"]
+script = SubResource( 3 )
 [connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
-[connection signal="dir_selected" from="Save Pages As PNG" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_FileDialog_dir_selected"]
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]
 [connection signal="popup_hide" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_Save_Pages_As_PNG_popup_hide"]
 [connection signal="tree_exited" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_tree_exited"]
 [connection signal="visibility_changed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_visibility_changed"]
+[connection signal="mouse_entered" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_Export_mouse_entered"]
+[connection signal="mouse_exited" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_Export_mouse_exited"]
+[connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
