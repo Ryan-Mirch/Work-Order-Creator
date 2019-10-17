@@ -13,7 +13,7 @@ script/source = "extends LineEdit
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.connect(\"text_changed\", self, \"_update_label\")
-	max_length = get_parent().rect_size.x / 13
+	max_length = get_parent().rect_size.x / 11
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -60,6 +60,6 @@ margin_right = -3.0
 margin_bottom = -6.0
 custom_fonts/font = ExtResource( 2 )
 align = 1
-max_length = 10
+max_length = 15
 caret_blink = true
 script = SubResource( 1 )

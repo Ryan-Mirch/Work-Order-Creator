@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/CheckBox Custom.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/LShape.png" type="Texture" id=4]
-[ext_resource path="res://Images/Rectangle.png" type="Texture" id=5]
-[ext_resource path="res://Images/Square.png" type="Texture" id=6]
-[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=7]
+[ext_resource path="res://Scenes/CheckBox X.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Checkbox TFO.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Images/LShape.png" type="Texture" id=5]
+[ext_resource path="res://Images/Rectangle.png" type="Texture" id=6]
+[ext_resource path="res://Images/Square.png" type="Texture" id=7]
+[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=8]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -15,8 +16,8 @@ script/source = "extends ColorRect
 # var a = 2
 # var b = \"text\"
 export var ID = 0
-onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Short\"
-onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Tall\"
+onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Short\"
+onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Tall\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if ID == 0:
@@ -196,10 +197,10 @@ script/source = "extends OptionButton
 # var a = 2
 # var b = \"text\"
 
-onready var Square = $\"../../../Square\" 		#0
-onready var Rectangle = $\"../../../Rectangle\"	#1
-onready var LShape = $\"../../../LShape\"			#2
-onready var Arch = $\"../../../Arch\"				#3
+onready var Square = $\"../../../../Square\" 		#0
+onready var Rectangle = $\"../../../../Rectangle\"	#1
+onready var LShape = $\"../../../../LShape\"			#2
+onready var Arch = $\"../../../../Arch\"				#3
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_on_OptionMenu_Shape_item_selected(selected)
@@ -229,8 +230,9 @@ func _on_OptionMenu_Shape_item_selected(ID):
 [node name="Row" type="ColorRect" groups=[
 "Row",
 ]]
+editor/display_folded = true
 margin_right = 850.0
-margin_bottom = 50.2715
+margin_bottom = 50.4353
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -248,6 +250,7 @@ margin_bottom = -3.0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 50, 50 )
@@ -289,7 +292,6 @@ mouse_filter = 2
 
 [node name="Arch" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
-visible = false
 margin_left = 83.6127
 margin_top = 4.58229
 margin_right = 365.613
@@ -304,20 +306,6 @@ margin_left = 28.3649
 margin_top = 97.5476
 margin_right = 68.3649
 margin_bottom = 137.548
-
-[node name="TFO?" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
-editor/display_folded = true
-margin_left = 119.721
-margin_top = 39.0536
-margin_right = 159.721
-margin_bottom = 79.0536
-
-[node name="Label" parent="HBoxContainer/Box5/Arch/TFO?" index="0"]
-margin_left = -36.3402
-margin_top = -10.4168
-margin_right = 73.6598
-margin_bottom = 60.5832
-text = "TFO"
 
 [node name="CheckBox Custom3" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
 margin_left = 119.063
@@ -338,15 +326,21 @@ margin_top = 95.5759
 margin_right = 256.334
 margin_bottom = 135.576
 
+[node name="Checkbox TFO" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 4 )]
+margin_left = 117.704
+margin_top = 42.6311
+margin_right = 157.704
+margin_bottom = 82.6311
+rect_scale = Vector2( 1, 1 )
+
 [node name="LShape" type="TextureRect" parent="HBoxContainer/Box5"]
-editor/display_folded = true
 visible = false
 margin_left = 94.0
 margin_top = 2.29719
 margin_right = 471.0
 margin_bottom = 244.297
-rect_scale = Vector2( 0.188255, 0.188255 )
-texture = ExtResource( 4 )
+rect_scale = Vector2( 0.189496, 0.189496 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
 
@@ -392,22 +386,22 @@ margin_top = 6.8053
 margin_right = 148.228
 margin_bottom = 46.8054
 
-[node name="CheckBox Custom7" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
-editor/display_folded = true
-margin_left = 121.349
-margin_top = 129.818
-margin_right = 161.349
-margin_bottom = 169.818
+[node name="Checkbox TFO" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 4 )]
+margin_left = 141.441
+margin_top = 132.348
+margin_right = 181.441
+margin_bottom = 172.348
+rect_scale = Vector2( 1, 1 )
 
 [node name="Rectangle" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
 visible = false
-margin_left = 83.8947
-margin_top = -0.588947
-margin_right = 419.895
-margin_bottom = 220.411
-rect_scale = Vector2( 0.256343, 0.256343 )
-texture = ExtResource( 5 )
+margin_left = 83.6909
+margin_top = -0.487034
+margin_right = 419.691
+margin_bottom = 220.513
+rect_scale = Vector2( 0.257328, 0.257328 )
+texture = ExtResource( 6 )
 expand = true
 stretch_mode = 4
 
@@ -417,13 +411,6 @@ margin_left = 152.729
 margin_top = 19.7622
 margin_right = 192.729
 margin_bottom = 59.7623
-
-[node name="CheckBox Custom9" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
-editor/display_folded = true
-margin_left = 151.295
-margin_top = 81.4218
-margin_right = 191.295
-margin_bottom = 121.422
 
 [node name="CheckBox Custom10" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
 editor/display_folded = true
@@ -446,14 +433,22 @@ margin_top = 82.8558
 margin_right = 326.086
 margin_bottom = 122.856
 
+[node name="Checkbox TFO" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 4 )]
+margin_left = 150.655
+margin_top = 84.6807
+margin_right = 190.655
+margin_bottom = 124.681
+rect_scale = Vector2( 1, 1 )
+
 [node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
-margin_left = 105.073
-margin_top = 4.02935
-margin_right = 445.073
-margin_bottom = 338.029
-rect_scale = Vector2( 0.124369, 0.124369 )
-texture = ExtResource( 6 )
+visible = false
+margin_left = 104.93
+margin_top = 4.1177
+margin_right = 444.93
+margin_bottom = 338.118
+rect_scale = Vector2( 0.125066, 0.125066 )
+texture = ExtResource( 7 )
 expand = true
 stretch_mode = 4
 
@@ -463,14 +458,6 @@ margin_left = 127.802
 margin_top = -7.88842
 margin_right = 167.802
 margin_bottom = 32.1117
-rect_scale = Vector2( 2, 2 )
-
-[node name="CheckBox Custom14" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
-editor/display_folded = true
-margin_left = 125.716
-margin_top = 123.542
-margin_right = 165.716
-margin_bottom = 163.542
 rect_scale = Vector2( 2, 2 )
 
 [node name="CheckBox Custom15" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
@@ -497,6 +484,8 @@ margin_right = 309.664
 margin_bottom = 161.456
 rect_scale = Vector2( 2, 2 )
 
+[node name="Checkbox TFO" parent="HBoxContainer/Box5/Square" instance=ExtResource( 4 )]
+
 [node name="Edit" type="Button" parent="HBoxContainer/Box5" groups=[
 "Editor Only",
 ]]
@@ -509,7 +498,7 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-visible = true
+editor/display_folded = true
 margin_left = -30.8655
 margin_top = -210.057
 margin_right = 270.135
@@ -518,7 +507,7 @@ rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
 script = SubResource( 3 )
 
-[node name="Grid" type="GridContainer" parent="HBoxContainer/Box5/ConfirmationDialog"]
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -526,32 +515,41 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -36.0
 
-[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
-margin_right = 115.0
-margin_bottom = 20.0
+[node name="Row1" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
+margin_right = 301.0
+margin_bottom = 24.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
+margin_left = 13.0
+margin_right = 133.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 120, 0 )
 text = "Square"
+clip_text = true
 items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L", null, false, 2, null, "Arch", null, false, 3, null ]
 selected = 0
 script = SubResource( 4 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
-margin_top = 24.0
-margin_right = 115.0
-margin_bottom = 48.0
+[node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
+margin_left = 173.0
+margin_right = 288.0
+margin_bottom = 24.0
 alignment = 1
 
-[node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer"]
+[node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall"]
 margin_right = 61.0
 margin_bottom = 24.0
 pressed = true
-group = ExtResource( 7 )
+group = ExtResource( 8 )
 text = "Short"
 
-[node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer"]
+[node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall"]
 margin_left = 65.0
 margin_right = 115.0
 margin_bottom = 24.0
-group = ExtResource( 7 )
+group = ExtResource( 8 )
 text = "Tall"
 
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
@@ -559,8 +557,6 @@ margin_left = 724.0
 margin_right = 845.5
 margin_bottom = 50.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
-[connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/Grid/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/Grid/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Short" to="." method="_on_Short_pressed"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Tall" to="." method="_on_Tall_pressed"]
-
-[editable path="HBoxContainer/Box5/Arch/TFO?"]
+[connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Short" to="." method="_on_Short_pressed"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Tall" to="." method="_on_Tall_pressed"]
