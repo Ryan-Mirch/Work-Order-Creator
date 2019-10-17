@@ -94,6 +94,78 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( 0.28, 0.28 ), Vector2( 0.5, 0.5 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("HBoxContainer/Box5/LShape:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 94, 2.29719 ), Vector2( 41.9563, 18.5616 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HBoxContainer/Box5/LShape:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.00404185, 0.297169 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.18, 0.18 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HBoxContainer/Box5/Rectangle:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.00428125, 0.292865 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 85.2076, -1.24542 ), Vector2( 33.4609, 24.628 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("HBoxContainer/Box5/Rectangle:rect_scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.00428125, 0.292865 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("HBoxContainer/Box5/Square:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.00448786, 0.297672 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 105.965, 3.47629 ), Vector2( 69.21, 26.2642 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("HBoxContainer/Box5/Square:rect_scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.00448786, 0.297672 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.12, 0.12 ), Vector2( 0.3, 0.3 ) ]
+}
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends AcceptDialog
@@ -158,7 +230,7 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 50.0
+margin_bottom = 50.2715
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -267,37 +339,163 @@ margin_right = 256.334
 margin_bottom = 135.576
 
 [node name="LShape" type="TextureRect" parent="HBoxContainer/Box5"]
+editor/display_folded = true
 visible = false
-margin_left = 3.0
-margin_top = 15.0
-margin_right = 1333.0
-margin_bottom = 103.0
-rect_scale = Vector2( 0.18, 0.18 )
+margin_left = 94.0
+margin_top = 2.29719
+margin_right = 471.0
+margin_bottom = 244.297
+rect_scale = Vector2( 0.188255, 0.188255 )
 texture = ExtResource( 4 )
 expand = true
-stretch_mode = 4
+stretch_mode = 6
+
+[node name="CheckBox Custom" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 250.186
+margin_top = 148.078
+margin_right = 290.186
+margin_bottom = 188.078
+
+[node name="CheckBox Custom2" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 60.9082
+margin_top = 101.444
+margin_right = 100.908
+margin_bottom = 141.444
+
+[node name="CheckBox Custom3" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 156.233
+margin_top = 194.712
+margin_right = 196.233
+margin_bottom = 234.712
+
+[node name="CheckBox Custom4" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 157.604
+margin_top = 54.1248
+margin_right = 197.604
+margin_bottom = 94.1249
+
+[node name="CheckBox Custom5" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 200.123
+margin_top = 100.758
+margin_right = 240.123
+margin_bottom = 140.759
+
+[node name="CheckBox Custom6" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 108.228
+margin_top = 6.8053
+margin_right = 148.228
+margin_bottom = 46.8054
+
+[node name="CheckBox Custom7" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 121.349
+margin_top = 129.818
+margin_right = 161.349
+margin_bottom = 169.818
 
 [node name="Rectangle" type="TextureRect" parent="HBoxContainer/Box5"]
+editor/display_folded = true
 visible = false
-margin_left = 3.37744
-margin_top = 12.8868
-margin_right = 801.377
-margin_bottom = 100.887
-rect_scale = Vector2( 0.3, 0.3 )
+margin_left = 83.8947
+margin_top = -0.588947
+margin_right = 419.895
+margin_bottom = 220.411
+rect_scale = Vector2( 0.256343, 0.256343 )
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
+[node name="CheckBox Custom8" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 152.729
+margin_top = 19.7622
+margin_right = 192.729
+margin_bottom = 59.7623
+
+[node name="CheckBox Custom9" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 151.295
+margin_top = 81.4218
+margin_right = 191.295
+margin_bottom = 121.422
+
+[node name="CheckBox Custom10" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 7.90063
+margin_top = 79.9879
+margin_right = 47.9006
+margin_bottom = 119.988
+
+[node name="CheckBox Custom11" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 151.295
+margin_top = 145.949
+margin_right = 191.295
+margin_bottom = 185.949
+
+[node name="CheckBox Custom12" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 286.086
+margin_top = 82.8558
+margin_right = 326.086
+margin_bottom = 122.856
+
 [node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
-visible = false
-margin_left = 3.0
-margin_top = 17.0
-margin_right = 1601.0
-margin_bottom = 105.0
-rect_scale = Vector2( 0.15, 0.15 )
+editor/display_folded = true
+margin_left = 105.073
+margin_top = 4.02935
+margin_right = 445.073
+margin_bottom = 338.029
+rect_scale = Vector2( 0.124369, 0.124369 )
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 4
+
+[node name="CheckBox Custom13" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 127.802
+margin_top = -7.88842
+margin_right = 167.802
+margin_bottom = 32.1117
+rect_scale = Vector2( 2, 2 )
+
+[node name="CheckBox Custom14" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 125.716
+margin_top = 123.542
+margin_right = 165.716
+margin_bottom = 163.542
+rect_scale = Vector2( 2, 2 )
+
+[node name="CheckBox Custom15" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = -14.0596
+margin_top = 121.456
+margin_right = 25.9404
+margin_bottom = 161.456
+rect_scale = Vector2( 2, 2 )
+
+[node name="CheckBox Custom16" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 125.716
+margin_top = 265.404
+margin_right = 165.716
+margin_bottom = 305.404
+rect_scale = Vector2( 2, 2 )
+
+[node name="CheckBox Custom17" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_left = 269.664
+margin_top = 121.456
+margin_right = 309.664
+margin_bottom = 161.456
+rect_scale = Vector2( 2, 2 )
 
 [node name="Edit" type="Button" parent="HBoxContainer/Box5" groups=[
 "Editor Only",
@@ -311,6 +509,7 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
+visible = true
 margin_left = -30.8655
 margin_top = -210.057
 margin_right = 270.135
