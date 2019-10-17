@@ -53,46 +53,53 @@ onready var PageViewport = $\"../Page View/ViewportContainer/Viewport\"
 onready var pageList = $\"../Side Bar/PageList Background/PageList\"
 
 var folder
-var pause = 0
-var d = 0
+var elapsed_seconds = 0
+var picture_interval = 0.03
+var screenshotsNeeded = 0
+var pageIndex = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
-	d = delta
-	
+	if screenshotsNeeded > 0:
+		elapsed_seconds += delta
+		
+	if elapsed_seconds > picture_interval:
+		elapsed_seconds = 0
+		_take_screenshot(pageList.get_item_text(pageIndex))
+		
+		
 func _on_FileDialog_dir_selected(dir):
 	folder = dir
-	_take_screenshots()
-	_finished()
-		
-func _take_screenshots():
-	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
-		pageInstance.visible = false
+	var pages = get_tree().get_nodes_in_group(\"Page Instance\")		
+	pageList._open_page(pageIndex)	
 	
-	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
-		pageInstance.visible = true
-		print(pageInstance.name)
-		while pause < 1:
-			pause = pause + d
-			print(pause)
-		pause = 0
-		
-		var img = PageViewport.get_texture().get_data()
-		var name = pageInstance.name
-		img.flip_y()
-		img.save_png(folder + \"/\" + name + \".png\")
-		
-		pageInstance.visible = false
+	#this kicks off the screenshot taking
+	screenshotsNeeded = pages.size()
 	
-	pageList._open_page(0)
 	
+func _take_screenshot(name):
+	var img = PageViewport.get_texture().get_data()
+	img.flip_y()
+	
+	var path = folder + \"/\" +  name + \".png\"
+	img.save_png(path)
+	
+	screenshotsNeeded -= 1
+	pageIndex += 1
+	
+	if screenshotsNeeded == 0:
+		_finished()
+		return
+	
+	pageList._open_page(pageIndex)
 
 	
 func _finished():
-	folder = null
+	print(\"done\")
 	Global._editing_start()
 	
 
@@ -101,11 +108,11 @@ func _on_Export_pressed():
 	popup()
 
 func _on_Save_Pages_As_PNG_popup_hide():
-	if folder == null:
-		_finished()
+	if screenshotsNeeded == 0:
+		Global._editing_start()
 "
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=3]
 script/source = "extends ItemList
 
 # Declare member variables here. Examples:
@@ -121,8 +128,9 @@ func _ready():
 #	pass
 
 func _open_page(index):
-	select(index)
-	_on_ItemList_item_selected(index)
+	if index < get_item_count():
+		select(index)
+		_on_ItemList_item_selected(index)
 
 func _on_ItemList_item_selected(index):
 	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
@@ -153,7 +161,7 @@ func _on_Add_Page_pressed():
 	var page_instance = page.instance()
 	pageViewport.add_child(page_instance)"
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=5]
 script/source = "extends Button
 
 # Declare member variables here. Examples:
@@ -191,8 +199,8 @@ window_title = "Open a Directory"
 resizable = true
 mode = 2
 access = 2
-current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
-current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
+current_dir = "D:/Projects/Godot/Work-Order-Creator"
+current_path = "D:/Projects/Godot/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Page View" type="ScrollContainer" parent="."]
@@ -216,7 +224,6 @@ mouse_filter = 2
 [node name="Viewport" type="Viewport" parent="Page View/ViewportContainer" groups=[
 "Viewport",
 ]]
-editor/display_folded = true
 size = Vector2( 850, 1100 )
 transparent_bg = true
 handle_input_locally = false
@@ -233,6 +240,7 @@ color = Color( 0.870588, 0.870588, 0.870588, 1 )
 [node name="Page Instance" parent="Page View/ViewportContainer/Viewport" instance=ExtResource( 1 )]
 
 [node name="Side Bar" type="ColorRect" parent="."]
+editor/display_folded = true
 margin_right = 200.0
 margin_bottom = 850.0
 color = Color( 0.478431, 0.478431, 0.478431, 1 )
@@ -250,9 +258,10 @@ color = Color( 0.772549, 0.772549, 0.772549, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/vseparation = 15
-script = SubResource( 5 )
+script = SubResource( 3 )
 
 [node name="Top Bar" type="ViewportContainer" parent="."]
+editor/display_folded = true
 margin_right = 1195.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 850, 50 )
@@ -302,7 +311,7 @@ margin_right = 657.0
 margin_bottom = 40.0
 mouse_filter = 1
 text = "+ Row"
-script = SubResource( 3 )
+script = SubResource( 5 )
 
 [node name="Export" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
 margin_left = 661.0

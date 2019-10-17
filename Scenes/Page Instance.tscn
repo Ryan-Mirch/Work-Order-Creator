@@ -64,7 +64,6 @@ func _on_Button_pressed():
 [node name="Page Instance" type="VBoxContainer" groups=[
 "Page Instance",
 ]]
-editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 623.0
 mouse_filter = 2
@@ -78,34 +77,4 @@ rect_min_size = Vector2( 850, 323 )
 editor/display_folded = true
 margin_top = 323.0
 margin_bottom = 373.0
-script = SubResource( 2 )
-
-[node name="Row2" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
-margin_top = 373.0
-margin_bottom = 423.0
-script = SubResource( 2 )
-
-[node name="Row3" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
-margin_top = 423.0
-margin_bottom = 473.0
-script = SubResource( 2 )
-
-[node name="Row4" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
-margin_top = 473.0
-margin_bottom = 523.0
-script = SubResource( 2 )
-
-[node name="Row5" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
-margin_top = 523.0
-margin_bottom = 573.0
-script = SubResource( 2 )
-
-[node name="Row6" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
-margin_top = 573.0
-margin_bottom = 623.0
 script = SubResource( 2 )
