@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Images/LShape.png" type="Texture" id=4]
 [ext_resource path="res://Images/Rectangle.png" type="Texture" id=5]
 [ext_resource path="res://Images/Square.png" type="Texture" id=6]
+[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -14,13 +15,14 @@ script/source = "extends ColorRect
 # var a = 2
 # var b = \"text\"
 export var ID = 0
-onready var ShortTall = $\"HBoxContainer/Box5/ConfirmationDialog/Grid/OptionMenu ShortTall\"
+onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Short\"
+onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Tall\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if ID == 0:
-		ShortTall.selected = 0
+		Short.pressed = true
 	if ID == 1:
-		ShortTall.selected = 1
+		Tall.pressed = true
 		$\"AnimationPlayer\".play(\"Row\")
 		
 	
@@ -30,13 +32,15 @@ func _ready():
 #	pass
 
 
-func _on_OptionMenu_ShortTall_item_selected(ID):
-	
+func _on_Tall_pressed():
 	if ID == 0:
-		$\"AnimationPlayer\".play_backwards(\"Row\")
-		
-	if ID == 1:
 		$\"AnimationPlayer\".play(\"Row\")
+		ID = 1
+
+func _on_Short_pressed():
+	if ID == 1:
+		$\"AnimationPlayer\".play_backwards(\"Row\")
+		ID = 0
 "
 
 [sub_resource type="Animation" id=2]
@@ -92,7 +96,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="GDScript" id=3]
-script/source = "extends ConfirmationDialog
+script/source = "extends AcceptDialog
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -265,10 +269,9 @@ margin_right = 16.6314
 margin_bottom = 21.6738
 text = "Edit"
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="HBoxContainer/Box5" groups=[
+[node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-visible = true
 margin_left = -30.8655
 margin_top = -210.057
 margin_right = 270.135
@@ -286,35 +289,43 @@ margin_right = -8.0
 margin_bottom = -36.0
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
-margin_right = 100.0
+margin_right = 115.0
 margin_bottom = 24.0
 
-[node name="OptionMenu ShortTall" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/Grid" groups=[
-"Editor Only",
-]]
-margin_top = 28.0
-margin_right = 100.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 100, 0 )
-text = "Short"
-items = [ "Short", null, false, 0, null, "Tall", null, false, 1, null ]
-selected = 0
-
-[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/Grid" groups=[
-"Editor Only",
-]]
+[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
 margin_top = 52.0
-margin_right = 100.0
+margin_right = 115.0
 margin_bottom = 72.0
 text = "Square"
 items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L", null, false, 2, null, "Arch", null, false, 3, null ]
 selected = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
+margin_top = 76.0
+margin_right = 115.0
+margin_bottom = 100.0
+alignment = 1
+
+[node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer"]
+margin_right = 61.0
+margin_bottom = 24.0
+pressed = true
+group = ExtResource( 7 )
+text = "Short"
+
+[node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer"]
+margin_left = 65.0
+margin_right = 115.0
+margin_bottom = 24.0
+group = ExtResource( 7 )
+text = "Tall"
 
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
 margin_bottom = 50.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
-[connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/Grid/OptionMenu ShortTall" to="." method="_on_OptionMenu_ShortTall_item_selected"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Short" to="." method="_on_Short_pressed"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Tall" to="." method="_on_Tall_pressed"]
 
 [editable path="HBoxContainer/Box5/Arch/TFO?"]
