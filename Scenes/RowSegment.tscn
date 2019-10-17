@@ -38,6 +38,7 @@ margin_left = 3.0
 margin_right = -3.0
 margin_bottom = -3.0
 rect_min_size = Vector2( 118.5, 0 )
+mouse_filter = 1
 
 [node name="Entry Text" type="Label" parent="."]
 anchor_right = 1.0
@@ -58,6 +59,7 @@ margin_left = 6.0
 margin_top = 6.0
 margin_right = -3.0
 margin_bottom = -6.0
+mouse_filter = 1
 custom_fonts/font = ExtResource( 2 )
 align = 1
 max_length = 15
