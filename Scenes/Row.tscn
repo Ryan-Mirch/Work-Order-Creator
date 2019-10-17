@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
@@ -117,6 +117,43 @@ func _on_Button_pressed():
 	rect_position.y = get_viewport().get_mouse_position().y - rect_size.y - 20
 "
 
+[sub_resource type="GDScript" id=4]
+script/source = "extends OptionButton
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+onready var Square = $\"../../../Square\" 		#0
+onready var Rectangle = $\"../../../Rectangle\"	#1
+onready var LShape = $\"../../../LShape\"			#2
+onready var Arch = $\"../../../Arch\"				#3
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	_on_OptionMenu_Shape_item_selected(selected)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_OptionMenu_Shape_item_selected(ID):
+	
+	Square.visible = false
+	Rectangle.visible = false
+	LShape.visible = false
+	Arch.visible = false
+	
+	if ID == 0:
+		Square.visible = true
+	if ID == 1:
+		Rectangle.visible = true
+	if ID == 2:
+		LShape.visible = true
+	if ID == 3:
+		Arch.visible = true
+"
+
 [node name="Row" type="ColorRect" groups=[
 "Row",
 ]]
@@ -179,6 +216,8 @@ margin_bottom = -3.0
 mouse_filter = 2
 
 [node name="Arch" type="TextureRect" parent="HBoxContainer/Box5"]
+editor/display_folded = true
+visible = false
 margin_left = 83.6127
 margin_top = 4.58229
 margin_right = 365.613
@@ -272,6 +311,7 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
+visible = true
 margin_left = -30.8655
 margin_top = -210.057
 margin_right = 270.135
@@ -288,22 +328,18 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -36.0
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
-margin_right = 115.0
-margin_bottom = 24.0
-
 [node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
-margin_top = 52.0
 margin_right = 115.0
-margin_bottom = 72.0
+margin_bottom = 20.0
 text = "Square"
 items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L", null, false, 2, null, "Arch", null, false, 3, null ]
 selected = 0
+script = SubResource( 4 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/Grid"]
-margin_top = 76.0
+margin_top = 24.0
 margin_right = 115.0
-margin_bottom = 100.0
+margin_bottom = 48.0
 alignment = 1
 
 [node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer"]
@@ -325,6 +361,7 @@ margin_left = 724.0
 margin_right = 845.5
 margin_bottom = 50.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
+[connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/Grid/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/Grid/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Short" to="." method="_on_Short_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/Grid/HBoxContainer/Tall" to="." method="_on_Tall_pressed"]
 
