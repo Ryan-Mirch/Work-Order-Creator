@@ -124,6 +124,7 @@ current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Page" type="ScrollContainer" parent="."]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -136,6 +137,7 @@ rect_clip_content = false
 scroll_horizontal_enabled = false
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Page"]
+editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 1100.0
 rect_min_size = Vector2( 850, 1100 )
@@ -207,7 +209,6 @@ margin_bottom = 40.0
 mouse_filter = 0
 
 [node name="Top Bar" type="ViewportContainer" parent="."]
-editor/display_folded = true
 margin_right = 1195.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 850, 50 )
@@ -269,6 +270,4 @@ script = SubResource( 3 )
 [connection signal="popup_hide" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_Save_Pages_As_PNG_popup_hide"]
 [connection signal="tree_exited" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_tree_exited"]
 [connection signal="visibility_changed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_visibility_changed"]
-[connection signal="mouse_entered" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_Export_mouse_entered"]
-[connection signal="mouse_exited" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" method="_on_Export_mouse_exited"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/HBoxContainer/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
