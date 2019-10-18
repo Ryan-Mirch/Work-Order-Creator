@@ -50,7 +50,7 @@ func _on_Button_pressed():
 
 [sub_resource type="Animation" id=2]
 resource_name = "Row"
-length = 0.3
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_size")
 tracks/0/interp = 2
@@ -58,7 +58,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 850, 50 ), Vector2( 850, 150 ) ]
@@ -70,7 +70,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 50 ), Vector2( 0, 150 ) ]
@@ -82,7 +82,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 83.6127, 4.58229 ), Vector2( 52.2988, 29.8191 ) ]
@@ -94,7 +94,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.28, 0.28 ), Vector2( 0.5, 0.5 ) ]
@@ -106,7 +106,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 94, 2.29719 ), Vector2( 41.9563, 18.5616 ) ]
@@ -118,7 +118,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.18, 0.18 ), Vector2( 0.5, 0.5 ) ]
@@ -130,7 +130,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 85.2076, -1.24542 ), Vector2( 33.4609, 24.628 ) ]
@@ -142,7 +142,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.25, 0.25 ), Vector2( 0.5, 0.5 ) ]
@@ -154,7 +154,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 105.965, 3.47629 ), Vector2( 69.21, 26.2642 ) ]
@@ -166,7 +166,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 0.3 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1.1487 ),
 "update": 0,
 "values": [ Vector2( 0.12, 0.12 ), Vector2( 0.3, 0.3 ) ]
@@ -235,7 +235,7 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 51.0121
+margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -260,27 +260,27 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Box" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_bottom = 51.0
+margin_bottom = 50.0
 
 [node name="Box2" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
-margin_bottom = 51.0
+margin_bottom = 50.0
 
 [node name="Box3" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
-margin_bottom = 51.0
+margin_bottom = 50.0
 
 [node name="Box4" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
-margin_bottom = 51.0
+margin_bottom = 50.0
 
 [node name="Box5" type="ColorRect" parent="HBoxContainer"]
 margin_left = 484.0
 margin_right = 724.0
-margin_bottom = 51.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -342,7 +342,7 @@ margin_left = 94.0
 margin_top = 2.29719
 margin_right = 471.0
 margin_bottom = 244.297
-rect_scale = Vector2( 0.181861, 0.181861 )
+rect_scale = Vector2( 0.18, 0.18 )
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -399,11 +399,11 @@ rect_scale = Vector2( 1, 1 )
 [node name="Rectangle" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
 visible = false
-margin_left = 84.9449
-margin_top = -1.11407
-margin_right = 420.945
-margin_bottom = 219.886
-rect_scale = Vector2( 0.251269, 0.251269 )
+margin_left = 85.2076
+margin_top = -1.24542
+margin_right = 421.208
+margin_bottom = 219.755
+rect_scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 4
@@ -446,11 +446,11 @@ rect_scale = Vector2( 1, 1 )
 [node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
 visible = false
-margin_left = 105.807
-margin_top = 3.5741
-margin_right = 445.807
-margin_bottom = 337.574
-rect_scale = Vector2( 0.120773, 0.120773 )
+margin_left = 105.965
+margin_top = 3.47629
+margin_right = 445.965
+margin_bottom = 337.477
+rect_scale = Vector2( 0.12, 0.12 )
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 4
@@ -501,11 +501,10 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-visible = true
-margin_left = 78.0
-margin_top = -210.0
-margin_right = 413.0
-margin_bottom = -60.0
+margin_left = -43.8375
+margin_top = -172.095
+margin_right = 291.162
+margin_bottom = -22.095
 rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
 script = SubResource( 3 )
@@ -580,7 +579,7 @@ text = "Tall"
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
-margin_bottom = 51.0
+margin_bottom = 50.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Button2" to="." method="_on_Button_pressed"]
