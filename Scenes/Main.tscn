@@ -259,6 +259,7 @@ color = Color( 0.870588, 0.870588, 0.870588, 1 )
 [node name="Page Instance" parent="Page View/ViewportContainer/Viewport" instance=ExtResource( 1 )]
 
 [node name="Side Bar" type="ColorRect" parent="."]
+editor/display_folded = true
 margin_right = 200.0
 margin_bottom = 850.0
 color = Color( 0.478431, 0.478431, 0.478431, 1 )
@@ -301,7 +302,6 @@ custom_constants/vseparation = 15
 script = SubResource( 4 )
 
 [node name="Top Bar" type="ViewportContainer" parent="."]
-editor/display_folded = true
 margin_right = 1195.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 850, 50 )

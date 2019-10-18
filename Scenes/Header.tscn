@@ -331,7 +331,6 @@ align = 1
 valign = 2
 
 [node name="Change Page Name" type="ConfirmationDialog" parent="."]
-visible = true
 margin_left = 391.0
 margin_top = 109.0
 margin_right = 673.0
