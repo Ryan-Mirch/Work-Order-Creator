@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Images/Rectangle.png" type="Texture" id=6]
 [ext_resource path="res://Images/Square.png" type="Texture" id=7]
 [ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=8]
-[ext_resource path="res://Images/bin.png" type="Texture" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -17,8 +16,8 @@ script/source = "extends ColorRect
 # var a = 2
 # var b = \"text\"
 export var ID = 0
-onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Short\"
-onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Tall\"
+onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if ID == 0:
@@ -119,7 +118,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.00404185, 0.297169 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.18, 0.18 ), Vector2( 0.5, 0.5 ) ]
@@ -131,7 +130,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.00428125, 0.292865 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 85.2076, -1.24542 ), Vector2( 33.4609, 24.628 ) ]
@@ -143,7 +142,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.00428125, 0.292865 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.25, 0.25 ), Vector2( 0.5, 0.5 ) ]
@@ -155,7 +154,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.00448786, 0.297672 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 105.965, 3.47629 ), Vector2( 69.21, 26.2642 ) ]
@@ -167,8 +166,8 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.00448786, 0.297672 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1.1487 ),
 "update": 0,
 "values": [ Vector2( 0.12, 0.12 ), Vector2( 0.3, 0.3 ) ]
 }
@@ -236,7 +235,7 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 50.4353
+margin_bottom = 51.0121
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -261,27 +260,27 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Box" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_bottom = 50.0
+margin_bottom = 51.0
 
 [node name="Box2" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
-margin_bottom = 50.0
+margin_bottom = 51.0
 
 [node name="Box3" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
-margin_bottom = 50.0
+margin_bottom = 51.0
 
 [node name="Box4" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
-margin_bottom = 50.0
+margin_bottom = 51.0
 
 [node name="Box5" type="ColorRect" parent="HBoxContainer"]
 margin_left = 484.0
 margin_right = 724.0
-margin_bottom = 50.0
+margin_bottom = 51.0
 rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -343,7 +342,7 @@ margin_left = 94.0
 margin_top = 2.29719
 margin_right = 471.0
 margin_bottom = 244.297
-rect_scale = Vector2( 0.189496, 0.189496 )
+rect_scale = Vector2( 0.181861, 0.181861 )
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -400,11 +399,11 @@ rect_scale = Vector2( 1, 1 )
 [node name="Rectangle" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
 visible = false
-margin_left = 83.6909
-margin_top = -0.487034
-margin_right = 419.691
-margin_bottom = 220.513
-rect_scale = Vector2( 0.257328, 0.257328 )
+margin_left = 84.9449
+margin_top = -1.11407
+margin_right = 420.945
+margin_bottom = 219.886
+rect_scale = Vector2( 0.251269, 0.251269 )
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 4
@@ -447,11 +446,11 @@ rect_scale = Vector2( 1, 1 )
 [node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
 visible = false
-margin_left = 104.93
-margin_top = 4.1177
-margin_right = 444.93
-margin_bottom = 338.118
-rect_scale = Vector2( 0.125066, 0.125066 )
+margin_left = 105.807
+margin_top = 3.5741
+margin_right = 445.807
+margin_bottom = 337.574
+rect_scale = Vector2( 0.120773, 0.120773 )
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 4
@@ -502,7 +501,8 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-margin_left = -31.0
+visible = true
+margin_left = 78.0
 margin_top = -210.0
 margin_right = 413.0
 margin_bottom = -60.0
@@ -514,20 +514,42 @@ script = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
-margin_top = 8.0
+margin_top = 18.0
 margin_right = -8.0
 margin_bottom = -36.0
+custom_constants/separation = 20
 
 [node name="Row1" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
-margin_right = 455.0
-margin_bottom = 46.0
-custom_constants/separation = 40
+margin_right = 319.0
+margin_bottom = 30.0
+custom_constants/separation = 63
 alignment = 1
 
-[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
-margin_left = 44.0
-margin_right = 164.0
-margin_bottom = 46.0
+[node name="Button" type="Button" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
+margin_left = 29.0
+margin_right = 123.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+text = "Remove Row"
+
+[node name="Button2" type="Button" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
+margin_left = 186.0
+margin_right = 289.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+text = "Duplicate Row"
+
+[node name="Row2" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
+margin_top = 50.0
+margin_right = 319.0
+margin_bottom = 74.0
+custom_constants/separation = 26
+alignment = 1
+
+[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2"]
+margin_left = 29.0
+margin_right = 149.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 120, 0 )
 text = "Square"
 clip_text = true
@@ -535,39 +557,33 @@ items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L"
 selected = 0
 script = SubResource( 4 )
 
-[node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
-margin_left = 204.0
-margin_right = 319.0
-margin_bottom = 46.0
+[node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2"]
+margin_left = 175.0
+margin_right = 290.0
+margin_bottom = 24.0
 alignment = 1
 
-[node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall"]
+[node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall"]
 margin_right = 61.0
-margin_bottom = 46.0
+margin_bottom = 24.0
 pressed = true
 group = ExtResource( 8 )
 text = "Short"
 
-[node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall"]
+[node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall"]
 margin_left = 65.0
 margin_right = 115.0
-margin_bottom = 46.0
+margin_bottom = 24.0
 group = ExtResource( 8 )
 text = "Tall"
-
-[node name="Button" type="Button" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
-margin_left = 359.0
-margin_right = 411.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 30, 30 )
-icon = ExtResource( 9 )
 
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
-margin_bottom = 50.0
+margin_bottom = 51.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
-[connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Short" to="." method="_on_Short_pressed"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/ShortTall/Tall" to="." method="_on_Tall_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Button2" to="." method="_on_Button_pressed"]
+[connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Short" to="." method="_on_Short_pressed"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Tall" to="." method="_on_Tall_pressed"]
