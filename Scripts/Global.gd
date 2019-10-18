@@ -4,17 +4,13 @@ extends Node
 # var a = 2
 # var b = "text"
 # Called when the node enters the scene tree for the first time.
-
-signal editing
-signal exporting
-signal popup
-
 func _ready():
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
 	
 func _editing_start():
 	for lineEdit in get_tree().get_nodes_in_group("Editor Only"):

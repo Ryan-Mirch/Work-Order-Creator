@@ -9,17 +9,34 @@ script/source = "extends VBoxContainer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-
+onready var pageList = $\"../../../../Side Bar/PageList Background/PageList\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var pageList = $\"../../../../Side Bar/PageList Background/PageList\"
-	pageList.add_item(name)
 	
-	var index = pageList.get_item_count() - 1
-	pageList._open_page(index)
+	_init_display_name()	
+	pageList.add_item(name)
+	pageList._open_page(pageList.get_item_count() - 1)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _init_display_name():
+	
+	var pages = get_tree().get_nodes_in_group(\"Page Instance\")
+	var pageNames = []
+	var pageNumber = 1
+	
+	for page in pages:
+		pageNames.push_back(page.name)
+
+	while true:
+		if pageNames.has(\"Page \" + String(pageNumber)):
+			pageNumber += 1
+		else:
+			break 
+	
+	name = \"Page \" + String(pageNumber)
 "
 
 [sub_resource type="GDScript" id=2]
