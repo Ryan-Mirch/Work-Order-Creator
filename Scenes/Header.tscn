@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scenes/PageName.gd" type="Script" id=4]
-[ext_resource path="res://Fonts/Roboto16.tres" type="DynamicFont" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -87,6 +86,7 @@ func _on_LineEdit_text_changed(new_text):
 [node name="Header" type="ColorRect"]
 margin_right = 850.0
 margin_bottom = 323.0
+rect_min_size = Vector2( 0, 350 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -217,19 +217,18 @@ margin_right = 850.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="Header Row" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_top = 294.0
 margin_right = 850.0
-margin_bottom = 320.0
-rect_min_size = Vector2( 850, 23 )
+margin_bottom = 349.0
+rect_min_size = Vector2( 850, 55 )
 custom_constants/separation = 0
 
 [node name="Quantity" type="Label" parent="VBoxContainer/Header Row"]
-editor/display_folded = true
+margin_top = 14.0
 margin_right = 121.0
-margin_bottom = 26.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Quantity"
 align = 1
@@ -238,17 +237,19 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Quantity"]
 anchor_bottom = 1.0
 margin_left = 121.0
+margin_top = -10.0
 margin_right = 124.0
-rect_min_size = Vector2( 3, 0 )
+margin_bottom = 14.0
+rect_min_size = Vector2( 3, 50 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Thickness" type="Label" parent="VBoxContainer/Header Row"]
-editor/display_folded = true
 margin_left = 121.0
+margin_top = 14.0
 margin_right = 242.0
-margin_bottom = 26.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Thickness"
 align = 1
@@ -257,17 +258,19 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Thickness"]
 anchor_bottom = 1.0
 margin_left = 121.0
+margin_top = -10.0
 margin_right = 124.0
-rect_min_size = Vector2( 3, 0 )
+margin_bottom = 14.0
+rect_min_size = Vector2( 3, 50 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Width" type="Label" parent="VBoxContainer/Header Row"]
-editor/display_folded = true
 margin_left = 242.0
+margin_top = 14.0
 margin_right = 363.0
-margin_bottom = 26.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Width"
 align = 1
@@ -276,17 +279,19 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Width"]
 anchor_bottom = 1.0
 margin_left = 121.0
+margin_top = -10.0
 margin_right = 124.0
-rect_min_size = Vector2( 3, 0 )
+margin_bottom = 14.0
+rect_min_size = Vector2( 3, 50 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Length" type="Label" parent="VBoxContainer/Header Row"]
-editor/display_folded = true
 margin_left = 363.0
+margin_top = 14.0
 margin_right = 484.0
-margin_bottom = 26.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Length"
 align = 1
@@ -295,17 +300,19 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Length"]
 anchor_bottom = 1.0
 margin_left = 121.0
+margin_top = -10.0
 margin_right = 124.0
-rect_min_size = Vector2( 3, 0 )
+margin_bottom = 14.0
+rect_min_size = Vector2( 3, 50 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Edges" type="Label" parent="VBoxContainer/Header Row"]
-editor/display_folded = true
 margin_left = 484.0
+margin_top = 14.0
 margin_right = 724.0
-margin_bottom = 26.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 240, 26 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Edges"
 align = 1
@@ -315,16 +322,19 @@ valign = 2
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -10.0
 margin_right = 3.0
-rect_min_size = Vector2( 3, 0 )
+margin_bottom = 14.0
+rect_min_size = Vector2( 3, 50 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Part Mark" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 724.0
+margin_top = 14.0
 margin_right = 845.0
-margin_bottom = 26.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Part Mark"
 align = 1
