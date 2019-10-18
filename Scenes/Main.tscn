@@ -113,7 +113,7 @@ func _on_Save_Pages_As_PNG_popup_hide():
 		Global._editing_start()
 "
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 script/source = "extends ItemList
 
 # Declare member variables here. Examples:
@@ -193,12 +193,11 @@ window_title = "Open a Directory"
 resizable = true
 mode = 2
 access = 2
-current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
-current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
+current_dir = "D:/Projects/Godot/Work-Order-Creator"
+current_path = "D:/Projects/Godot/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Page View" type="ScrollContainer" parent="."]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -275,7 +274,7 @@ color = Color( 0.772549, 0.772549, 0.772549, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/vseparation = 15
-script = SubResource( 4 )
+script = SubResource( 3 )
 
 [node name="Top Bar" type="ViewportContainer" parent="."]
 editor/display_folded = true

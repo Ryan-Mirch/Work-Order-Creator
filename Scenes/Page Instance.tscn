@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Header.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Row.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Fonts/Roboto26.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends VBoxContainer
@@ -79,7 +79,7 @@ func _on_Button_pressed():
 	get_parent().remove_child(self)
 "
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 script/source = "extends VBoxContainer
 
 # Declare member variables here. Examples:
@@ -131,11 +131,13 @@ margin_bottom = 400.0
 script = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+editor/display_folded = true
 margin_top = 400.0
 margin_right = 850.0
-margin_bottom = 458.0
-custom_constants/separation = 3
-script = SubResource( 4 )
+margin_bottom = 445.0
+rect_min_size = Vector2( 0, 30 )
+custom_constants/separation = 0
+script = SubResource( 3 )
 
 [node name="ReferenceRect" type="ReferenceRect" parent="VBoxContainer"]
 margin_right = 850.0
@@ -143,10 +145,10 @@ margin_bottom = 5.0
 rect_min_size = Vector2( 0, 5 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 8.0
+margin_top = 5.0
 margin_right = 850.0
-margin_bottom = 58.0
-rect_min_size = Vector2( 850, 50 )
+margin_bottom = 45.0
+rect_min_size = Vector2( 850, 30 )
 custom_constants/separation = 18
 alignment = 1
 
@@ -155,8 +157,8 @@ alignment = 1
 ]]
 margin_left = 16.0
 margin_right = 416.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 400, 0 )
+margin_bottom = 40.0
+rect_min_size = Vector2( 400, 40 )
 custom_fonts/font = ExtResource( 3 )
 text = "Add Short Row"
 
@@ -165,8 +167,8 @@ text = "Add Short Row"
 ]]
 margin_left = 434.0
 margin_right = 834.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 400, 0 )
+margin_bottom = 40.0
+rect_min_size = Vector2( 400, 30 )
 custom_fonts/font = ExtResource( 3 )
 text = "Add Tall Row"
 clip_text = true

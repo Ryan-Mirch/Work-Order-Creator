@@ -46,6 +46,7 @@ func _on_Short_pressed():
 
 func _on_Button_pressed():
 	get_parent().remove_child(self)
+
 "
 
 [sub_resource type="Animation" id=2]
@@ -205,6 +206,12 @@ onready var Square = $\"../../../../Square\" 		#0
 onready var Rectangle = $\"../../../../Rectangle\"	#1
 onready var LShape = $\"../../../../LShape\"			#2
 onready var Arch = $\"../../../../Arch\"				#3
+
+onready var FinalWidthEntry = $\"../../Final Dimensions/Final Width Entry\"
+onready var FinalLengthEntry = $\"../../Final Dimensions/Final Length Entry\"
+onready var FinalTopLengthEntry = $\"../../Final Dimensions/Final Top Length Entry\"
+onready var FinalRightWidthEntry = $\"../../Final Dimensions/Final Right Width Entry\"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_on_OptionMenu_Shape_item_selected(selected)
@@ -221,14 +228,31 @@ func _on_OptionMenu_Shape_item_selected(ID):
 	LShape.visible = false
 	Arch.visible = false
 	
+	FinalWidthEntry.visible = false
+	FinalLengthEntry.visible = false
+	FinalTopLengthEntry.visible = false
+	FinalRightWidthEntry.visible = false
+	
 	if ID == 0:
 		Square.visible = true
+		FinalWidthEntry.visible = true
+		FinalLengthEntry.visible = true
+		
 	if ID == 1:
 		Rectangle.visible = true
+		FinalWidthEntry.visible = true
+		FinalLengthEntry.visible = true
+		
 	if ID == 2:
 		LShape.visible = true
+		FinalWidthEntry.visible = true
+		FinalLengthEntry.visible = true
+		FinalTopLengthEntry.visible = true
+		FinalRightWidthEntry.visible = true
+		
 	if ID == 3:
 		Arch.visible = true
+		FinalWidthEntry.visible = true
 "
 
 [node name="Row" type="ColorRect" groups=[
@@ -501,53 +525,46 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-margin_left = -43.8375
-margin_top = -172.095
-margin_right = 291.162
-margin_bottom = -22.095
+margin_left = -82.0
+margin_top = -268.0
+margin_right = 219.0
+margin_bottom = -12.0
 rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
 script = SubResource( 3 )
 
 [node name="VBox" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog"]
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = 8.0
-margin_top = 18.0
-margin_right = -8.0
-margin_bottom = -36.0
+margin_top = 8.0
+margin_right = 293.0
+margin_bottom = 220.0
 custom_constants/separation = 20
 
 [node name="Row1" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
-margin_right = 319.0
+editor/display_folded = true
+margin_right = 285.0
 margin_bottom = 30.0
 custom_constants/separation = 63
 alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
-margin_left = 29.0
-margin_right = 123.0
+[node name="Remove Row" type="Button" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
+margin_left = 95.0
+margin_right = 189.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 30, 30 )
 text = "Remove Row"
 
-[node name="Button2" type="Button" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1"]
-margin_left = 186.0
-margin_right = 289.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-text = "Duplicate Row"
-
 [node name="Row2" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
+editor/display_folded = true
 margin_top = 50.0
-margin_right = 319.0
+margin_right = 285.0
 margin_bottom = 74.0
 custom_constants/separation = 26
 alignment = 1
 
 [node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2"]
-margin_left = 29.0
-margin_right = 149.0
+margin_left = 12.0
+margin_right = 132.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 120, 0 )
 text = "Square"
@@ -557,8 +574,9 @@ selected = 0
 script = SubResource( 4 )
 
 [node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2"]
-margin_left = 175.0
-margin_right = 290.0
+editor/display_folded = true
+margin_left = 158.0
+margin_right = 273.0
 margin_bottom = 24.0
 alignment = 1
 
@@ -576,13 +594,99 @@ margin_bottom = 24.0
 group = ExtResource( 8 )
 text = "Tall"
 
+[node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
+editor/display_folded = true
+margin_top = 94.0
+margin_right = 285.0
+margin_bottom = 198.0
+custom_constants/vseparation = 20
+custom_constants/hseparation = 70
+columns = 2
+
+[node name="Final Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+editor/display_folded = true
+margin_right = 104.0
+margin_bottom = 42.0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
+margin_right = 104.0
+margin_bottom = 14.0
+text = "Final Width"
+align = 1
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
+margin_top = 18.0
+margin_right = 104.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 100, 0 )
+placeholder_alpha = 0.538
+
+[node name="Final Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+editor/display_folded = true
+margin_left = 174.0
+margin_right = 282.0
+margin_bottom = 42.0
+
+[node name="Label2" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "Final Height"
+align = 1
+valign = 1
+
+[node name="LineEdit2" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
+margin_top = 18.0
+margin_right = 108.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Final Top Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+editor/display_folded = true
+margin_top = 62.0
+margin_right = 104.0
+margin_bottom = 104.0
+
+[node name="Label2" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
+margin_right = 104.0
+margin_bottom = 14.0
+text = "Final Top Length"
+align = 1
+valign = 1
+
+[node name="LineEdit2" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
+margin_top = 18.0
+margin_right = 104.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Final Right Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+editor/display_folded = true
+margin_left = 174.0
+margin_top = 62.0
+margin_right = 282.0
+margin_bottom = 104.0
+
+[node name="Label2" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "Final Right Width"
+align = 1
+valign = 1
+
+[node name="LineEdit2" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
+margin_top = 18.0
+margin_right = 108.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 100, 0 )
+
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
 margin_bottom = 50.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Button2" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Remove Row" to="." method="_on_Button_pressed"]
 [connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Short" to="." method="_on_Short_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Tall" to="." method="_on_Tall_pressed"]
