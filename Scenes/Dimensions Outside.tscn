@@ -1,0 +1,63 @@
+[gd_scene format=2]
+
+[node name="Dimensions Outside" type="Control"]
+margin_left = 25.4227
+margin_top = 317.99
+margin_right = 310.423
+margin_bottom = 399.99
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_bottom = 1.0
+margin_right = 5.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 5.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Outside Right" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.000305176
+margin_top = -36.0
+margin_right = 42.9997
+margin_bottom = 21.0
+
+[node name="Control" type="Control" parent="Outside Right"]
+margin_left = 39.0
+margin_top = 28.0
+margin_right = 39.0
+margin_bottom = 28.0
+
+[node name="Arrow" type="Polygon2D" parent="Outside Right/Control"]
+position = Vector2( -26.3134, -6.45963 )
+scale = Vector2( 0.204309, 0.204309 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 20, 10, 150, 10, 150, 29.745, 20, 30, 20, 60, -30, 20, 20, -20 )
+
+[node name="Outside Left" type="Control" parent="."]
+editor/display_folded = true
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -79.9784
+margin_top = -36.3811
+margin_right = 5.02158
+margin_bottom = 20.6189
+
+[node name="Control" type="Control" parent="Outside Left"]
+margin_left = 42.0
+margin_top = 28.0
+margin_right = 42.0
+margin_bottom = 28.0
+
+[node name="Arrow" type="Polygon2D" parent="Outside Left/Control"]
+position = Vector2( 29.4984, 1.68106 )
+rotation = 3.14159
+scale = Vector2( 0.204309, 0.204309 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 20, 10, 310, 10, 310, 30, 20, 30, 20, 60, -30, 20, 20, -20 )

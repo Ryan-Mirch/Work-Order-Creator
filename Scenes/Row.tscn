@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://Images/LShape.png" type="Texture" id=5]
 [ext_resource path="res://Images/Rectangle.png" type="Texture" id=6]
 [ext_resource path="res://Images/Square.png" type="Texture" id=7]
-[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=8]
+[ext_resource path="res://Scenes/Dimensions Outside.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Dimensions Inside.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -158,7 +160,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 105.965, 3.47629 ), Vector2( 69.21, 26.2642 ) ]
+"values": [ Vector2( 105.965, 3.47629 ), Vector2( 46.5552, 17.1176 ) ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath("HBoxContainer/Box5/Square:rect_scale")
@@ -259,7 +261,7 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 50.0
+margin_bottom = 57.1094
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -284,27 +286,27 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Box" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_bottom = 50.0
+margin_bottom = 57.0
 
 [node name="Box2" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
-margin_bottom = 50.0
+margin_bottom = 57.0
 
 [node name="Box3" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
-margin_bottom = 50.0
+margin_bottom = 57.0
 
 [node name="Box4" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
-margin_bottom = 50.0
+margin_bottom = 57.0
 
 [node name="Box5" type="ColorRect" parent="HBoxContainer"]
 margin_left = 484.0
 margin_right = 724.0
-margin_bottom = 50.0
+margin_bottom = 57.0
 rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -312,12 +314,15 @@ color = Color( 0, 0, 0, 1 )
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box5"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_bottom = -3.0
+margin_left = 3.98956
+margin_top = 0.0442963
+margin_right = 0.989563
+margin_bottom = -2.9557
 mouse_filter = 2
 
 [node name="Arch" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
+visible = false
 margin_left = 83.6127
 margin_top = 4.58229
 margin_right = 365.613
@@ -468,8 +473,6 @@ margin_bottom = 124.681
 rect_scale = Vector2( 1, 1 )
 
 [node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
-editor/display_folded = true
-visible = false
 margin_left = 105.965
 margin_top = 3.47629
 margin_right = 445.965
@@ -513,6 +516,20 @@ rect_scale = Vector2( 2, 2 )
 
 [node name="Checkbox TFO" parent="HBoxContainer/Box5/Square" instance=ExtResource( 4 )]
 
+[node name="Dimensions Outside" parent="HBoxContainer/Box5/Square" instance=ExtResource( 8 )]
+margin_left = 25.0
+margin_top = 318.0
+margin_right = 153.0
+margin_bottom = 349.0
+rect_scale = Vector2( 2.2, 2.2 )
+
+[node name="Dimensions Inside" parent="HBoxContainer/Box5/Square" instance=ExtResource( 9 )]
+margin_left = 320.0
+margin_top = 311.0
+margin_right = 602.0
+margin_bottom = 401.0
+rect_rotation = -89.9999
+
 [node name="Edit" type="Button" parent="HBoxContainer/Box5" groups=[
 "Editor Only",
 ]]
@@ -525,6 +542,8 @@ text = "Edit"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
+editor/display_folded = true
+visible = true
 margin_left = -82.0
 margin_top = -268.0
 margin_right = 219.0
@@ -584,14 +603,14 @@ alignment = 1
 margin_right = 61.0
 margin_bottom = 24.0
 pressed = true
-group = ExtResource( 8 )
+group = ExtResource( 10 )
 text = "Short"
 
 [node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall"]
 margin_left = 65.0
 margin_right = 115.0
 margin_bottom = 24.0
-group = ExtResource( 8 )
+group = ExtResource( 10 )
 text = "Tall"
 
 [node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
@@ -684,7 +703,7 @@ rect_min_size = Vector2( 100, 0 )
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
-margin_bottom = 50.0
+margin_bottom = 57.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row1/Remove Row" to="." method="_on_Button_pressed"]
 [connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]

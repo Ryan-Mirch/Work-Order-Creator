@@ -127,24 +127,23 @@ rect_min_size = Vector2( 850, 350 )
 
 [node name="Row" parent="." instance=ExtResource( 2 )]
 margin_top = 350.0
-margin_bottom = 400.0
+margin_bottom = 500.0
 script = SubResource( 2 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-editor/display_folded = true
-margin_top = 400.0
+[node name="Add Row Buttons" type="VBoxContainer" parent="."]
+margin_top = 500.0
 margin_right = 850.0
-margin_bottom = 445.0
+margin_bottom = 545.0
 rect_min_size = Vector2( 0, 30 )
 custom_constants/separation = 0
 script = SubResource( 3 )
 
-[node name="ReferenceRect" type="ReferenceRect" parent="VBoxContainer"]
+[node name="ReferenceRect" type="ReferenceRect" parent="Add Row Buttons"]
 margin_right = 850.0
 margin_bottom = 5.0
 rect_min_size = Vector2( 0, 5 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Add Row Buttons"]
 margin_top = 5.0
 margin_right = 850.0
 margin_bottom = 45.0
@@ -152,7 +151,7 @@ rect_min_size = Vector2( 850, 30 )
 custom_constants/separation = 18
 alignment = 1
 
-[node name="Add Short Row" type="Button" parent="VBoxContainer/HBoxContainer" groups=[
+[node name="Add Short Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=[
 "Editor Only",
 ]]
 margin_left = 16.0
@@ -162,7 +161,7 @@ rect_min_size = Vector2( 400, 40 )
 custom_fonts/font = ExtResource( 3 )
 text = "Add Short Row"
 
-[node name="Add Tall Row" type="Button" parent="VBoxContainer/HBoxContainer" groups=[
+[node name="Add Tall Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=[
 "Editor Only",
 ]]
 margin_left = 434.0
@@ -172,5 +171,5 @@ rect_min_size = Vector2( 400, 30 )
 custom_fonts/font = ExtResource( 3 )
 text = "Add Tall Row"
 clip_text = true
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Add Short Row" to="VBoxContainer" method="_on_Add_Short_Row_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Add Tall Row" to="VBoxContainer" method="_on_Add_Tall_Row_pressed"]
+[connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Short Row" to="Add Row Buttons" method="_on_Add_Short_Row_pressed"]
+[connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Tall Row" to="Add Row Buttons" method="_on_Add_Tall_Row_pressed"]
