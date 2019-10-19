@@ -1,15 +1,15 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/CheckBox X.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Checkbox TFO.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Images/LShape.png" type="Texture" id=5]
-[ext_resource path="res://Images/Rectangle.png" type="Texture" id=6]
-[ext_resource path="res://Images/Square.png" type="Texture" id=7]
-[ext_resource path="res://Scenes/Dimensions Outside.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Fonts/Roboto30.tres" type="DynamicFont" id=9]
-[ext_resource path="res://Scenes/Dimensions Inside.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Dimensions Outside.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Fonts/Roboto30.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Images/LShape.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Dimensions Inside.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Images/Rectangle.png" type="Texture" id=9]
+[ext_resource path="res://Images/Square.png" type="Texture" id=10]
 [ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=11]
 
 [sub_resource type="GDScript" id=1]
@@ -62,10 +62,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 850, 50 ), Vector2( 850, 150 ) ]
+"values": [ Vector2( 850, 50 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rect_min_size")
@@ -113,7 +113,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 94, 2.29719 ), Vector2( 41.9563, 18.5616 ) ]
+"values": [ Vector2( 94, 2.29719 ), Vector2( 41.9384, 37.5614 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("HBoxContainer/Box5/LShape:rect_scale")
@@ -125,7 +125,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.18, 0.18 ), Vector2( 0.5, 0.5 ) ]
+"values": [ Vector2( 0.18, 0.18 ), Vector2( 0.4, 0.4 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("HBoxContainer/Box5/Rectangle:rect_position")
@@ -137,7 +137,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 85.2076, -1.24542 ), Vector2( 33.4609, 24.628 ) ]
+"values": [ Vector2( 85.2076, -1.24542 ), Vector2( 12.2651, 28.6222 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("HBoxContainer/Box5/Rectangle:rect_scale")
@@ -149,7 +149,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.5, 0.5 ) ]
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.45, 0.45 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("HBoxContainer/Box5/Square:rect_position")
@@ -175,6 +175,202 @@ tracks/9/keys = {
 "update": 0,
 "values": [ Vector2( 0.12, 0.12 ), Vector2( 0.3, 0.3 ) ]
 }
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends TextureRect
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var dimensions = [$\"Dimensions Width\"]
+# Called when the node enters the scene tree for the first time.
+onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
+onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+
+onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
+onready var widthLabel = $\"Dimensions Width/Width Label\"
+
+func _ready():
+	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
+	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	
+	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
+	
+	for d in dimensions:
+			d.visible = false
+			
+	_set_dimension_visibility()
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _on_tall_pressed():
+	_set_dimension_visibility()
+	
+func _on_short_pressed():
+	if short.pressed:
+		for d in dimensions:
+			d.visible = false
+			
+func _width_text_changed(t):
+	widthLabel.text = t
+	_set_dimension_visibility()
+
+func _set_dimension_visibility():
+	if $\"../../..\".ID == 0:
+		return
+		
+	if widthLabel.text == \"\":
+		widthLabel.get_parent().visible = false
+	else: widthLabel.get_parent().visible = true"
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends TextureRect
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var dimensions = [$\"Dimensions Length\", $\"Dimensions Width\",$\"Dimensions Length Top\" ,$\"Dimensions Width Right\" ]
+# Called when the node enters the scene tree for the first time.
+onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
+onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+
+onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
+onready var widthLabel = $\"Dimensions Width/Width Label\"
+
+onready var lengthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Length Entry/LineEdit\"
+onready var lengthLabel = $\"Dimensions Length/Length Label\"
+
+onready var widthRightEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry/LineEdit\"
+onready var widthRightLabel = $\"Dimensions Width Right/Width Right Label\"
+
+onready var lengthTopEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry/LineEdit\"
+onready var lengthTopLabel = $\"Dimensions Length Top/Length Top Label\"
+
+func _ready():
+	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
+	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	
+	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
+	lengthEntry.connect(\"text_changed\", self, \"_length_text_changed\")
+	widthRightEntry.connect(\"text_changed\", self, \"_widthRight_text_changed\")
+	lengthTopEntry.connect(\"text_changed\", self, \"_lengthTop_text_changed\")
+	
+	
+	for d in dimensions:
+			d.visible = false
+
+	_set_dimension_visibility()
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _on_tall_pressed():
+	_set_dimension_visibility()
+			
+func _on_short_pressed():
+	if short.pressed:
+		for d in dimensions:
+			d.visible = false
+			
+func _width_text_changed(t):
+	widthLabel.text = t
+	_set_dimension_visibility()
+	
+func _length_text_changed(t):
+	lengthLabel.text = t
+	_set_dimension_visibility()
+	
+func _widthRight_text_changed(t):
+	widthRightLabel.text = t
+	_set_dimension_visibility()
+	
+func _lengthTop_text_changed(t):
+	lengthTopLabel.text = t
+	_set_dimension_visibility()
+	
+func _set_dimension_visibility():
+	if $\"../../..\".ID == 0:
+		return
+		
+	if widthLabel.text == \"\":
+		widthLabel.get_parent().visible = false
+	else: widthLabel.get_parent().visible = true
+	
+	if lengthLabel.text == \"\":
+		lengthLabel.get_parent().visible = false
+	else: lengthLabel.get_parent().visible = true
+	
+	if widthRightLabel.text == \"\":
+		widthRightLabel.get_parent().visible = false
+	else: widthRightLabel.get_parent().visible = true
+	
+	if lengthTopLabel.text == \"\":
+		lengthTopLabel.get_parent().visible = false
+	else: lengthTopLabel.get_parent().visible = true"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends TextureRect
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var dimensions = [$\"Dimensions Length\", $\"Dimensions Width\"]
+# Called when the node enters the scene tree for the first time.
+onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
+onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+
+onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
+onready var widthLabel = $\"Dimensions Width/Width Label\"
+
+onready var lengthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Length Entry/LineEdit\"
+onready var lengthLabel = $\"Dimensions Length/Length Label\"
+
+func _ready():
+	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
+	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	
+	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
+	lengthEntry.connect(\"text_changed\", self, \"_length_text_changed\")
+	
+	
+	for d in dimensions:
+			d.visible = false
+
+	_set_dimension_visibility()
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _on_tall_pressed():
+	_set_dimension_visibility()
+			
+func _on_short_pressed():
+	if short.pressed:
+		for d in dimensions:
+			d.visible = false
+			
+func _width_text_changed(t):
+	widthLabel.text = t
+	_set_dimension_visibility()
+	
+func _length_text_changed(t):
+	lengthLabel.text = t
+	_set_dimension_visibility()
+	
+func _set_dimension_visibility():
+	if $\"../../..\".ID == 0:
+		return
+		
+	if widthLabel.text == \"\":
+		widthLabel.get_parent().visible = false
+	else: widthLabel.get_parent().visible = true
+	
+	if lengthLabel.text == \"\":
+		lengthLabel.get_parent().visible = false
+	else: lengthLabel.get_parent().visible = true"
 
 [sub_resource type="GDScript" id=5]
 script/source = "extends TextureRect
@@ -204,14 +400,14 @@ func _ready():
 	for d in dimensions:
 			d.visible = false
 
+	_set_dimension_visibility()
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
 func _on_tall_pressed():
-	if tall.pressed:
-		for d in dimensions:
-			d.visible = true
+	_set_dimension_visibility()
 			
 func _on_short_pressed():
 	if short.pressed:
@@ -220,9 +416,23 @@ func _on_short_pressed():
 			
 func _width_text_changed(t):
 	widthLabel.text = t
+	_set_dimension_visibility()
 	
 func _length_text_changed(t):
-	lengthLabel.text = t"
+	lengthLabel.text = t
+	_set_dimension_visibility()
+	
+func _set_dimension_visibility():
+	if $\"../../..\".ID == 0:
+		return
+		
+	if widthLabel.text == \"\":
+		widthLabel.get_parent().visible = false
+	else: widthLabel.get_parent().visible = true
+	
+	if lengthLabel.text == \"\":
+		lengthLabel.get_parent().visible = false
+	else: lengthLabel.get_parent().visible = true"
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends AcceptDialog
@@ -310,7 +520,7 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 58.8675
+margin_bottom = 54.4225
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -335,27 +545,27 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Box" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_bottom = 58.0
+margin_bottom = 54.0
 
 [node name="Box2" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
-margin_bottom = 58.0
+margin_bottom = 54.0
 
 [node name="Box3" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
-margin_bottom = 58.0
+margin_bottom = 54.0
 
 [node name="Box4" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
-margin_bottom = 58.0
+margin_bottom = 54.0
 
 [node name="Box5" type="ColorRect" parent="HBoxContainer"]
 margin_left = 484.0
 margin_right = 724.0
-margin_bottom = 58.0
+margin_bottom = 54.0
 rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -380,6 +590,7 @@ rect_scale = Vector2( 0.28, 0.28 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 4
+script = SubResource( 7 )
 
 [node name="CheckBox Custom" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
 margin_left = 28.3649
@@ -413,6 +624,28 @@ margin_right = 157.704
 margin_bottom = 82.6311
 rect_scale = Vector2( 1, 1 )
 
+[node name="Dimensions Width" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 5 )]
+editor/display_folded = true
+margin_left = 193.0
+margin_top = 154.0
+margin_right = 338.0
+margin_bottom = 196.0
+rect_rotation = -30.3997
+rect_scale = Vector2( 0.7, 0.7 )
+
+[node name="Width Label" type="Label" parent="HBoxContainer/Box5/Arch/Dimensions Width"]
+margin_left = -368.0
+margin_top = -188.0
+margin_right = -147.0
+margin_bottom = -152.0
+rect_rotation = 30.4087
+rect_scale = Vector2( 1.6, 1.8 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 2
+valign = 1
+clip_text = true
+
 [node name="LShape" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
 visible = false
@@ -421,9 +654,10 @@ margin_top = 2.29719
 margin_right = 471.0
 margin_bottom = 244.297
 rect_scale = Vector2( 0.18, 0.18 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
+script = SubResource( 8 )
 
 [node name="CheckBox Custom" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
@@ -468,11 +702,96 @@ margin_right = 148.228
 margin_bottom = 46.8054
 
 [node name="Checkbox TFO" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 4 )]
-margin_left = 141.441
-margin_top = 132.348
-margin_right = 181.441
-margin_bottom = 172.348
+margin_left = 140.498
+margin_top = 141.782
+margin_right = 180.498
+margin_bottom = 181.782
 rect_scale = Vector2( 1, 1 )
+
+[node name="Dimensions Length Top" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 5 )]
+editor/display_folded = true
+margin_left = 180.0
+margin_top = 15.0
+margin_right = 340.0
+margin_bottom = 70.0
+rect_rotation = 180.0
+rect_scale = Vector2( 0.6, 0.6 )
+
+[node name="Length Top Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Length Top"]
+margin_left = -83.7441
+margin_top = 76.1423
+margin_right = 176.256
+margin_bottom = 112.142
+rect_rotation = -180.0
+rect_scale = Vector2( 1.6, 1.8 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+valign = 1
+clip_text = true
+
+[node name="Dimensions Length" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 5 )]
+editor/display_folded = true
+margin_left = 81.0
+margin_top = 222.0
+margin_right = 393.0
+margin_bottom = 296.0
+rect_rotation = 359.999
+rect_scale = Vector2( 0.6, 0.6 )
+
+[node name="Length Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Length"]
+margin_left = 9.0
+margin_top = 22.0
+margin_right = 199.0
+margin_bottom = 58.0
+rect_scale = Vector2( 1.6, 1.8 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+clip_text = true
+
+[node name="Dimensions Width Right" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 5 )]
+editor/display_folded = true
+margin_left = 281.0
+margin_top = 215.0
+margin_right = 437.0
+margin_bottom = 285.0
+rect_rotation = 270.0
+rect_scale = Vector2( 0.6, 0.6 )
+
+[node name="Width Right Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Width Right"]
+margin_left = 110.0
+margin_top = 37.0
+margin_right = 310.0
+margin_bottom = 73.0
+rect_rotation = 89.9999
+rect_scale = Vector2( 1.6, 1.8 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+valign = 1
+clip_text = true
+
+[node name="Dimensions Width" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 8 )]
+editor/display_folded = true
+margin_left = 71.934
+margin_top = 25.417
+margin_right = 452.934
+margin_bottom = 100.417
+rect_rotation = 89.9999
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="Width Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Width"]
+margin_left = 147.0
+margin_top = 334.0
+margin_right = 268.0
+margin_bottom = 370.0
+rect_rotation = -89.9999
+rect_scale = Vector2( 2.5, 2.5 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 2
+valign = 1
+clip_text = true
 
 [node name="Rectangle" type="TextureRect" parent="HBoxContainer/Box5"]
 editor/display_folded = true
@@ -482,9 +801,10 @@ margin_top = -1.24542
 margin_right = 421.208
 margin_bottom = 219.755
 rect_scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 6 )
+texture = ExtResource( 9 )
 expand = true
 stretch_mode = 4
+script = SubResource( 6 )
 
 [node name="CheckBox Custom8" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
 editor/display_folded = true
@@ -521,13 +841,54 @@ margin_right = 190.655
 margin_bottom = 124.681
 rect_scale = Vector2( 1, 1 )
 
+[node name="Dimensions Width" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 8 )]
+margin_left = 315.366
+margin_top = 170.0
+margin_right = 570.366
+margin_bottom = 245.0
+rect_rotation = -89.9999
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="Width Label" type="Label" parent="HBoxContainer/Box5/Rectangle/Dimensions Width"]
+margin_left = 177.0
+margin_top = 30.0
+margin_right = 322.0
+margin_bottom = 66.0
+rect_rotation = 89.9999
+rect_scale = Vector2( 2.4, 2.5 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+valign = 1
+clip_text = true
+
+[node name="Dimensions Length" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 8 )]
+margin_left = 25.0
+margin_top = 177.0
+margin_right = 587.0
+margin_bottom = 272.0
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="Length Label" type="Label" parent="HBoxContainer/Box5/Rectangle/Dimensions Length"]
+margin_left = 90.3228
+margin_top = 32.4171
+margin_right = 244.323
+margin_bottom = 68.4171
+rect_scale = Vector2( 2.5, 2.5 )
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+clip_text = true
+
 [node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
+editor/display_folded = true
+visible = false
 margin_left = 105.965
 margin_top = 3.47629
 margin_right = 445.965
 margin_bottom = 337.477
 rect_scale = Vector2( 0.12, 0.12 )
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 expand = true
 stretch_mode = 4
 script = SubResource( 5 )
@@ -566,7 +927,8 @@ rect_scale = Vector2( 2, 2 )
 
 [node name="Checkbox TFO" parent="HBoxContainer/Box5/Square" instance=ExtResource( 4 )]
 
-[node name="Dimensions Length" parent="HBoxContainer/Box5/Square" instance=ExtResource( 8 )]
+[node name="Dimensions Length" parent="HBoxContainer/Box5/Square" instance=ExtResource( 5 )]
+editor/display_folded = true
 margin_left = 26.0
 margin_top = 331.0
 margin_right = 309.0
@@ -578,13 +940,14 @@ margin_top = 12.0
 margin_right = 180.0
 margin_bottom = 48.0
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
 clip_text = true
 
-[node name="Dimensions Width" parent="HBoxContainer/Box5/Square" instance=ExtResource( 10 )]
+[node name="Dimensions Width" parent="HBoxContainer/Box5/Square" instance=ExtResource( 8 )]
+editor/display_folded = true
 margin_left = 334.0
 margin_top = 311.0
 margin_right = 616.0
@@ -598,7 +961,7 @@ margin_right = 359.0
 margin_bottom = 61.0
 rect_rotation = 89.9999
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 clip_text = true
@@ -625,11 +988,10 @@ text = "Remove"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-visible = true
-margin_left = -35.3967
-margin_top = -227.8
-margin_right = 265.603
-margin_bottom = -15.7998
+margin_left = -38.19
+margin_top = -250.147
+margin_right = 262.81
+margin_bottom = -38.1467
 rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
 script = SubResource( 3 )
@@ -693,12 +1055,13 @@ custom_constants/hseparation = 70
 columns = 2
 
 [node name="Final Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
-margin_right = 104.0
+editor/display_folded = true
+margin_right = 108.0
 margin_bottom = 42.0
 alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
-margin_right = 104.0
+margin_right = 108.0
 margin_bottom = 14.0
 text = "Final Width"
 align = 1
@@ -706,45 +1069,26 @@ valign = 1
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
 margin_top = 18.0
-margin_right = 104.0
+margin_right = 108.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 100, 0 )
 max_length = 12
 placeholder_alpha = 0.538
 
 [node name="Final Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
-margin_left = 174.0
+editor/display_folded = true
+margin_left = 178.0
 margin_right = 282.0
 margin_bottom = 42.0
 
 [node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
-margin_right = 108.0
+margin_right = 104.0
 margin_bottom = 14.0
 text = "Final Length"
 align = 1
 valign = 1
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
-margin_top = 18.0
-margin_right = 108.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 100, 0 )
-max_length = 12
-
-[node name="Final Top Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
-editor/display_folded = true
-margin_top = 62.0
-margin_right = 104.0
-margin_bottom = 104.0
-
-[node name="Label2" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
-margin_right = 104.0
-margin_bottom = 14.0
-text = "Final Top Length"
-align = 1
-valign = 1
-
-[node name="LineEdit2" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
 margin_top = 18.0
 margin_right = 104.0
 margin_bottom = 42.0
@@ -753,21 +1097,41 @@ max_length = 12
 
 [node name="Final Right Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
 editor/display_folded = true
-margin_left = 174.0
 margin_top = 62.0
-margin_right = 282.0
+margin_right = 108.0
 margin_bottom = 104.0
 
-[node name="Label2" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
+[node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
 margin_right = 108.0
 margin_bottom = 14.0
 text = "Final Right Width"
 align = 1
 valign = 1
 
-[node name="LineEdit2" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
 margin_top = 18.0
 margin_right = 108.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 100, 0 )
+max_length = 12
+
+[node name="Final Top Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+editor/display_folded = true
+margin_left = 178.0
+margin_top = 62.0
+margin_right = 282.0
+margin_bottom = 104.0
+
+[node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
+margin_right = 104.0
+margin_bottom = 14.0
+text = "Final Top Length"
+align = 1
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
+margin_top = 18.0
+margin_right = 104.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 100, 0 )
 max_length = 12
@@ -775,7 +1139,7 @@ max_length = 12
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
-margin_bottom = 58.0
+margin_bottom = 54.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/Remove Row" to="." method="_on_Button_pressed"]
 [connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
