@@ -193,8 +193,8 @@ window_title = "Open a Directory"
 resizable = true
 mode = 2
 access = 2
-current_dir = "D:/Projects/Godot/Work-Order-Creator"
-current_path = "D:/Projects/Godot/Work-Order-Creator/"
+current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
+current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Page View" type="ScrollContainer" parent="."]

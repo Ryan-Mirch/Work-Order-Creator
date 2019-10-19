@@ -1,7 +1,7 @@
 [gd_scene format=2]
 
 [node name="Dimensions Inside" type="Control"]
-margin_right = 208.0
+margin_right = 184.0
 margin_bottom = 36.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -17,7 +17,6 @@ margin_right = 5.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Inside Left" type="Control" parent="."]
-editor/display_folded = true
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -36.314
@@ -33,13 +32,13 @@ margin_right = 41.0
 margin_bottom = -29.0
 
 [node name="Arrow" type="Polygon2D" parent="Inside Left/Control"]
-position = Vector2( -26.3134, -6.45963 )
-scale = Vector2( 0.204309, 0.204309 )
+position = Vector2( -24.6821, -9.51824 )
+scale = Vector2( 0.4, 0.4 )
 color = Color( 0, 0, 0, 1 )
-polygon = PoolVector2Array( 20, 10, 310, 10, 310, 30, 20, 30, 20, 60, -30, 20, 20, -20 )
+antialiased = true
+polygon = PoolVector2Array( 20, 10, 180, 10, 180, 30, 20, 30, 20, 60, -30, 20, 20, -20 )
 
 [node name="Inside Right" type="Control" parent="."]
-editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -56,8 +55,9 @@ margin_right = 42.0
 margin_bottom = 28.0
 
 [node name="Arrow" type="Polygon2D" parent="Inside Right/Control"]
-position = Vector2( 29.4984, 1.68106 )
+position = Vector2( 25.6214, 6.51839 )
 rotation = 3.14159
-scale = Vector2( 0.204309, 0.204309 )
+scale = Vector2( 0.4, 0.4 )
 color = Color( 0, 0, 0, 1 )
-polygon = PoolVector2Array( 20, 10, 310, 10, 310, 30, 20, 30, 20, 60, -30, 20, 20, -20 )
+antialiased = true
+polygon = PoolVector2Array( 20, 10, 180, 10, 180, 30, 20, 30, 20, 60, -30, 20, 20, -20 )
