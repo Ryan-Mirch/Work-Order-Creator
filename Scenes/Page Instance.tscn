@@ -38,7 +38,30 @@ func _init_display_name():
 			break 
 	
 	name = \"Page \" + String(pageNumber)
-"
+
+
+func save():
+	var save_dict = {
+		\"Header\" : $\"Header\".save()
+	}
+	
+	return save_dict
+	
+func load(dict):
+	$\"Header\".load(dict[\"Header\"])
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends ColorRect

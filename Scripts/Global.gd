@@ -10,7 +10,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
+	
 	
 func _editing_start():
 	for lineEdit in get_tree().get_nodes_in_group("Editor Only"):
@@ -33,4 +33,6 @@ func _exporting_start():
 		viewport.gui_disable_input = true
 	
 func _popup_start():
-	pass
+	for viewport in get_tree().get_nodes_in_group("Viewport"):
+		viewport.gui_disable_input = true
+		
