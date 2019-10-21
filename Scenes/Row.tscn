@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
@@ -8,9 +8,10 @@
 [ext_resource path="res://Fonts/Roboto30.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Images/LShape.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Dimensions Inside.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Images/Rectangle.png" type="Texture" id=9]
-[ext_resource path="res://Images/Square.png" type="Texture" id=10]
-[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=11]
+[ext_resource path="res://Fonts/Roboto24.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Images/Rectangle.png" type="Texture" id=10]
+[ext_resource path="res://Images/Square.png" type="Texture" id=11]
+[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=12]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -176,7 +177,7 @@ tracks/9/keys = {
 "values": [ Vector2( 0.12, 0.12 ), Vector2( 0.3, 0.3 ) ]
 }
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=3]
 script/source = "extends TextureRect
 
 # Declare member variables here. Examples:
@@ -225,7 +226,7 @@ func _set_dimension_visibility():
 		widthLabel.get_parent().visible = false
 	else: widthLabel.get_parent().visible = true"
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id=4]
 script/source = "extends TextureRect
 
 # Declare member variables here. Examples:
@@ -311,67 +312,6 @@ func _set_dimension_visibility():
 		lengthTopLabel.get_parent().visible = false
 	else: lengthTopLabel.get_parent().visible = true"
 
-[sub_resource type="GDScript" id=6]
-script/source = "extends TextureRect
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-onready var dimensions = [$\"Dimensions Length\", $\"Dimensions Width\"]
-# Called when the node enters the scene tree for the first time.
-onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
-onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
-
-onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
-onready var widthLabel = $\"Dimensions Width/Width Label\"
-
-onready var lengthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Length Entry/LineEdit\"
-onready var lengthLabel = $\"Dimensions Length/Length Label\"
-
-func _ready():
-	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
-	short.connect(\"pressed\",self,\"_on_short_pressed\")
-	
-	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
-	lengthEntry.connect(\"text_changed\", self, \"_length_text_changed\")
-	
-	
-	for d in dimensions:
-			d.visible = false
-
-	_set_dimension_visibility()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func _on_tall_pressed():
-	_set_dimension_visibility()
-			
-func _on_short_pressed():
-	if short.pressed:
-		for d in dimensions:
-			d.visible = false
-			
-func _width_text_changed(t):
-	widthLabel.text = t
-	_set_dimension_visibility()
-	
-func _length_text_changed(t):
-	lengthLabel.text = t
-	_set_dimension_visibility()
-	
-func _set_dimension_visibility():
-	if $\"../../..\".ID == 0:
-		return
-		
-	if widthLabel.text == \"\":
-		widthLabel.get_parent().visible = false
-	else: widthLabel.get_parent().visible = true
-	
-	if lengthLabel.text == \"\":
-		lengthLabel.get_parent().visible = false
-	else: lengthLabel.get_parent().visible = true"
-
 [sub_resource type="GDScript" id=5]
 script/source = "extends TextureRect
 
@@ -401,6 +341,67 @@ func _ready():
 			d.visible = false
 
 	_set_dimension_visibility()
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _on_tall_pressed():
+	_set_dimension_visibility()
+			
+func _on_short_pressed():
+	if short.pressed:
+		for d in dimensions:
+			d.visible = false
+			
+func _width_text_changed(t):
+	widthLabel.text = t
+	_set_dimension_visibility()
+	
+func _length_text_changed(t):
+	lengthLabel.text = t
+	_set_dimension_visibility()
+	
+func _set_dimension_visibility():
+	if $\"../../..\".ID == 0:
+		return
+		
+	if widthLabel.text == \"\":
+		widthLabel.get_parent().visible = false
+	else: widthLabel.get_parent().visible = true
+	
+	if lengthLabel.text == \"\":
+		lengthLabel.get_parent().visible = false
+	else: lengthLabel.get_parent().visible = true"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends TextureRect
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var dimensions = [$\"Dimensions Length\", $\"Dimensions Width\"]
+# Called when the node enters the scene tree for the first time.
+onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
+onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+
+onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
+onready var widthLabel = $\"Dimensions Width/Width Label\"
+
+onready var lengthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Length Entry/LineEdit\"
+onready var lengthLabel = $\"Dimensions Length/Length Label\"
+
+func _ready():
+	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
+	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	
+	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
+	lengthEntry.connect(\"text_changed\", self, \"_length_text_changed\")
+	
+	
+	for d in dimensions:
+			d.visible = false
+
+	_set_dimension_visibility()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -434,7 +435,7 @@ func _set_dimension_visibility():
 		lengthLabel.get_parent().visible = false
 	else: lengthLabel.get_parent().visible = true"
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=7]
 script/source = "extends AcceptDialog
 
 # Declare member variables here. Examples:
@@ -456,7 +457,7 @@ func _on_Button_pressed():
 	rect_position.y = get_viewport().get_mouse_position().y - rect_size.y - 20
 "
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=8]
 script/source = "extends OptionButton
 
 # Declare member variables here. Examples:
@@ -520,7 +521,7 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 54.4225
+margin_bottom = 50.9567
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -545,27 +546,28 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Box" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_bottom = 54.0
+margin_bottom = 50.0
 
 [node name="Box2" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
-margin_bottom = 54.0
+margin_bottom = 50.0
 
 [node name="Box3" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
-margin_bottom = 54.0
+margin_bottom = 50.0
 
 [node name="Box4" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
-margin_bottom = 54.0
+margin_bottom = 50.0
 
 [node name="Box5" type="ColorRect" parent="HBoxContainer"]
+editor/display_folded = true
 margin_left = 484.0
 margin_right = 724.0
-margin_bottom = 54.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -590,7 +592,7 @@ rect_scale = Vector2( 0.28, 0.28 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 4
-script = SubResource( 7 )
+script = SubResource( 3 )
 
 [node name="CheckBox Custom" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
 margin_left = 28.3649
@@ -647,7 +649,6 @@ valign = 1
 clip_text = true
 
 [node name="LShape" type="TextureRect" parent="HBoxContainer/Box5"]
-editor/display_folded = true
 visible = false
 margin_left = 94.0
 margin_top = 2.29719
@@ -657,7 +658,7 @@ rect_scale = Vector2( 0.18, 0.18 )
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
-script = SubResource( 8 )
+script = SubResource( 4 )
 
 [node name="CheckBox Custom" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
@@ -772,7 +773,6 @@ valign = 1
 clip_text = true
 
 [node name="Dimensions Width" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 8 )]
-editor/display_folded = true
 margin_left = 71.934
 margin_top = 25.417
 margin_right = 452.934
@@ -787,7 +787,7 @@ margin_right = 268.0
 margin_bottom = 370.0
 rect_rotation = -89.9999
 rect_scale = Vector2( 2.5, 2.5 )
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 2
 valign = 1
@@ -801,10 +801,10 @@ margin_top = -1.24542
 margin_right = 421.208
 margin_bottom = 219.755
 rect_scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 expand = true
 stretch_mode = 4
-script = SubResource( 6 )
+script = SubResource( 5 )
 
 [node name="CheckBox Custom8" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
 editor/display_folded = true
@@ -888,10 +888,10 @@ margin_top = 3.47629
 margin_right = 445.965
 margin_bottom = 337.477
 rect_scale = Vector2( 0.12, 0.12 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 4
-script = SubResource( 5 )
+script = SubResource( 6 )
 
 [node name="CheckBox Custom13" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
 editor/display_folded = true
@@ -994,7 +994,7 @@ margin_right = 262.81
 margin_bottom = -38.1467
 rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
-script = SubResource( 3 )
+script = SubResource( 7 )
 
 [node name="VBox" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog"]
 margin_left = 8.0
@@ -1024,7 +1024,7 @@ text = "Square"
 clip_text = true
 items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L", null, false, 2, null, "Arch", null, false, 3, null ]
 selected = 0
-script = SubResource( 4 )
+script = SubResource( 8 )
 
 [node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2"]
 margin_left = 158.0
@@ -1036,14 +1036,14 @@ alignment = 1
 margin_right = 61.0
 margin_bottom = 24.0
 pressed = true
-group = ExtResource( 11 )
+group = ExtResource( 12 )
 text = "Short"
 
 [node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall"]
 margin_left = 65.0
 margin_right = 115.0
 margin_bottom = 24.0
-group = ExtResource( 11 )
+group = ExtResource( 12 )
 text = "Tall"
 
 [node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
@@ -1139,7 +1139,7 @@ max_length = 12
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
-margin_bottom = 54.0
+margin_bottom = 50.0
 [connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Box5/Remove Row" to="." method="_on_Button_pressed"]
 [connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]

@@ -122,18 +122,17 @@ custom_constants/separation = 0
 script = SubResource( 1 )
 
 [node name="Header" parent="." instance=ExtResource( 1 )]
-margin_bottom = 350.0
-rect_min_size = Vector2( 850, 350 )
+rect_min_size = Vector2( 850, 400 )
 
 [node name="Row" parent="." instance=ExtResource( 2 )]
-margin_top = 350.0
-margin_bottom = 500.0
+margin_top = 400.0
+margin_bottom = 450.0
 script = SubResource( 2 )
 
 [node name="Add Row Buttons" type="VBoxContainer" parent="."]
-margin_top = 500.0
+margin_top = 450.0
 margin_right = 850.0
-margin_bottom = 545.0
+margin_bottom = 495.0
 rect_min_size = Vector2( 0, 30 )
 custom_constants/separation = 0
 script = SubResource( 3 )

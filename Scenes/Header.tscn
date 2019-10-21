@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Scenes/PageName.gd" type="Script" id=4]
+[ext_resource path="res://Fonts/Roboto40.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scenes/PageName.gd" type="Script" id=5]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=3]
 script/source = "extends ColorRect
 
 # Declare member variables here. Examples:
@@ -20,9 +21,9 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="Theme" id=2]
+[sub_resource type="Theme" id=4]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=5]
 script/source = "extends ConfirmationDialog
 
 # Declare member variables here. Examples:
@@ -54,7 +55,7 @@ func _on_Change_Page_Name_about_to_show():
 	lineEdit.text = pageName.text
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -85,9 +86,12 @@ func _on_LineEdit_text_changed(new_text):
 
 [node name="Header" type="ColorRect"]
 margin_right = 850.0
-margin_bottom = 323.0
+margin_bottom = 400.0
 rect_min_size = Vector2( 0, 350 )
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -107.126 ]
+}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -98,28 +102,61 @@ margin_right = -3.0
 margin_bottom = -3.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 320 )
 custom_constants/separation = -5
 
-[node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Company Name" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 850.0
-margin_bottom = 103.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 850, 75 )
+custom_constants/separation = -4
+
+[node name="Company Name Bg" type="ColorRect" parent="VBoxContainer/Company Name"]
+margin_right = 850.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 850, 0 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/Company Name/Company Name Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+
+[node name="Entry Text" type="Label" parent="VBoxContainer/Company Name/Company Name Bg/Entry Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Company Name Placeholder"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_top = 70.0
+margin_right = 850.0
+margin_bottom = 173.0
 rect_min_size = Vector2( 850, 103 )
 custom_constants/separation = -4
 
-[node name="Date Recieved" parent="VBoxContainer/1st Row" instance=ExtResource( 1 )]
+[node name="Date Recieved" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 
-[node name="Date Written" parent="VBoxContainer/1st Row" instance=ExtResource( 1 )]
+[node name="Date Written" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 margin_left = 169.0
 margin_right = 342.0
 
-[node name="Date Promised" parent="VBoxContainer/1st Row" instance=ExtResource( 1 )]
+[node name="Date Promised" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 margin_left = 338.0
 margin_right = 511.0
 
-[node name="Date Completed" parent="VBoxContainer/1st Row" instance=ExtResource( 1 )]
+[node name="Date Completed" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 margin_left = 507.0
 margin_right = 680.0
 
@@ -130,7 +167,7 @@ margin_right = 849.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 173, 0 )
 color = Color( 0, 0, 0, 1 )
-script = SubResource( 1 )
+script = SubResource( 3 )
 
 [node name="Entry Bg" type="ColorRect" parent="VBoxContainer/1st Row/Page Name"]
 anchor_right = 1.0
@@ -143,7 +180,7 @@ margin_bottom = -6.0
 [node name="Entry Text" type="Label" parent="VBoxContainer/1st Row/Page Name/Entry Bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
@@ -158,13 +195,13 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = -3.0
 margin_bottom = -3.0
-theme = SubResource( 2 )
-custom_fonts/font = ExtResource( 3 )
+theme = SubResource( 4 )
+custom_fonts/font = ExtResource( 4 )
 align = 1
 max_length = 15
 editable = false
 caret_blink = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="Label Bg" type="ColorRect" parent="VBoxContainer/1st Row/Page Name"]
 anchor_right = 1.0
@@ -177,58 +214,59 @@ margin_bottom = -67.0
 [node name="Label" type="Label" parent="VBoxContainer/1st Row/Page Name/Label Bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
 
 [node name="2nd Row" type="HBoxContainer" parent="VBoxContainer"]
 editor/display_folded = true
-margin_top = 98.0
+margin_top = 168.0
 margin_right = 850.0
-margin_bottom = 201.0
+margin_bottom = 271.0
 rect_min_size = Vector2( 850, 103 )
 custom_constants/separation = 0
 
-[node name="Customer" parent="VBoxContainer/2nd Row" instance=ExtResource( 1 )]
+[node name="Customer" parent="VBoxContainer/2nd Row" instance=ExtResource( 2 )]
 margin_right = 425.0
 rect_min_size = Vector2( 425, 0 )
 
-[node name="PO#" parent="VBoxContainer/2nd Row" instance=ExtResource( 1 )]
+[node name="PO#" parent="VBoxContainer/2nd Row" instance=ExtResource( 2 )]
 margin_left = 425.0
 margin_right = 850.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="3rd Row" type="HBoxContainer" parent="VBoxContainer"]
 editor/display_folded = true
-margin_top = 196.0
+margin_top = 266.0
 margin_right = 850.0
-margin_bottom = 299.0
+margin_bottom = 369.0
 rect_min_size = Vector2( 850, 103 )
 custom_constants/separation = 0
 
-[node name="Material" parent="VBoxContainer/3rd Row" instance=ExtResource( 1 )]
+[node name="Material" parent="VBoxContainer/3rd Row" instance=ExtResource( 2 )]
 margin_right = 425.0
 rect_min_size = Vector2( 425, 0 )
 
-[node name="Notes" parent="VBoxContainer/3rd Row" instance=ExtResource( 1 )]
+[node name="Notes" parent="VBoxContainer/3rd Row" instance=ExtResource( 2 )]
 margin_left = 425.0
 margin_right = 850.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="Header Row" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 294.0
+editor/display_folded = true
+margin_top = 364.0
 margin_right = 850.0
-margin_bottom = 349.0
-rect_min_size = Vector2( 850, 55 )
+margin_bottom = 399.0
+rect_min_size = Vector2( 0, 35 )
 custom_constants/separation = 0
 
 [node name="Quantity" type="Label" parent="VBoxContainer/Header Row"]
-margin_top = 14.0
+margin_top = 4.0
 margin_right = 121.0
-margin_bottom = 41.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Quantity"
 align = 1
@@ -237,19 +275,18 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Quantity"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_top = -10.0
 margin_right = 124.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 3, 50 )
+margin_bottom = 5.0
+rect_min_size = Vector2( 3, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Thickness" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 121.0
-margin_top = 14.0
+margin_top = 4.0
 margin_right = 242.0
-margin_bottom = 41.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Thickness"
 align = 1
@@ -258,19 +295,18 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Thickness"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_top = -10.0
 margin_right = 124.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 3, 50 )
+margin_bottom = 5.0
+rect_min_size = Vector2( 3, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Width" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 242.0
-margin_top = 14.0
+margin_top = 4.0
 margin_right = 363.0
-margin_bottom = 41.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Width"
 align = 1
@@ -279,19 +315,18 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Width"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_top = -10.0
 margin_right = 124.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 3, 50 )
+margin_bottom = 5.0
+rect_min_size = Vector2( 3, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Length" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 363.0
-margin_top = 14.0
+margin_top = 4.0
 margin_right = 484.0
-margin_bottom = 41.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Length"
 align = 1
@@ -300,19 +335,18 @@ valign = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Length"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_top = -10.0
 margin_right = 124.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 3, 50 )
+margin_bottom = 5.0
+rect_min_size = Vector2( 3, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Edges" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 484.0
-margin_top = 14.0
+margin_top = 4.0
 margin_right = 724.0
-margin_bottom = 41.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 240, 26 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Edges"
 align = 1
@@ -322,32 +356,32 @@ valign = 2
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -10.0
 margin_right = 3.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 3, 50 )
+margin_bottom = 5.0
+rect_min_size = Vector2( 3, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Part Mark" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 724.0
-margin_top = 14.0
+margin_top = 4.0
 margin_right = 845.0
-margin_bottom = 41.0
+margin_bottom = 31.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Part Mark"
 align = 1
 valign = 2
 
 [node name="Change Page Name" type="ConfirmationDialog" parent="."]
+editor/display_folded = true
 margin_left = 391.0
 margin_top = 109.0
 margin_right = 673.0
 margin_bottom = 209.0
 popup_exclusive = true
 window_title = "Change Page Name"
-script = SubResource( 4 )
+script = SubResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Change Page Name"]
 anchor_right = 1.0
@@ -370,7 +404,7 @@ margin_top = 38.0
 margin_right = 266.0
 margin_bottom = 52.0
 custom_colors/font_color = Color( 0.901961, 0.521569, 0.521569, 1 )
-script = SubResource( 3 )
+script = SubResource( 6 )
 [connection signal="gui_input" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_gui_input"]
 [connection signal="text_entered" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_text_entered"]
 [connection signal="about_to_show" from="Change Page Name" to="Change Page Name" method="_on_Change_Page_Name_about_to_show"]
