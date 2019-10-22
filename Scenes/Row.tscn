@@ -988,7 +988,6 @@ text = "Remove"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
-editor/display_folded = true
 margin_left = -38.19
 margin_top = -250.147
 margin_right = 262.81
@@ -1056,7 +1055,6 @@ custom_constants/hseparation = 70
 columns = 2
 
 [node name="Final Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
-editor/display_folded = true
 margin_right = 108.0
 margin_bottom = 42.0
 alignment = 1
@@ -1075,9 +1073,9 @@ margin_bottom = 42.0
 rect_min_size = Vector2( 100, 0 )
 max_length = 12
 placeholder_alpha = 0.538
+caret_blink = true
 
 [node name="Final Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
-editor/display_folded = true
 margin_left = 178.0
 margin_right = 282.0
 margin_bottom = 42.0
@@ -1095,9 +1093,9 @@ margin_right = 104.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 100, 0 )
 max_length = 12
+caret_blink = true
 
 [node name="Final Right Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
-editor/display_folded = true
 margin_top = 62.0
 margin_right = 108.0
 margin_bottom = 104.0
@@ -1115,9 +1113,9 @@ margin_right = 108.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 100, 0 )
 max_length = 12
+caret_blink = true
 
 [node name="Final Top Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
-editor/display_folded = true
 margin_left = 178.0
 margin_top = 62.0
 margin_right = 282.0
@@ -1136,6 +1134,7 @@ margin_right = 104.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 100, 0 )
 max_length = 12
+caret_blink = true
 
 [node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
