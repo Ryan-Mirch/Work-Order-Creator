@@ -567,8 +567,9 @@ text = "Rename"
 [node name="Rename Popup" type="ConfirmationDialog" parent="Projects/HBoxContainer/Rename"]
 visible = true
 margin_left = 17.5248
+margin_top = 69.8064
 margin_right = 265.525
-margin_bottom = 80.0
+margin_bottom = 155.806
 window_title = "Rename Project"
 script = SubResource( 5 )
 
@@ -592,9 +593,10 @@ text = "Create New"
 
 [node name="NewProject" type="ConfirmationDialog" parent="Projects/HBoxContainer/Create New"]
 visible = true
-margin_left = -342.96
-margin_right = -94.9599
-margin_bottom = 80.0
+margin_left = -344.068
+margin_top = 69.8064
+margin_right = -96.068
+margin_bottom = 155.806
 window_title = "Create New Project"
 script = SubResource( 6 )
 
