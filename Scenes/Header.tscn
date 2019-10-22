@@ -23,7 +23,7 @@ onready var PO = $\"VBoxContainer/2nd Row/PO#/Entry Bg/Entry\"
 onready var _Material = $\"VBoxContainer/3rd Row/Material/Entry Bg/Entry\"
 onready var Notes = $\"VBoxContainer/3rd Row/Notes/Entry Bg/Entry\"
 
-
+var save_dict
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -32,7 +32,7 @@ func _ready():
 #func _process(delta):
 #	pass
 func _save():
-	var save_dict = {
+	save_dict = {
 		\"VBoxContainer/1st Row/Date Recieved/Entry Bg/Entry\" : DateReceived.text,
 		\"VBoxContainer/1st Row/Date Written/Entry Bg/Entry\" : DateWritten.text,
 		\"VBoxContainer/1st Row/Date Promised/Entry Bg/Entry\" : DatePromised.text,
@@ -42,16 +42,22 @@ func _save():
 		\"VBoxContainer/2nd Row/PO#/Entry Bg/Entry\" : PO.text,
 		
 		\"VBoxContainer/3rd Row/Material/Entry Bg/Entry\" : _Material.text,
-		\"VBoxContainer/3rd Row/Notes/Entry Bg/Entry\" : Notes.text
+		\"VBoxContainer/3rd Row/Notes/Entry Bg/Entry\" : Notes.text,
+		
+		\"Page Name\" : get_parent().name
 	}
 	return save_dict
 
 
 func _load(dict):
 	
+		
 	for i in dict.keys():
-		print(dict[i])
-		#$i.text =  dict[i]
+		if i == \"Page Name\":
+			get_parent().name = dict[i]
+			
+		else: 
+			get_node(i).text =  dict[i]
 	
 	
 	
@@ -199,7 +205,6 @@ valign = 1
 autowrap = true
 
 [node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_top = 70.0
 margin_right = 850.0
 margin_bottom = 173.0

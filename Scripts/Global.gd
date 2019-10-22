@@ -4,6 +4,7 @@ extends Node
 # var a = 2
 # var b = "text"
 # Called when the node enters the scene tree for the first time.
+var state = 0
 func _ready():
 	pass
 
@@ -13,6 +14,7 @@ func _ready():
 	
 	
 func _editing_start():
+	state = 1
 	for lineEdit in get_tree().get_nodes_in_group("Editor Only"):
 		lineEdit.visible = true
 		
@@ -23,6 +25,7 @@ func _editing_start():
 		viewport.gui_disable_input = false
 	
 func _exporting_start():
+	state = 2
 	for lineEdit in get_tree().get_nodes_in_group("Editor Only"):
 		lineEdit.visible = false
 		
@@ -33,6 +36,7 @@ func _exporting_start():
 		viewport.gui_disable_input = true
 	
 func _popup_start():
+	state = 3
 	for viewport in get_tree().get_nodes_in_group("Viewport"):
 		viewport.gui_disable_input = true
 		

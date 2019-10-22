@@ -21,6 +21,8 @@ func _ready():
 func _update_text():
 	text = pageInstance.name
 	_update_label(text)
+	
+	
 		
 func _update_label(newText):
 	get_parent().get_node("Entry Text").text = newText
