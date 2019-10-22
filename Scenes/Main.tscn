@@ -154,20 +154,24 @@ func _on_Projects_popup_hide():
 	Global._editing_start()
 	if currentProject == \"\":
 		popup()
-
+		
+func _remove_all_pages():
+	var pages = get_tree().get_nodes_in_group(\"Page Instance\")
+	for i in pages:
+		i.remove_from_group(\"Page Instance\")
+		i.name = \"!!!!!!\" + i.name + \"!!!!!!\"
+		i.queue_free()
+	$\"../Side Bar/PageList Background/PageList\".clear()
+	
 func _load(n):
 	var save_file = File.new()
 	if not save_file.file_exists(\"user://\"+ n + \".save\"):
 		print(\"save does not exist\")
 		return
 		
-	var pages = get_tree().get_nodes_in_group(\"Page Instance\")
-	for i in pages:
-		i.remove_from_group(\"Page Instance\")
-		i.name = \"!!!!!!\" + i.name + \"!!!!!!\"
-		i.queue_free()
+	_remove_all_pages()
 		
-	$\"../Side Bar/PageList Background/PageList\".clear()
+	
 	
 	save_file.open(\"user://\" + n + \".save\", File.READ)
 	
@@ -213,9 +217,7 @@ func _on_NewProject_newProject(n):
 	
 	var pages = get_tree().get_nodes_in_group(\"Page Instance\")
 	
-	for i in pages:
-		i.remove_from_group(\"Page Instance\")
-		i.queue_free()
+	_remove_all_pages()
 		
 	var page = load(\"res://Scenes/Page Instance.tscn\")
 	var pageInstance = page.instance()	
