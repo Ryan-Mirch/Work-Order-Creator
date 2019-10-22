@@ -613,6 +613,7 @@ text = "Delete"
 script = SubResource( 4 )
 
 [node name="Page View" type="ScrollContainer" parent="."]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -650,6 +651,7 @@ color = Color( 0.870588, 0.870588, 0.870588, 1 )
 visible = false
 
 [node name="Side Bar" type="ColorRect" parent="."]
+editor/display_folded = true
 margin_right = 200.0
 margin_bottom = 850.0
 color = Color( 0.478431, 0.478431, 0.478431, 1 )
@@ -758,17 +760,17 @@ custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.247059, 0.247059, 0.247059, 1 )
 text = "Current Project:"
 align = 1
-valign = 1
 
 [node name="Current Project Name" type="Label" parent="Top Bar/Viewport/Top Bar Background/Project Title"]
 margin_left = 135.0
 margin_top = 3.0
-margin_right = 135.0
+margin_right = 485.0
 margin_bottom = 25.0
+rect_min_size = Vector2( 350, 0 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-align = 1
 valign = 1
+autowrap = true
 script = SubResource( 8 )
 [connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]

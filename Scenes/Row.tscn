@@ -564,6 +564,7 @@ margin_right = 484.5
 margin_bottom = 50.0
 
 [node name="Box5" type="ColorRect" parent="HBoxContainer"]
+editor/display_folded = true
 margin_left = 484.0
 margin_right = 724.0
 margin_bottom = 50.0
@@ -988,6 +989,7 @@ text = "Remove"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
 "Popup",
 ]]
+editor/display_folded = true
 margin_left = -38.19
 margin_top = -250.147
 margin_right = 262.81

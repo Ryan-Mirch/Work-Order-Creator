@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Fonts/Roboto40.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/PageName.gd" type="Script" id=5]
+[ext_resource path="res://Fonts/Roboto30.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Fonts/Roboto16.tres" type="DynamicFont" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -71,6 +73,22 @@ func _load(dict):
 	
 	"
 
+[sub_resource type="GDScript" id=6]
+script/source = "extends Label
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	text = Global.companyName
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
 [sub_resource type="GDScript" id=2]
 script/source = "extends ColorRect
 
@@ -99,7 +117,7 @@ onready var lineEdit = $\"VBoxContainer/LineEdit\"
 onready var pageName = $\"../VBoxContainer/1st Row/Page Name/Entry Bg/Entry\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	register_text_enter($\"VBoxContainer/LineEdit\")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -174,7 +192,6 @@ rect_min_size = Vector2( 0, 320 )
 custom_constants/separation = -5
 
 [node name="Company Name" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 850, 75 )
@@ -199,10 +216,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Company Name Placeholder"
 align = 1
 valign = 1
 autowrap = true
+script = SubResource( 6 )
 
 [node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 70.0
@@ -436,9 +453,9 @@ align = 1
 valign = 2
 
 [node name="Change Page Name" type="ConfirmationDialog" parent="."]
-editor/display_folded = true
+visible = true
 margin_left = 391.0
-margin_top = 109.0
+margin_top = 88.0
 margin_right = 673.0
 margin_bottom = 209.0
 popup_exclusive = true
@@ -453,19 +470,24 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -36.0
 custom_constants/separation = 10
-alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="Change Page Name/VBoxContainer"]
-margin_top = 4.0
 margin_right = 266.0
-margin_bottom = 28.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 6 )
 max_length = 30
+placeholder_text = "New Page Name"
+placeholder_alpha = 0.25
+caret_blink = true
 
 [node name="Warning" type="Label" parent="Change Page Name/VBoxContainer"]
-margin_top = 38.0
+margin_top = 56.0
 margin_right = 266.0
-margin_bottom = 52.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.901961, 0.521569, 0.521569, 1 )
+text = "this is a test"
 script = SubResource( 5 )
 [connection signal="gui_input" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_gui_input"]
 [connection signal="text_entered" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_text_entered"]
