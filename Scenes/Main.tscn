@@ -233,8 +233,9 @@ func _on_NewProject_newProject(n):
 	var page = load(\"res://Scenes/Page Instance.tscn\")
 	var pageInstance = page.instance()	
 	pageInstance.name = \"Page 1\"
-	$\"../Page View/ViewportContainer/Viewport\".add_child(pageInstance)
 	
+	$\"../Page View/ViewportContainer/Viewport\".add_child(pageInstance)
+	pageInstance._add_row(0)
 	_save(n)
 	
 	$\"ItemList\".add_item(n)
@@ -275,7 +276,7 @@ func files_in_directory(path):
 
 "
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=4]
 script/source = "extends ConfirmationDialog
 
 # Declare member variables here. Examples:
@@ -367,7 +368,7 @@ func _on_Rename_Popup_confirmed():
 	if projects.currentProject == oldName:
 		projects._set_current_project(newName)"
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Button
 
 # Declare member variables here. Examples:
@@ -534,6 +535,7 @@ custom_constants/vseparation = 10
 custom_constants/hseparation = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Projects"]
+editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -557,7 +559,7 @@ margin_top = 71.2384
 margin_right = 200.352
 margin_bottom = 157.238
 window_title = "Create New Project"
-script = SubResource( 6 )
+script = SubResource( 4 )
 
 [node name="LineEdit" type="LineEdit" parent="Projects/HBoxContainer/Create New/NewProject"]
 margin_left = 8.0
@@ -610,10 +612,9 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 90, 0 )
 custom_colors/font_color = Color( 0.803922, 0.129412, 0.129412, 1 )
 text = "Delete"
-script = SubResource( 4 )
+script = SubResource( 6 )
 
 [node name="Page View" type="ScrollContainer" parent="."]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

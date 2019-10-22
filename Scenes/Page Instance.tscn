@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Header.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Row.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends VBoxContainer
@@ -11,12 +10,17 @@ script/source = "extends VBoxContainer
 # var a = 2
 # var b = \"text\"
 onready var pageList = $\"../../../../Side Bar/PageList Background/PageList\"
+onready var buttons = $\"Add Row Buttons\"
+
+onready var rowScene = load(\"res://Scenes/Row.tscn\")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	
 	if Global.state == 3: return
-		
+	
+	_add_row(0)
+	
 	_init_display_name()	
 	pageList.add_item(name)
 	pageList._open_page(pageList.get_item_count() - 1)
@@ -24,6 +28,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _add_row(s):
+	
+	var rowInstance = rowScene.instance()	
+	rowInstance.ID = s	
+	add_child(rowInstance)
+	buttons._fix_index()
 
 func _init_display_name():
 	
@@ -44,66 +55,44 @@ func _init_display_name():
 
 
 func _save():
+	var rows_dict = {}
+	
+	for n in get_children():
+		if n.is_in_group(\"Row\"):
+			rows_dict[n.get_position_in_parent()] = n._save()
+	
 	var save_dict = {
-		\"Header\" : $\"Header\"._save()
+		\"Header\" : $\"Header\"._save(),
+		\"Rows\" : rows_dict
 	}
+	
 	return save_dict
 	
 func _load(dict):
 	$\"Header\"._load(dict[\"Header\"])
 	pageList.add_item(name)
 	
+	var rows_dict = dict[\"Rows\"]
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-"
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends ColorRect
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-export var ID = 0
-onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Short\"
-onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if ID == 0:
-		Short.pressed = true
-	if ID == 1:
-		Tall.pressed = true
-		$\"AnimationPlayer\".play(\"Row\")
+	for k in rows_dict.keys():
+		var rowDict = rows_dict[k]
+		var rowInstance = rowScene.instance()		
+		add_child(rowInstance)
+		rowInstance._load(rowDict)
 		
+	buttons._fix_index()
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
-
-func _on_Tall_pressed():
-	if ID == 0:
-		$\"AnimationPlayer\".play(\"Row\")
-		ID = 1
-
-func _on_Short_pressed():
-	if ID == 1:
-		$\"AnimationPlayer\".play_backwards(\"Row\")
-		ID = 0
-
-
-func _on_Button_pressed():
-	get_parent().remove_child(self)
 "
 
 [sub_resource type="GDScript" id=3]
@@ -112,7 +101,6 @@ script/source = "extends VBoxContainer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-onready var row = load(\"res://Scenes/Row.tscn\")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -121,22 +109,16 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
-	
+func _fix_index():
+	var index = get_parent().get_child_count() - 1
+	get_parent().move_child(self, index)
 
 func _on_Add_Short_Row_pressed():
-	var row_instance = row.instance()	
-	row_instance.ID = 0
-	get_parent().add_child(row_instance)	
-	get_parent().move_child(self, get_index() + 1)
+	get_parent()._add_row(0)
 
 
 func _on_Add_Tall_Row_pressed():
-	var row_instance = row.instance()	
-	row_instance.ID = 1
-	get_parent().add_child(row_instance)	
-	get_parent().move_child(self, get_index() + 1)
-"
+	get_parent()._add_row(1)"
 
 [node name="Page Instance" type="VBoxContainer" groups=[
 "Page Instance",
@@ -151,15 +133,10 @@ script = SubResource( 1 )
 [node name="Header" parent="." instance=ExtResource( 1 )]
 rect_min_size = Vector2( 850, 400 )
 
-[node name="Row" parent="." instance=ExtResource( 2 )]
-margin_top = 400.0
-margin_bottom = 450.0
-script = SubResource( 2 )
-
 [node name="Add Row Buttons" type="VBoxContainer" parent="."]
-margin_top = 450.0
+margin_top = 400.0
 margin_right = 850.0
-margin_bottom = 495.0
+margin_bottom = 445.0
 rect_min_size = Vector2( 0, 30 )
 custom_constants/separation = 0
 script = SubResource( 3 )
@@ -184,7 +161,7 @@ margin_left = 16.0
 margin_right = 416.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 400, 40 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 2 )
 text = "Add Short Row"
 
 [node name="Add Tall Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=[
@@ -194,7 +171,7 @@ margin_left = 434.0
 margin_right = 834.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 400, 30 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 2 )
 text = "Add Tall Row"
 clip_text = true
 [connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Short Row" to="Add Row Buttons" method="_on_Add_Short_Row_pressed"]

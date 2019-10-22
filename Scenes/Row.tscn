@@ -20,15 +20,24 @@ script/source = "extends ColorRect
 # var a = 2
 # var b = \"text\"
 export var ID = 0
+
 onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Short\"
 onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
+
+onready var Quantity = $\"HBoxContainer/Quantity/LineEdit\"
+onready var Thickness = $\"HBoxContainer/Thickness/LineEdit\"
+onready var Width = $\"HBoxContainer/Width/LineEdit\"
+onready var Length = $\"HBoxContainer/Length/LineEdit\"
+onready var PartMark = $\"HBoxContainer/Part Mark/LineEdit\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if ID == 0:
-		Short.pressed = true
+		if Short != null:
+			Short.pressed = true
 	if ID == 1:
-		Tall.pressed = true
-		$\"AnimationPlayer\".play(\"Row\")
+		if Tall != null:
+			Tall.pressed = true
+			$\"AnimationPlayer\".play(\"Row\")
 		
 	
 
@@ -50,6 +59,21 @@ func _on_Short_pressed():
 
 func _on_Button_pressed():
 	get_parent().remove_child(self)
+	
+func _save():
+	var save_dict = {
+		\"HBoxContainer/Quantity/LineEdit\" : Quantity.text,
+		\"HBoxContainer/Thickness/LineEdit\" : Thickness.text,
+		\"HBoxContainer/Width/LineEdit\" : Width.text,
+		\"HBoxContainer/Length/LineEdit\" : Length.text,
+		\"HBoxContainer/Part Mark/LineEdit\" : PartMark.text
+		}
+	
+	return save_dict
+	
+func _load(dict):
+	for i in dict.keys():
+		get_node(i).text =  dict[i]
 
 "
 
@@ -81,7 +105,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 50 ), Vector2( 0, 150 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("HBoxContainer/Box5/Arch:rect_position")
+tracks/2/path = NodePath("HBoxContainer/Edges/Arch:rect_position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -93,7 +117,7 @@ tracks/2/keys = {
 "values": [ Vector2( 83.6127, 4.58229 ), Vector2( 52.2988, 29.8191 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("HBoxContainer/Box5/Arch:rect_scale")
+tracks/3/path = NodePath("HBoxContainer/Edges/Arch:rect_scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -105,7 +129,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0.28, 0.28 ), Vector2( 0.5, 0.5 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("HBoxContainer/Box5/LShape:rect_position")
+tracks/4/path = NodePath("HBoxContainer/Edges/LShape:rect_position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -117,7 +141,7 @@ tracks/4/keys = {
 "values": [ Vector2( 94, 2.29719 ), Vector2( 41.9384, 37.5614 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("HBoxContainer/Box5/LShape:rect_scale")
+tracks/5/path = NodePath("HBoxContainer/Edges/LShape:rect_scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -129,7 +153,7 @@ tracks/5/keys = {
 "values": [ Vector2( 0.18, 0.18 ), Vector2( 0.4, 0.4 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("HBoxContainer/Box5/Rectangle:rect_position")
+tracks/6/path = NodePath("HBoxContainer/Edges/Rectangle:rect_position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -141,7 +165,7 @@ tracks/6/keys = {
 "values": [ Vector2( 85.2076, -1.24542 ), Vector2( 12.2651, 28.6222 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("HBoxContainer/Box5/Rectangle:rect_scale")
+tracks/7/path = NodePath("HBoxContainer/Edges/Rectangle:rect_scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -153,7 +177,7 @@ tracks/7/keys = {
 "values": [ Vector2( 0.25, 0.25 ), Vector2( 0.45, 0.45 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("HBoxContainer/Box5/Square:rect_position")
+tracks/8/path = NodePath("HBoxContainer/Edges/Square:rect_position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -165,7 +189,7 @@ tracks/8/keys = {
 "values": [ Vector2( 105.965, 3.47629 ), Vector2( 46.5552, 17.1176 ) ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("HBoxContainer/Box5/Square:rect_scale")
+tracks/9/path = NodePath("HBoxContainer/Edges/Square:rect_scale")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -545,26 +569,25 @@ rect_min_size = Vector2( 50, 50 )
 mouse_filter = 2
 custom_constants/separation = 0
 
-[node name="Box" parent="HBoxContainer" instance=ExtResource( 1 )]
+[node name="Quantity" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_bottom = 50.0
 
-[node name="Box2" parent="HBoxContainer" instance=ExtResource( 1 )]
+[node name="Thickness" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
 margin_bottom = 50.0
 
-[node name="Box3" parent="HBoxContainer" instance=ExtResource( 1 )]
+[node name="Width" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
 margin_bottom = 50.0
 
-[node name="Box4" parent="HBoxContainer" instance=ExtResource( 1 )]
+[node name="Length" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
 margin_bottom = 50.0
 
-[node name="Box5" type="ColorRect" parent="HBoxContainer"]
-editor/display_folded = true
+[node name="Edges" type="ColorRect" parent="HBoxContainer"]
 margin_left = 484.0
 margin_right = 724.0
 margin_bottom = 50.0
@@ -572,7 +595,7 @@ rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Box5"]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Edges"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 2.81537
@@ -581,7 +604,7 @@ margin_right = -0.184631
 margin_bottom = -2.9557
 mouse_filter = 2
 
-[node name="Arch" type="TextureRect" parent="HBoxContainer/Box5"]
+[node name="Arch" type="TextureRect" parent="HBoxContainer/Edges"]
 editor/display_folded = true
 visible = false
 margin_left = 83.6127
@@ -594,39 +617,39 @@ expand = true
 stretch_mode = 4
 script = SubResource( 3 )
 
-[node name="CheckBox Custom" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+[node name="CheckBox Custom" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 3 )]
 margin_left = 28.3649
 margin_top = 97.5476
 margin_right = 68.3649
 margin_bottom = 137.548
 
-[node name="CheckBox Custom3" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+[node name="CheckBox Custom3" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 3 )]
 margin_left = 119.063
 margin_top = 89.0036
 margin_right = 159.063
 margin_bottom = 129.004
 
-[node name="CheckBox Custom4" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+[node name="CheckBox Custom4" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 3 )]
 margin_left = 119.721
 margin_top = -8.92459
 margin_right = 159.721
 margin_bottom = 31.0754
 
-[node name="CheckBox Custom 5" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 3 )]
+[node name="CheckBox Custom 5" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 216.334
 margin_top = 95.5759
 margin_right = 256.334
 margin_bottom = 135.576
 
-[node name="Checkbox TFO" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 4 )]
+[node name="Checkbox TFO" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 4 )]
 margin_left = 117.704
 margin_top = 42.6311
 margin_right = 157.704
 margin_bottom = 82.6311
 rect_scale = Vector2( 1, 1 )
 
-[node name="Dimensions Width" parent="HBoxContainer/Box5/Arch" instance=ExtResource( 5 )]
+[node name="Dimensions Width" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 5 )]
 editor/display_folded = true
 margin_left = 193.0
 margin_top = 154.0
@@ -635,7 +658,7 @@ margin_bottom = 196.0
 rect_rotation = -30.3997
 rect_scale = Vector2( 0.7, 0.7 )
 
-[node name="Width Label" type="Label" parent="HBoxContainer/Box5/Arch/Dimensions Width"]
+[node name="Width Label" type="Label" parent="HBoxContainer/Edges/Arch/Dimensions Width"]
 margin_left = -368.0
 margin_top = -188.0
 margin_right = -147.0
@@ -648,7 +671,7 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="LShape" type="TextureRect" parent="HBoxContainer/Box5"]
+[node name="LShape" type="TextureRect" parent="HBoxContainer/Edges"]
 editor/display_folded = true
 visible = false
 margin_left = 94.0
@@ -661,56 +684,56 @@ expand = true
 stretch_mode = 6
 script = SubResource( 4 )
 
-[node name="CheckBox Custom" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+[node name="CheckBox Custom" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 250.186
 margin_top = 148.078
 margin_right = 290.186
 margin_bottom = 188.078
 
-[node name="CheckBox Custom2" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+[node name="CheckBox Custom2" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 60.9082
 margin_top = 101.444
 margin_right = 100.908
 margin_bottom = 141.444
 
-[node name="CheckBox Custom3" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+[node name="CheckBox Custom3" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 156.233
 margin_top = 194.712
 margin_right = 196.233
 margin_bottom = 234.712
 
-[node name="CheckBox Custom4" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+[node name="CheckBox Custom4" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 157.604
 margin_top = 54.1248
 margin_right = 197.604
 margin_bottom = 94.1249
 
-[node name="CheckBox Custom5" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+[node name="CheckBox Custom5" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 200.123
 margin_top = 100.758
 margin_right = 240.123
 margin_bottom = 140.759
 
-[node name="CheckBox Custom6" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 3 )]
+[node name="CheckBox Custom6" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 108.228
 margin_top = 6.8053
 margin_right = 148.228
 margin_bottom = 46.8054
 
-[node name="Checkbox TFO" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 4 )]
+[node name="Checkbox TFO" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 4 )]
 margin_left = 140.498
 margin_top = 141.782
 margin_right = 180.498
 margin_bottom = 181.782
 rect_scale = Vector2( 1, 1 )
 
-[node name="Dimensions Length Top" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 5 )]
+[node name="Dimensions Length Top" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 5 )]
 editor/display_folded = true
 margin_left = 180.0
 margin_top = 15.0
@@ -719,7 +742,7 @@ margin_bottom = 70.0
 rect_rotation = 180.0
 rect_scale = Vector2( 0.6, 0.6 )
 
-[node name="Length Top Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Length Top"]
+[node name="Length Top Label" type="Label" parent="HBoxContainer/Edges/LShape/Dimensions Length Top"]
 margin_left = -83.7441
 margin_top = 76.1423
 margin_right = 176.256
@@ -731,7 +754,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 clip_text = true
 
-[node name="Dimensions Length" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 5 )]
+[node name="Dimensions Length" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 5 )]
 editor/display_folded = true
 margin_left = 81.0
 margin_top = 222.0
@@ -740,7 +763,7 @@ margin_bottom = 296.0
 rect_rotation = 359.999
 rect_scale = Vector2( 0.6, 0.6 )
 
-[node name="Length Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Length"]
+[node name="Length Label" type="Label" parent="HBoxContainer/Edges/LShape/Dimensions Length"]
 margin_left = 9.0
 margin_top = 22.0
 margin_right = 199.0
@@ -752,7 +775,7 @@ align = 1
 valign = 1
 clip_text = true
 
-[node name="Dimensions Width Right" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 5 )]
+[node name="Dimensions Width Right" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 5 )]
 editor/display_folded = true
 margin_left = 281.0
 margin_top = 215.0
@@ -761,7 +784,7 @@ margin_bottom = 285.0
 rect_rotation = 270.0
 rect_scale = Vector2( 0.6, 0.6 )
 
-[node name="Width Right Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Width Right"]
+[node name="Width Right Label" type="Label" parent="HBoxContainer/Edges/LShape/Dimensions Width Right"]
 margin_left = 110.0
 margin_top = 37.0
 margin_right = 310.0
@@ -773,7 +796,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 clip_text = true
 
-[node name="Dimensions Width" parent="HBoxContainer/Box5/LShape" instance=ExtResource( 8 )]
+[node name="Dimensions Width" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 8 )]
 margin_left = 71.934
 margin_top = 25.417
 margin_right = 452.934
@@ -781,7 +804,7 @@ margin_bottom = 100.417
 rect_rotation = 89.9999
 rect_scale = Vector2( 0.5, 0.5 )
 
-[node name="Width Label" type="Label" parent="HBoxContainer/Box5/LShape/Dimensions Width"]
+[node name="Width Label" type="Label" parent="HBoxContainer/Edges/LShape/Dimensions Width"]
 margin_left = 147.0
 margin_top = 334.0
 margin_right = 268.0
@@ -794,7 +817,7 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Rectangle" type="TextureRect" parent="HBoxContainer/Box5"]
+[node name="Rectangle" type="TextureRect" parent="HBoxContainer/Edges"]
 editor/display_folded = true
 visible = false
 margin_left = 85.2076
@@ -807,42 +830,42 @@ expand = true
 stretch_mode = 4
 script = SubResource( 5 )
 
-[node name="CheckBox Custom8" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+[node name="CheckBox Custom8" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 152.729
 margin_top = 19.7622
 margin_right = 192.729
 margin_bottom = 59.7623
 
-[node name="CheckBox Custom10" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+[node name="CheckBox Custom10" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 7.90063
 margin_top = 79.9879
 margin_right = 47.9006
 margin_bottom = 119.988
 
-[node name="CheckBox Custom11" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+[node name="CheckBox Custom11" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 151.295
 margin_top = 145.949
 margin_right = 191.295
 margin_bottom = 185.949
 
-[node name="CheckBox Custom12" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 3 )]
+[node name="CheckBox Custom12" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 286.086
 margin_top = 82.8558
 margin_right = 326.086
 margin_bottom = 122.856
 
-[node name="Checkbox TFO" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 4 )]
+[node name="Checkbox TFO" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 4 )]
 margin_left = 150.655
 margin_top = 84.6807
 margin_right = 190.655
 margin_bottom = 124.681
 rect_scale = Vector2( 1, 1 )
 
-[node name="Dimensions Width" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 8 )]
+[node name="Dimensions Width" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 8 )]
 margin_left = 315.366
 margin_top = 170.0
 margin_right = 570.366
@@ -850,7 +873,7 @@ margin_bottom = 245.0
 rect_rotation = -89.9999
 rect_scale = Vector2( 0.5, 0.5 )
 
-[node name="Width Label" type="Label" parent="HBoxContainer/Box5/Rectangle/Dimensions Width"]
+[node name="Width Label" type="Label" parent="HBoxContainer/Edges/Rectangle/Dimensions Width"]
 margin_left = 177.0
 margin_top = 30.0
 margin_right = 322.0
@@ -862,14 +885,14 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 clip_text = true
 
-[node name="Dimensions Length" parent="HBoxContainer/Box5/Rectangle" instance=ExtResource( 8 )]
+[node name="Dimensions Length" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 8 )]
 margin_left = 25.0
 margin_top = 177.0
 margin_right = 587.0
 margin_bottom = 272.0
 rect_scale = Vector2( 0.5, 0.5 )
 
-[node name="Length Label" type="Label" parent="HBoxContainer/Box5/Rectangle/Dimensions Length"]
+[node name="Length Label" type="Label" parent="HBoxContainer/Edges/Rectangle/Dimensions Length"]
 margin_left = 90.3228
 margin_top = 32.4171
 margin_right = 244.323
@@ -881,7 +904,7 @@ align = 1
 valign = 1
 clip_text = true
 
-[node name="Square" type="TextureRect" parent="HBoxContainer/Box5"]
+[node name="Square" type="TextureRect" parent="HBoxContainer/Edges"]
 editor/display_folded = true
 visible = false
 margin_left = 105.965
@@ -894,7 +917,7 @@ expand = true
 stretch_mode = 4
 script = SubResource( 6 )
 
-[node name="CheckBox Custom13" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+[node name="CheckBox Custom13" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 127.802
 margin_top = -7.88842
@@ -902,7 +925,7 @@ margin_right = 167.802
 margin_bottom = 32.1117
 rect_scale = Vector2( 2, 2 )
 
-[node name="CheckBox Custom15" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+[node name="CheckBox Custom15" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = -14.0596
 margin_top = 121.456
@@ -910,7 +933,7 @@ margin_right = 25.9404
 margin_bottom = 161.456
 rect_scale = Vector2( 2, 2 )
 
-[node name="CheckBox Custom16" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+[node name="CheckBox Custom16" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 125.716
 margin_top = 265.404
@@ -918,7 +941,7 @@ margin_right = 165.716
 margin_bottom = 305.404
 rect_scale = Vector2( 2, 2 )
 
-[node name="CheckBox Custom17" parent="HBoxContainer/Box5/Square" instance=ExtResource( 3 )]
+[node name="CheckBox Custom17" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
 editor/display_folded = true
 margin_left = 269.664
 margin_top = 121.456
@@ -926,16 +949,16 @@ margin_right = 309.664
 margin_bottom = 161.456
 rect_scale = Vector2( 2, 2 )
 
-[node name="Checkbox TFO" parent="HBoxContainer/Box5/Square" instance=ExtResource( 4 )]
+[node name="Checkbox TFO" parent="HBoxContainer/Edges/Square" instance=ExtResource( 4 )]
 
-[node name="Dimensions Length" parent="HBoxContainer/Box5/Square" instance=ExtResource( 5 )]
+[node name="Dimensions Length" parent="HBoxContainer/Edges/Square" instance=ExtResource( 5 )]
 editor/display_folded = true
 margin_left = 26.0
 margin_top = 331.0
 margin_right = 309.0
 margin_bottom = 407.0
 
-[node name="Length Label" type="Label" parent="HBoxContainer/Box5/Square/Dimensions Length"]
+[node name="Length Label" type="Label" parent="HBoxContainer/Edges/Square/Dimensions Length"]
 margin_left = 7.0
 margin_top = 12.0
 margin_right = 180.0
@@ -947,7 +970,7 @@ align = 1
 valign = 1
 clip_text = true
 
-[node name="Dimensions Width" parent="HBoxContainer/Box5/Square" instance=ExtResource( 8 )]
+[node name="Dimensions Width" parent="HBoxContainer/Edges/Square" instance=ExtResource( 8 )]
 editor/display_folded = true
 margin_left = 334.0
 margin_top = 311.0
@@ -955,7 +978,7 @@ margin_right = 616.0
 margin_bottom = 386.0
 rect_rotation = -89.9999
 
-[node name="Width Label" type="Label" parent="HBoxContainer/Box5/Square/Dimensions Width"]
+[node name="Width Label" type="Label" parent="HBoxContainer/Edges/Square/Dimensions Width"]
 margin_left = 180.0
 margin_top = 19.0
 margin_right = 359.0
@@ -967,7 +990,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 clip_text = true
 
-[node name="Edit" type="Button" parent="HBoxContainer/Box5" groups=[
+[node name="Edit" type="Button" parent="HBoxContainer/Edges" groups=[
 "Editor Only",
 ]]
 margin_left = 4.63138
@@ -976,7 +999,7 @@ margin_right = 16.6314
 margin_bottom = 21.6738
 text = "Edit"
 
-[node name="Remove Row" type="Button" parent="HBoxContainer/Box5" groups=[
+[node name="Remove Row" type="Button" parent="HBoxContainer/Edges" groups=[
 "Editor Only",
 ]]
 margin_left = 174.0
@@ -986,10 +1009,9 @@ margin_bottom = 21.0
 rect_min_size = Vector2( 30, 0 )
 text = "Remove"
 
-[node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Box5" groups=[
+[node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Edges" groups=[
 "Popup",
 ]]
-editor/display_folded = true
 margin_left = -38.19
 margin_top = -250.147
 margin_right = 262.81
@@ -998,26 +1020,26 @@ rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
 script = SubResource( 7 )
 
-[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog"]
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 293.0
 margin_bottom = 176.0
 custom_constants/separation = 20
 
-[node name="Row1" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
+[node name="Row1" type="HBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
 margin_right = 285.0
 custom_constants/separation = 63
 alignment = 1
 
-[node name="Row2" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
+[node name="Row2" type="HBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
 margin_top = 20.0
 margin_right = 285.0
 margin_bottom = 44.0
 custom_constants/separation = 26
 alignment = 1
 
-[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2"]
+[node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2"]
 margin_left = 12.0
 margin_right = 132.0
 margin_bottom = 24.0
@@ -1028,27 +1050,27 @@ items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L"
 selected = 0
 script = SubResource( 8 )
 
-[node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2"]
+[node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2"]
 margin_left = 158.0
 margin_right = 273.0
 margin_bottom = 24.0
 alignment = 1
 
-[node name="Short" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall"]
+[node name="Short" type="CheckBox" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall"]
 margin_right = 61.0
 margin_bottom = 24.0
 pressed = true
 group = ExtResource( 12 )
 text = "Short"
 
-[node name="Tall" type="CheckBox" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall"]
+[node name="Tall" type="CheckBox" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall"]
 margin_left = 65.0
 margin_right = 115.0
 margin_bottom = 24.0
 group = ExtResource( 12 )
 text = "Tall"
 
-[node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox"]
+[node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
 margin_top = 64.0
 margin_right = 285.0
 margin_bottom = 168.0
@@ -1056,19 +1078,19 @@ custom_constants/vseparation = 20
 custom_constants/hseparation = 70
 columns = 2
 
-[node name="Final Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+[node name="Final Width Entry" type="VBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions"]
 margin_right = 108.0
 margin_bottom = 42.0
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
+[node name="Label" type="Label" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
 margin_right = 108.0
 margin_bottom = 14.0
 text = "Final Width"
 align = 1
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry"]
 margin_top = 18.0
 margin_right = 108.0
 margin_bottom = 42.0
@@ -1077,19 +1099,19 @@ max_length = 12
 placeholder_alpha = 0.538
 caret_blink = true
 
-[node name="Final Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+[node name="Final Length Entry" type="VBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions"]
 margin_left = 178.0
 margin_right = 282.0
 margin_bottom = 42.0
 
-[node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
+[node name="Label" type="Label" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
 margin_right = 104.0
 margin_bottom = 14.0
 text = "Final Length"
 align = 1
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry"]
 margin_top = 18.0
 margin_right = 104.0
 margin_bottom = 42.0
@@ -1097,19 +1119,19 @@ rect_min_size = Vector2( 100, 0 )
 max_length = 12
 caret_blink = true
 
-[node name="Final Right Width Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+[node name="Final Right Width Entry" type="VBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions"]
 margin_top = 62.0
 margin_right = 108.0
 margin_bottom = 104.0
 
-[node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
+[node name="Label" type="Label" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
 margin_right = 108.0
 margin_bottom = 14.0
 text = "Final Right Width"
 align = 1
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry"]
 margin_top = 18.0
 margin_right = 108.0
 margin_bottom = 42.0
@@ -1117,20 +1139,20 @@ rect_min_size = Vector2( 100, 0 )
 max_length = 12
 caret_blink = true
 
-[node name="Final Top Length Entry" type="VBoxContainer" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions"]
+[node name="Final Top Length Entry" type="VBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions"]
 margin_left = 178.0
 margin_top = 62.0
 margin_right = 282.0
 margin_bottom = 104.0
 
-[node name="Label" type="Label" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
+[node name="Label" type="Label" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
 margin_right = 104.0
 margin_bottom = 14.0
 text = "Final Top Length"
 align = 1
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Box5/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry"]
 margin_top = 18.0
 margin_right = 104.0
 margin_bottom = 42.0
@@ -1138,12 +1160,12 @@ rect_min_size = Vector2( 100, 0 )
 max_length = 12
 caret_blink = true
 
-[node name="Box6" parent="HBoxContainer" instance=ExtResource( 1 )]
+[node name="Part Mark" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
 margin_bottom = 50.0
-[connection signal="pressed" from="HBoxContainer/Box5/Edit" to="HBoxContainer/Box5/ConfirmationDialog" method="_on_Button_pressed"]
-[connection signal="pressed" from="HBoxContainer/Box5/Remove Row" to="." method="_on_Button_pressed"]
-[connection signal="item_selected" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Short" to="." method="_on_Short_pressed"]
-[connection signal="pressed" from="HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Tall" to="." method="_on_Tall_pressed"]
+[connection signal="pressed" from="HBoxContainer/Edges/Edit" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_Button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Edges/Remove Row" to="." method="_on_Button_pressed"]
+[connection signal="item_selected" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
+[connection signal="pressed" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall/Short" to="." method="_on_Short_pressed"]
+[connection signal="pressed" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall/Tall" to="." method="_on_Tall_pressed"]
