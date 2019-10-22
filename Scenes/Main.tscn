@@ -325,7 +325,7 @@ onready var itemList = $\"../../../ItemList\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	register_text_enter($\"LineEdit\")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -376,7 +376,7 @@ signal newProject(n)
 onready var itemList = $\"../../../ItemList\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	register_text_enter($\"LineEdit\")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -402,7 +402,6 @@ func _on_NewProject_confirmed():
 		
 	emit_signal(\"newProject\", newName)
 	
-
 "
 
 [sub_resource type="GDScript" id=5]
@@ -497,13 +496,14 @@ script = SubResource( 1 )
 
 [node name="Save Pages As PNG" type="FileDialog" parent="."]
 visible = true
-margin_left = 1718.32
-margin_top = 31.2018
-margin_right = 2230.32
-margin_bottom = 383.202
+margin_left = 1718.0
+margin_top = 27.0
+margin_right = 2230.0
+margin_bottom = 383.0
 focus_mode = 2
-window_title = "Open a Directory"
+window_title = "Choose A Folder To Store Pictures"
 resizable = true
+mode_overrides_title = false
 mode = 2
 access = 2
 current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
