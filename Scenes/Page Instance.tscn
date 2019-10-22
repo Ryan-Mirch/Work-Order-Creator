@@ -40,15 +40,15 @@ func _init_display_name():
 	name = \"Page \" + String(pageNumber)
 
 
-func save():
+func _save():
 	var save_dict = {
-		\"Header\" : $\"Header\".save()
+		\"Header\" : $\"Header\"._save()
 	}
-	
 	return save_dict
 	
-func load(dict):
-	$\"Header\".load(dict[\"Header\"])
+func _load(dict):
+	print(dict)
+	$\"Header\"._load(dict[\"Header\"])
 	
 	
 	
