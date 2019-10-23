@@ -23,6 +23,8 @@ func _editing_start():
 		
 	for viewport in get_tree().get_nodes_in_group("Viewport"):
 		viewport.gui_disable_input = false
+		
+	
 	
 func _exporting_start():
 	state = 2

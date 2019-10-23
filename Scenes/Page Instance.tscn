@@ -19,7 +19,7 @@ func _ready():
 	
 	if Global.state == 3: return
 	
-	_add_row(0)
+	buttons._on_Add_Short_Row_pressed()
 	
 	_init_display_name()	
 	pageList.add_item(name)
@@ -29,12 +29,11 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _add_row(s):
-	
-	var rowInstance = rowScene.instance()	
-	rowInstance.ID = s	
-	add_child(rowInstance)
-	buttons._fix_index()
+func _add_row(n):
+	if n == 0:
+		buttons._on_Add_Short_Row_pressed()
+	else:
+		buttons._on_Add_Tall_Row_pressed()
 
 func _init_display_name():
 	
@@ -77,12 +76,10 @@ func _load(dict):
 	
 	for k in rows_dict.keys():
 		var rowDict = rows_dict[k]
-		var rowInstance = rowScene.instance()		
-		add_child(rowInstance)
+		var rowInstance = buttons._on_Add_Short_Row_pressed()
 		rowInstance._load(rowDict)
-		
-	buttons._fix_index()
 	
+	buttons._fix_index()
 	
 	
 	
@@ -95,13 +92,14 @@ func _load(dict):
 
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 script/source = "extends VBoxContainer
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
 # Called when the node enters the scene tree for the first time.
+onready var rowScene = load(\"res://Scenes/Row.tscn\")
 func _ready():
 	pass # Replace with function body.
 
@@ -114,11 +112,19 @@ func _fix_index():
 	get_parent().move_child(self, index)
 
 func _on_Add_Short_Row_pressed():
-	get_parent()._add_row(0)
+	var rowInstance = rowScene.instance()	
+	get_parent().add_child(rowInstance)
+	rowInstance._init_size(0)
+	_fix_index()
+	return rowInstance
 
 
 func _on_Add_Tall_Row_pressed():
-	get_parent()._add_row(1)"
+	var rowInstance = rowScene.instance()
+	get_parent().add_child(rowInstance)
+	rowInstance._init_size(1)
+	_fix_index()
+	return rowInstance"
 
 [node name="Page Instance" type="VBoxContainer" groups=[
 "Page Instance",
@@ -139,7 +145,7 @@ margin_right = 850.0
 margin_bottom = 445.0
 rect_min_size = Vector2( 0, 30 )
 custom_constants/separation = 0
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Add Row Buttons"]
 margin_right = 850.0

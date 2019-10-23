@@ -73,7 +73,7 @@ func _load(dict):
 	
 	"
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -89,7 +89,7 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id=3]
 script/source = "extends ColorRect
 
 # Declare member variables here. Examples:
@@ -104,9 +104,9 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="Theme" id=9]
+[sub_resource type="Theme" id=4]
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=5]
 script/source = "extends ConfirmationDialog
 
 # Declare member variables here. Examples:
@@ -219,7 +219,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
 autowrap = true
-script = SubResource( 7 )
+script = SubResource( 2 )
 
 [node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 70.0
@@ -248,7 +248,7 @@ margin_right = 849.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 173, 0 )
 color = Color( 0, 0, 0, 1 )
-script = SubResource( 8 )
+script = SubResource( 3 )
 
 [node name="Entry Bg" type="ColorRect" parent="VBoxContainer/1st Row/Page Name"]
 anchor_right = 1.0
@@ -276,7 +276,7 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = -3.0
 margin_bottom = -3.0
-theme = SubResource( 9 )
+theme = SubResource( 4 )
 custom_fonts/font = ExtResource( 4 )
 align = 1
 max_length = 15
@@ -460,7 +460,7 @@ margin_right = 673.0
 margin_bottom = 209.0
 popup_exclusive = true
 window_title = "Change Page Name"
-script = SubResource( 10 )
+script = SubResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Change Page Name"]
 anchor_right = 1.0

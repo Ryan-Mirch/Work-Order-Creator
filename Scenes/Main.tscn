@@ -196,6 +196,9 @@ func _load(n):
 		
 	save_file.close()
 	
+	for s in get_tree().get_nodes_in_group(\"Shape\"):
+		s._set_dimension_visibility()
+	
 	_set_current_project(n)
 	
 	visible = false
@@ -717,7 +720,6 @@ anchor_bottom = 1.0
 color = Color( 0.478431, 0.478431, 0.478431, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 10.0

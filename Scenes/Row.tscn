@@ -29,22 +29,33 @@ onready var Thickness = $\"HBoxContainer/Thickness/LineEdit\"
 onready var Width = $\"HBoxContainer/Width/LineEdit\"
 onready var Length = $\"HBoxContainer/Length/LineEdit\"
 onready var PartMark = $\"HBoxContainer/Part Mark/LineEdit\"
+
+onready var Shape = $\"HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape\"
+
+onready var FWidth = $\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
+onready var FLength = $\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry/LineEdit\"
+onready var FRightWidth = $\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry/LineEdit\"
+onready var FTopLength = $\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry/LineEdit\"
+
+onready var Arch = $\"HBoxContainer/Edges/Arch\"
+onready var LShape = $\"HBoxContainer/Edges/LShape\"
+onready var Rectangle = $\"HBoxContainer/Edges/Rectangle\"
+onready var Square = $\"HBoxContainer/Edges/Square\"
+
+onready var Shapes = [Arch, LShape, Rectangle, Square]
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if ID == 0:
-		if Short != null:
-			Short.pressed = true
-	if ID == 1:
-		if Tall != null:
-			Tall.pressed = true
-			$\"AnimationPlayer\".play(\"Row\")
+	pass#_init_size(ID)
 		
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
+func _init_size(n):
+	ID = n
+	if ID == 1:
+		$\"AnimationPlayer\".play(\"Row\")
 
 func _on_Tall_pressed():
 	if ID == 0:
@@ -66,14 +77,62 @@ func _save():
 		\"HBoxContainer/Thickness/LineEdit\" : Thickness.text,
 		\"HBoxContainer/Width/LineEdit\" : Width.text,
 		\"HBoxContainer/Length/LineEdit\" : Length.text,
-		\"HBoxContainer/Part Mark/LineEdit\" : PartMark.text
+		\"HBoxContainer/Part Mark/LineEdit\" : PartMark.text,
+		
+		\"Shape\" : Shape.get_selected_id(),
+		\"ID\" : ID,
+		
+		\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\" : FWidth.text,
+		\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Length Entry/LineEdit\" : FLength.text,
+		\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Right Width Entry/LineEdit\" : FRightWidth.text,
+		\"HBoxContainer/Edges/ConfirmationDialog/VBox/Final Dimensions/Final Top Length Entry/LineEdit\" : FTopLength.text,
+		
+		\"Arch\" : _save_shape(Arch),
+		\"LShape\" : _save_shape(LShape),
+		\"Rectangle\" : _save_shape(Rectangle),
+		\"Square\" : _save_shape(Square)
 		}
+	
+		
 	
 	return save_dict
 	
 func _load(dict):
 	for i in dict.keys():
-		get_node(i).text =  dict[i]
+		if i == \"Shape\":
+			Shape.select(dict[i])
+			
+		else: if i == \"ID\":
+			ID = dict[i]
+			_init_size(ID)
+			
+		else: if i == \"Arch\":
+			_load_shape(Arch, dict[i])
+			
+		else: if i == \"LShape\":
+			_load_shape(LShape, dict[i])
+			
+		else: if i == \"Rectangle\":
+			_load_shape(Rectangle, dict[i])
+			
+		else: if i == \"Square\":
+			_load_shape(Square, dict[i])
+			
+		else:
+			get_node(i).text =  dict[i]
+			
+func _save_shape(n):	
+	var save_dict = {}
+	
+	for c in n.get_children():
+		if \"CheckBox\" in c.name:
+			save_dict[c.get_index()] = c._get_checked()
+	
+	return save_dict
+	
+func _load_shape(n, dict):
+	for i in dict.keys():
+		n.get_child(int(i))._set_checked(dict[i])
 
 "
 
@@ -246,9 +305,13 @@ func _set_dimension_visibility():
 	if $\"../../..\".ID == 0:
 		return
 		
+	widthLabel.text = widthEntry.text
+	
 	if widthLabel.text == \"\":
 		widthLabel.get_parent().visible = false
-	else: widthLabel.get_parent().visible = true"
+	else: widthLabel.get_parent().visible = true
+
+"
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends TextureRect
@@ -320,6 +383,11 @@ func _set_dimension_visibility():
 	if $\"../../..\".ID == 0:
 		return
 		
+	widthLabel.text = widthEntry.text
+	lengthLabel.text = lengthEntry.text
+	widthRightLabel.text = widthRightEntry.text
+	lengthTopLabel.text = lengthTopEntry.text
+		
 	if widthLabel.text == \"\":
 		widthLabel.get_parent().visible = false
 	else: widthLabel.get_parent().visible = true
@@ -334,7 +402,10 @@ func _set_dimension_visibility():
 	
 	if lengthTopLabel.text == \"\":
 		lengthTopLabel.get_parent().visible = false
-	else: lengthTopLabel.get_parent().visible = true"
+	else: lengthTopLabel.get_parent().visible = true
+
+	
+	"
 
 [sub_resource type="GDScript" id=5]
 script/source = "extends TextureRect
@@ -389,13 +460,17 @@ func _set_dimension_visibility():
 	if $\"../../..\".ID == 0:
 		return
 		
+	widthLabel.text = widthEntry.text
+	lengthLabel.text = lengthEntry.text
+		
 	if widthLabel.text == \"\":
 		widthLabel.get_parent().visible = false
 	else: widthLabel.get_parent().visible = true
 	
 	if lengthLabel.text == \"\":
 		lengthLabel.get_parent().visible = false
-	else: lengthLabel.get_parent().visible = true"
+	else: lengthLabel.get_parent().visible = true
+"
 
 [sub_resource type="GDScript" id=6]
 script/source = "extends TextureRect
@@ -451,13 +526,18 @@ func _set_dimension_visibility():
 	if $\"../../..\".ID == 0:
 		return
 		
+	widthLabel.text = widthEntry.text
+	lengthLabel.text = lengthEntry.text
+		
 	if widthLabel.text == \"\":
 		widthLabel.get_parent().visible = false
 	else: widthLabel.get_parent().visible = true
 	
 	if lengthLabel.text == \"\":
 		lengthLabel.get_parent().visible = false
-	else: lengthLabel.get_parent().visible = true"
+	else: lengthLabel.get_parent().visible = true
+	
+"
 
 [sub_resource type="GDScript" id=7]
 script/source = "extends AcceptDialog
@@ -465,7 +545,9 @@ script/source = "extends AcceptDialog
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-
+onready var row = $\"../../..\"
+onready var short = $\"VBox/Row2/ShortTall/Short\"
+onready var tall = $\"VBox/Row2/ShortTall/Tall\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -479,6 +561,15 @@ func _on_Button_pressed():
 	popup()
 	rect_position.x = get_viewport().get_mouse_position().x - rect_size.x/2
 	rect_position.y = get_viewport().get_mouse_position().y - rect_size.y - 20
+
+
+func _on_ConfirmationDialog_about_to_show():
+	short.pressed = false
+	tall.pressed = false
+	if row.ID == 0:
+		short.pressed = true
+	if row.ID == 1:
+		tall.pressed = true
 "
 
 [sub_resource type="GDScript" id=8]
@@ -545,7 +636,7 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 50.9567
+margin_bottom = 55.4966
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -570,27 +661,27 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Quantity" parent="HBoxContainer" instance=ExtResource( 1 )]
-margin_bottom = 50.0
+margin_bottom = 55.0
 
 [node name="Thickness" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
-margin_bottom = 50.0
+margin_bottom = 55.0
 
 [node name="Width" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
-margin_bottom = 50.0
+margin_bottom = 55.0
 
 [node name="Length" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
-margin_bottom = 50.0
+margin_bottom = 55.0
 
 [node name="Edges" type="ColorRect" parent="HBoxContainer"]
 margin_left = 484.0
 margin_right = 724.0
-margin_bottom = 50.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -604,7 +695,9 @@ margin_right = -0.184631
 margin_bottom = -2.9557
 mouse_filter = 2
 
-[node name="Arch" type="TextureRect" parent="HBoxContainer/Edges"]
+[node name="Arch" type="TextureRect" parent="HBoxContainer/Edges" groups=[
+"Shape",
+]]
 editor/display_folded = true
 visible = false
 margin_left = 83.6127
@@ -642,7 +735,7 @@ margin_top = 95.5759
 margin_right = 256.334
 margin_bottom = 135.576
 
-[node name="Checkbox TFO" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 4 )]
+[node name="CheckBox TFO" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 4 )]
 margin_left = 117.704
 margin_top = 42.6311
 margin_right = 157.704
@@ -671,7 +764,9 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="LShape" type="TextureRect" parent="HBoxContainer/Edges"]
+[node name="LShape" type="TextureRect" parent="HBoxContainer/Edges" groups=[
+"Shape",
+]]
 editor/display_folded = true
 visible = false
 margin_left = 94.0
@@ -726,7 +821,7 @@ margin_top = 6.8053
 margin_right = 148.228
 margin_bottom = 46.8054
 
-[node name="Checkbox TFO" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 4 )]
+[node name="CheckBox TFO" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 4 )]
 margin_left = 140.498
 margin_top = 141.782
 margin_right = 180.498
@@ -817,7 +912,9 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Rectangle" type="TextureRect" parent="HBoxContainer/Edges"]
+[node name="Rectangle" type="TextureRect" parent="HBoxContainer/Edges" groups=[
+"Shape",
+]]
 editor/display_folded = true
 visible = false
 margin_left = 85.2076
@@ -858,7 +955,7 @@ margin_top = 82.8558
 margin_right = 326.086
 margin_bottom = 122.856
 
-[node name="Checkbox TFO" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 4 )]
+[node name="CheckBox TFO" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 4 )]
 margin_left = 150.655
 margin_top = 84.6807
 margin_right = 190.655
@@ -904,8 +1001,9 @@ align = 1
 valign = 1
 clip_text = true
 
-[node name="Square" type="TextureRect" parent="HBoxContainer/Edges"]
-editor/display_folded = true
+[node name="Square" type="TextureRect" parent="HBoxContainer/Edges" groups=[
+"Shape",
+]]
 visible = false
 margin_left = 105.965
 margin_top = 3.47629
@@ -949,7 +1047,7 @@ margin_right = 309.664
 margin_bottom = 161.456
 rect_scale = Vector2( 2, 2 )
 
-[node name="Checkbox TFO" parent="HBoxContainer/Edges/Square" instance=ExtResource( 4 )]
+[node name="CheckBox TFO" parent="HBoxContainer/Edges/Square" instance=ExtResource( 4 )]
 
 [node name="Dimensions Length" parent="HBoxContainer/Edges/Square" instance=ExtResource( 5 )]
 editor/display_folded = true
@@ -1012,10 +1110,12 @@ text = "Remove"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Edges" groups=[
 "Popup",
 ]]
-margin_left = -38.19
-margin_top = -250.147
-margin_right = 262.81
-margin_bottom = -38.1467
+editor/display_folded = true
+visible = true
+margin_left = -38.0
+margin_top = -250.0
+margin_right = 263.0
+margin_bottom = -58.0
 rect_min_size = Vector2( 301, 150 )
 window_title = "Edit"
 script = SubResource( 7 )
@@ -1024,18 +1124,12 @@ script = SubResource( 7 )
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 293.0
-margin_bottom = 176.0
+margin_bottom = 156.0
 custom_constants/separation = 20
 
-[node name="Row1" type="HBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
-margin_right = 285.0
-custom_constants/separation = 63
-alignment = 1
-
 [node name="Row2" type="HBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
-margin_top = 20.0
 margin_right = 285.0
-margin_bottom = 44.0
+margin_bottom = 24.0
 custom_constants/separation = 26
 alignment = 1
 
@@ -1071,9 +1165,9 @@ group = ExtResource( 12 )
 text = "Tall"
 
 [node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
-margin_top = 64.0
+margin_top = 44.0
 margin_right = 285.0
-margin_bottom = 168.0
+margin_bottom = 148.0
 custom_constants/vseparation = 20
 custom_constants/hseparation = 70
 columns = 2
@@ -1163,9 +1257,10 @@ caret_blink = true
 [node name="Part Mark" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
-margin_bottom = 50.0
+margin_bottom = 55.0
 [connection signal="pressed" from="HBoxContainer/Edges/Edit" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Edges/Remove Row" to="." method="_on_Button_pressed"]
+[connection signal="about_to_show" from="HBoxContainer/Edges/ConfirmationDialog" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_ConfirmationDialog_about_to_show"]
 [connection signal="item_selected" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
 [connection signal="pressed" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall/Short" to="." method="_on_Short_pressed"]
 [connection signal="pressed" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall/Tall" to="." method="_on_Tall_pressed"]

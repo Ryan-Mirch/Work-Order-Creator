@@ -1,12 +1,33 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Fonts/Roboto-Medium.ttf" type="DynamicFontData" id=1]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _get_checked():
+	return $\"CheckBox\".pressed
+	
+func _set_checked(b):
+	$\"CheckBox\".pressed = b"
+
+[sub_resource type="DynamicFont" id=2]
 size = 60
 font_data = ExtResource( 1 )
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=3]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -27,17 +48,18 @@ func _on_CheckBox_toggled(button_pressed):
 
 
 func _on_CheckBox_visibility_changed():
+	checked = $\"../CheckBox\".pressed
 	if $\"../CheckBox\".visible == false:
 		visible = checked
 "
 
-[node name="Checkbox TFO" type="Control"]
-editor/display_folded = true
+[node name="CheckBox TFO" type="Control"]
 margin_left = 126.949
 margin_top = 125.069
 margin_right = 166.949
 margin_bottom = 165.069
 rect_scale = Vector2( 2, 2 )
+script = SubResource( 1 )
 
 [node name="Label" type="Label" parent="." groups=[
 "Export Only",
@@ -47,12 +69,12 @@ margin_top = -7.79135
 margin_right = 85.4196
 margin_bottom = 63.2086
 rect_scale = Vector2( 0.8, 0.8 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "TFO"
 align = 1
 valign = 1
-script = SubResource( 6 )
+script = SubResource( 3 )
 
 [node name="CheckBox" type="CheckBox" parent="." groups=[
 "Editor Only",
