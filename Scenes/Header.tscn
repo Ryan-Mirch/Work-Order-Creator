@@ -132,6 +132,8 @@ func _on_Change_Page_Name_confirmed():
 		var newName = lineEdit.text
 		PageListNode._rename_item(index, newName)
 		
+	Global._save()
+		
 
 
 func _on_Change_Page_Name_about_to_show():
@@ -463,6 +465,7 @@ window_title = "Change Page Name"
 script = SubResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Change Page Name"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0

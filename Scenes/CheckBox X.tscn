@@ -38,12 +38,15 @@ func _ready():
 	visible = false
 	checked = $\"../CheckBox\".pressed
 	
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
 func _on_CheckBox_toggled(button_pressed):
 	checked = button_pressed
+	Global._save()
 
 
 func _on_CheckBox_visibility_changed():

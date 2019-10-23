@@ -4,15 +4,18 @@ extends Node
 onready var companyName = "Company Name Placeholder"
 
 var state = 0
-
+var root = null
 func _ready():
-	pass
+	root = get_tree().get_root().get_node("Main")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 	
-	
+func _save():
+	if state == 1:
+		root._save()
+
 func _editing_start():
 	state = 1
 	for lineEdit in get_tree().get_nodes_in_group("Editor Only"):

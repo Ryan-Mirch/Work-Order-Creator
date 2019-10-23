@@ -17,6 +17,9 @@ onready var HBoxBackground  = $\"Top Bar/Viewport/Top Bar Background\"
 onready var HBox = $\"Top Bar/Viewport/Top Bar Background/HBoxContainer\"
 onready var PageView = $\"Page View\"
 onready var PageList = $\"Side Bar/PageList Background/PageList\"
+onready var Projects = $\"Projects\"
+
+var saveTime = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,6 +31,16 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	\"\"\"
+	saveTime += delta
+	
+	if Global.state == 1 && saveTime > 0.3:
+		Projects._on_Save_pressed()
+		saveTime = 0
+	\"\"\"
+		
+func _save():
+	$\"Projects\"._on_Save_pressed()
 	
 func _screen_size_changed():
 	
@@ -212,7 +225,6 @@ func _set_current_project(n):
 func _save(n):
 	var save_file = File.new()
 	save_file.open(\"user://\" + n + \".save\", File.WRITE)
-	print(save_file.get_path_absolute())
 	var pages = get_tree().get_nodes_in_group(\"Page Instance\")
 	
 	for i in pages:
@@ -457,7 +469,7 @@ func _on_Add_Page_pressed():
 	var page = load(\"res://Scenes/Page Instance.tscn\")
 	var page_instance = page.instance()
 	pageViewport.add_child(page_instance)
-
+	Global._save()
 
 func _on_Remove_Page_pressed():
 	if get_item_count() <= 1:
@@ -474,6 +486,7 @@ func _on_Remove_Page_pressed():
 	remove_item(index)
 	
 	_open_page(index - 1)
+	Global._save()
 	
 "
 
@@ -501,7 +514,6 @@ func _on_Projects_currentProjectSet(n):
 script = SubResource( 1 )
 
 [node name="Save Pages As PNG" type="FileDialog" parent="."]
-visible = true
 margin_left = 1718.0
 margin_top = 27.0
 margin_right = 2230.0
@@ -517,7 +529,6 @@ current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
-visible = true
 margin_left = 1241.0
 margin_top = 30.0
 margin_right = 1687.0
@@ -556,7 +567,6 @@ custom_colors/font_color = Color( 0.180392, 0.741176, 0.129412, 1 )
 text = "Create New"
 
 [node name="NewProject" type="ConfirmationDialog" parent="Projects/HBoxContainer/Create New"]
-visible = true
 margin_left = -47.6482
 margin_top = 71.2384
 margin_right = 200.352
@@ -573,6 +583,7 @@ custom_fonts/font = ExtResource( 1 )
 placeholder_text = "New Project Name"
 placeholder_alpha = 0.25
 caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="Open" type="Button" parent="Projects/HBoxContainer"]
 margin_left = 129.0
@@ -590,7 +601,6 @@ rect_min_size = Vector2( 90, 0 )
 text = "Rename"
 
 [node name="Rename Popup" type="ConfirmationDialog" parent="Projects/HBoxContainer/Rename"]
-visible = true
 margin_left = 17.5248
 margin_top = 69.8064
 margin_right = 265.525
@@ -607,6 +617,7 @@ custom_fonts/font = ExtResource( 1 )
 placeholder_text = "Project Name"
 placeholder_alpha = 0.25
 caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="Delete" type="Button" parent="Projects/HBoxContainer"]
 margin_left = 323.0
@@ -655,7 +666,6 @@ color = Color( 0.870588, 0.870588, 0.870588, 1 )
 visible = false
 
 [node name="Side Bar" type="ColorRect" parent="."]
-editor/display_folded = true
 margin_right = 200.0
 margin_bottom = 850.0
 color = Color( 0.478431, 0.478431, 0.478431, 1 )
@@ -728,20 +738,21 @@ mouse_filter = 2
 alignment = 1
 
 [node name="Projects" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 515.0
-margin_right = 579.0
+margin_left = 537.0
+margin_right = 601.0
 margin_bottom = 40.0
 mouse_filter = 1
 text = "Projects"
 
 [node name="Export" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 583.0
-margin_right = 635.0
+margin_left = 605.0
+margin_right = 657.0
 margin_bottom = 40.0
 mouse_filter = 1
 text = "Export"
 
 [node name="Save" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
+visible = false
 margin_left = 639.0
 margin_right = 680.0
 margin_bottom = 40.0

@@ -117,6 +117,7 @@ func _on_Add_Short_Row_pressed():
 	rowInstance._init_size(0)
 	_fix_index()
 	return rowInstance
+	Global._save()
 
 
 func _on_Add_Tall_Row_pressed():
@@ -124,7 +125,8 @@ func _on_Add_Tall_Row_pressed():
 	get_parent().add_child(rowInstance)
 	rowInstance._init_size(1)
 	_fix_index()
-	return rowInstance"
+	return rowInstance
+	Global._save()"
 
 [node name="Page Instance" type="VBoxContainer" groups=[
 "Page Instance",
