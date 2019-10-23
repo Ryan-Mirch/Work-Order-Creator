@@ -2,6 +2,7 @@ extends Node
 
 
 onready var companyName = "Company Name Placeholder"
+onready var softwareVersion = Engine.get_version_info()["string"]
 
 var state = 0
 var root = null
