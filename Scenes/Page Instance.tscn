@@ -25,6 +25,8 @@ func _ready():
 	pageList.add_item(name)
 	pageList._open_page(pageList.get_item_count() - 1)
 	
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

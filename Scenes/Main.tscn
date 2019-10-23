@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Fonts/Roboto26.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/Page Instance.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/Roboto16.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=4]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -19,7 +20,9 @@ onready var PageView = $\"Page View\"
 onready var PageList = $\"Side Bar/PageList Background/PageList\"
 onready var Projects = $\"Projects\"
 
-var saveTime = 0
+onready var savedStateLabel = $\"Top Bar/Viewport/Top Bar Background/VBoxContainer/Saved State\"
+
+var saveTime = -1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,17 +33,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-	\"\"\"
-	saveTime += delta
+	if saveTime >= 0:
+		saveTime += delta
 	
-	if Global.state == 1 && saveTime > 0.3:
+	if Global.state == 1 && saveTime > 0.2:
 		Projects._on_Save_pressed()
-		saveTime = 0
-	\"\"\"
+		saveTime = -1
+		savedStateLabel.text = \"Saved\"
 		
 func _save():
-	$\"Projects\"._on_Save_pressed()
+	saveTime = 0
+	savedStateLabel.text = \"Unsaved\"
 	
 func _screen_size_changed():
 	
@@ -735,63 +738,79 @@ anchor_bottom = 1.0
 margin_top = 10.0
 margin_bottom = -10.0
 mouse_filter = 2
+custom_constants/separation = 30
 alignment = 1
 
 [node name="Projects" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 537.0
-margin_right = 601.0
+margin_left = 472.0
+margin_right = 582.0
 margin_bottom = 40.0
+rect_min_size = Vector2( 110, 0 )
 mouse_filter = 1
+custom_fonts/font = ExtResource( 3 )
 text = "Projects"
 
 [node name="Export" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
-margin_left = 605.0
-margin_right = 657.0
+margin_left = 612.0
+margin_right = 722.0
 margin_bottom = 40.0
+rect_min_size = Vector2( 110, 0 )
 mouse_filter = 1
+custom_fonts/font = ExtResource( 3 )
 text = "Export"
 
 [node name="Save" type="Button" parent="Top Bar/Viewport/Top Bar Background/HBoxContainer"]
 visible = false
 margin_left = 639.0
-margin_right = 680.0
+margin_right = 789.0
 margin_bottom = 40.0
+rect_min_size = Vector2( 110, 0 )
+custom_fonts/font = ExtResource( 3 )
 text = "Save"
 
-[node name="Project Title" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Top Bar/Viewport/Top Bar Background"]
 margin_left = 10.0
-margin_right = -1063.0
-margin_bottom = -31.0
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Project Title" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer"]
+margin_right = 485.0
+margin_bottom = 22.0
 custom_constants/separation = 8
 
-[node name="Project" type="Label" parent="Top Bar/Viewport/Top Bar Background/Project Title"]
-margin_top = 3.0
+[node name="Project" type="Label" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer/Project Title"]
 margin_right = 127.0
-margin_bottom = 25.0
-custom_fonts/font = ExtResource( 3 )
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.247059, 0.247059, 0.247059, 1 )
 text = "Current Project:"
 align = 1
 
-[node name="Current Project Name" type="Label" parent="Top Bar/Viewport/Top Bar Background/Project Title"]
+[node name="Current Project Name" type="Label" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer/Project Title"]
 margin_left = 135.0
-margin_top = 3.0
 margin_right = 485.0
-margin_bottom = 25.0
+margin_bottom = 22.0
 rect_min_size = Vector2( 350, 0 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 autowrap = true
 script = SubResource( 8 )
+
+[node name="Saved State" type="Label" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer"]
+margin_top = 26.0
+margin_right = 485.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Saved"
 [connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]
 [connection signal="popup_hide" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_Save_Pages_As_PNG_popup_hide"]
 [connection signal="tree_exited" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_tree_exited"]
 [connection signal="about_to_show" from="Projects" to="Projects" method="_on_Projects_about_to_show"]
-[connection signal="currentProjectSet" from="Projects" to="Top Bar/Viewport/Top Bar Background/Project Title/Current Project Name" method="_on_Projects_currentProjectSet"]
+[connection signal="currentProjectSet" from="Projects" to="Top Bar/Viewport/Top Bar Background/VBoxContainer/Project Title/Current Project Name" method="_on_Projects_currentProjectSet"]
 [connection signal="popup_hide" from="Projects" to="Projects" method="_on_Projects_popup_hide"]
 [connection signal="pressed" from="Projects/HBoxContainer/Create New" to="Projects/HBoxContainer/Create New/NewProject" method="_on_Create_New_pressed"]
 [connection signal="confirmed" from="Projects/HBoxContainer/Create New/NewProject" to="Projects/HBoxContainer/Create New/NewProject" method="_on_NewProject_confirmed"]

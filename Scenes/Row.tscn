@@ -649,8 +649,8 @@ func _on_OptionMenu_Shape_item_selected(ID):
 "Row",
 ]]
 margin_right = 850.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 0, 150 )
+margin_bottom = 52.7672
+rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 script = SubResource( 1 )
@@ -674,23 +674,27 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Quantity" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_bottom = 52.0
 
 [node name="Thickness" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 121.0
 margin_right = 242.5
+margin_bottom = 52.0
 
 [node name="Width" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 242.0
 margin_right = 363.5
+margin_bottom = 52.0
 
 [node name="Length" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 363.0
 margin_right = 484.5
+margin_bottom = 52.0
 
 [node name="Edges" type="ColorRect" parent="HBoxContainer"]
 margin_left = 484.0
 margin_right = 724.0
-margin_bottom = 150.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 240, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
@@ -709,11 +713,11 @@ mouse_filter = 2
 ]]
 editor/display_folded = true
 visible = false
-margin_left = 52.2988
-margin_top = 29.8191
-margin_right = 334.299
-margin_bottom = 187.819
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = 83.6127
+margin_top = 4.58229
+margin_right = 365.613
+margin_bottom = 162.582
+rect_scale = Vector2( 0.28, 0.28 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 4
@@ -777,11 +781,11 @@ clip_text = true
 ]]
 editor/display_folded = true
 visible = false
-margin_left = 41.9384
-margin_top = 37.5614
-margin_right = 418.938
-margin_bottom = 279.561
-rect_scale = Vector2( 0.4, 0.4 )
+margin_left = 94.0
+margin_top = 2.29719
+margin_right = 471.0
+margin_bottom = 244.297
+rect_scale = Vector2( 0.18, 0.18 )
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
@@ -925,11 +929,11 @@ clip_text = true
 ]]
 editor/display_folded = true
 visible = false
-margin_left = 12.2651
-margin_top = 28.6222
-margin_right = 348.266
-margin_bottom = 249.623
-rect_scale = Vector2( 0.45, 0.45 )
+margin_left = 85.2076
+margin_top = -1.24542
+margin_right = 421.209
+margin_bottom = 219.755
+rect_scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 4
@@ -1014,11 +1018,11 @@ clip_text = true
 ]]
 editor/display_folded = true
 visible = false
-margin_left = 46.5552
-margin_top = 17.1176
-margin_right = 386.555
-margin_bottom = 351.118
-rect_scale = Vector2( 0.3, 0.3 )
+margin_left = 105.965
+margin_top = 3.47629
+margin_right = 445.965
+margin_bottom = 337.477
+rect_scale = Vector2( 0.12, 0.12 )
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 4
@@ -1264,6 +1268,7 @@ caret_blink = true
 [node name="Part Mark" parent="HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 724.0
 margin_right = 845.5
+margin_bottom = 52.0
 [connection signal="pressed" from="HBoxContainer/Edges/Edit" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Edges/Remove Row" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="HBoxContainer/Edges/ConfirmationDialog" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_ConfirmationDialog_about_to_show"]
