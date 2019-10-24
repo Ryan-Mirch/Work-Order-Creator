@@ -820,18 +820,15 @@ custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Saved"
 
-[node name="Right" type="VBoxContainer" parent="Top Bar/Viewport/Top Bar Background"]
+[node name="Software Version" type="Label" parent="Top Bar/Viewport/Top Bar Background"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -150.0
+margin_left = -300.0
 margin_top = 5.0
-margin_right = -830.0
-
-[node name="Software Version" type="Label" parent="Top Bar/Viewport/Top Bar Background/Right"]
-margin_right = 25.0
-margin_bottom = 14.0
+margin_right = -20.0
 text = "test"
+align = 2
 script = SubResource( 9 )
 [connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]
