@@ -71,7 +71,7 @@ onready var pageList = $\"../Side Bar/PageList Background/PageList\"
 
 var folder
 var elapsed_seconds = 0
-var picture_interval = 0.03
+var picture_interval = 0.1
 var screenshotsNeeded = 0
 var pageIndex = 0
 # Called when the node enters the scene tree for the first time.

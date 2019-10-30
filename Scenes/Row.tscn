@@ -21,9 +21,6 @@ script/source = "extends ColorRect
 # var b = \"text\"
 export var ID = 0
 
-onready var Short = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Short\"
-onready var Tall = $\"HBoxContainer/Box5/ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
-
 onready var Quantity = $\"HBoxContainer/Quantity/LineEdit\"
 onready var Thickness = $\"HBoxContainer/Thickness/LineEdit\"
 onready var Width = $\"HBoxContainer/Width/LineEdit\"
