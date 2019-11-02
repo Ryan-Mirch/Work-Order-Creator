@@ -91,6 +91,7 @@ func _process(delta):
 		
 func _on_FileDialog_dir_selected(dir):
 	folder = dir
+	pageIndex = 0
 	var pages = get_tree().get_nodes_in_group(\"Page Instance\")		
 	pageList._open_page(pageIndex)	
 	
@@ -543,8 +544,8 @@ resizable = true
 mode_overrides_title = false
 mode = 2
 access = 2
-current_dir = "D:/Projects/Godot/Work-Order-Creator"
-current_path = "D:/Projects/Godot/Work-Order-Creator/"
+current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
+current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
