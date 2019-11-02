@@ -15,6 +15,19 @@ func _ready():
 
 
 func _update_label(newText):
-	get_parent().get_node("Text").text = newText
+	if Global.state != 1: return
+	$"../Text".text = newText
+	
+	
+	for seg in get_tree().get_nodes_in_group("Header Segment"):
+		if seg.name == $"../..".name && seg != $"../..":
+			seg._set_text(newText)
+	
 	Global._save()
+	
+func _set_text(s):
+	text = s
+	$"../Text".text = s
+	
+	
 	

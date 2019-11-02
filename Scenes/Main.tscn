@@ -390,6 +390,7 @@ script/source = "extends Button
 # var b = \"text\"
 onready var itemList = $\"../../ItemList\"
 onready var projects = $\"../..\"
+onready var currentProjectLabel = $\"../../../Top Bar/Viewport/Top Bar Background/Left/Project Title/Current Project Name\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -411,14 +412,17 @@ func _on_Delete_pressed():
 	dir.remove(\"user://\" + deleteName + \".save\")
 	itemList.remove_item(index)
 	
-	var newIndex = index - 1
-	if newIndex < 0: newIndex = 0
-	
-	itemList.select(newIndex)
-	
 	if deleteName == currentProjectName:
 		projects._remove_all_pages()
-		$\"../../../Top Bar/Viewport/Top Bar Background/Project Title/Current Project Name\".text = \"\"
+		currentProjectLabel.text = \"\"
+		projects.currentProject = \"\"
+		
+	var newIndex = index - 1
+	if newIndex < 0: newIndex = 0	
+	
+	if itemList.get_item_count() == 0: return
+	
+	itemList.select(newIndex)
 "
 
 [sub_resource type="GDScript" id=7]
@@ -539,8 +543,8 @@ resizable = true
 mode_overrides_title = false
 mode = 2
 access = 2
-current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
-current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
+current_dir = "D:/Projects/Godot/Work-Order-Creator"
+current_path = "D:/Projects/Godot/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
@@ -564,7 +568,6 @@ custom_constants/vseparation = 10
 custom_constants/hseparation = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Projects"]
-editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -782,7 +785,6 @@ custom_fonts/font = ExtResource( 3 )
 text = "Save"
 
 [node name="Left" type="VBoxContainer" parent="Top Bar/Viewport/Top Bar Background"]
-editor/display_folded = true
 margin_left = 10.0
 margin_top = 5.0
 margin_right = 40.0

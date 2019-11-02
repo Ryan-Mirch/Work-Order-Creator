@@ -59,7 +59,7 @@ func _load(dict):
 			get_parent().name = dict[i]
 			
 		else: 
-			get_node(i).text =  dict[i]
+			get_node(i)._set_text(dict[i])
 	
 	
 	
@@ -194,6 +194,7 @@ rect_min_size = Vector2( 0, 320 )
 custom_constants/separation = -5
 
 [node name="Company Name" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 850, 75 )
@@ -460,7 +461,6 @@ margin_left = 391.0
 margin_top = 88.0
 margin_right = 673.0
 margin_bottom = 209.0
-popup_exclusive = true
 window_title = "Change Page Name"
 script = SubResource( 5 )
 

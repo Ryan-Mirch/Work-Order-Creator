@@ -17,11 +17,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-"
+
+func _set_text(s):
+	$\"Entry Bg/Entry\"._set_text(s)"
 
 [sub_resource type="Theme" id=2]
 
-[node name="Date Recieved" type="ColorRect"]
+[node name="Date Recieved" type="ColorRect" groups=[
+"Header Segment",
+]]
 margin_right = 173.0
 margin_bottom = 103.0
 rect_min_size = Vector2( 173, 0 )
