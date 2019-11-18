@@ -773,7 +773,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Middle" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer"]
-margin_right = 550.0
+margin_right = 570.0
 margin_bottom = 25.0
 mouse_filter = 2
 custom_constants/separation = 0
@@ -813,23 +813,26 @@ text = "Files"
 script = SubResource( 10 )
 
 [node name="Left" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer"]
-margin_left = 10.0
-margin_top = 30.0
-margin_right = 550.0
+margin_top = 29.0
+margin_right = 570.0
 margin_bottom = 51.0
 custom_constants/separation = 20
 
+[node name="spacer" type="Control" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer/Left"]
+margin_bottom = 22.0
+
 [node name="Saved State" type="Label" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer/Left"]
+margin_left = 20.0
 margin_top = 1.0
-margin_right = 45.0
+margin_right = 65.0
 margin_bottom = 20.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Saved"
 
 [node name="Project Title" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background/VBoxContainer/Left"]
-margin_left = 65.0
-margin_right = 550.0
+margin_left = 85.0
+margin_right = 570.0
 margin_bottom = 22.0
 custom_constants/separation = 8
 
