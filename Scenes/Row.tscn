@@ -1119,6 +1119,7 @@ text = "Remove"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Edges" groups=[
 "Popup",
 ]]
+editor/display_folded = true
 visible = true
 margin_left = -38.0
 margin_top = -250.0

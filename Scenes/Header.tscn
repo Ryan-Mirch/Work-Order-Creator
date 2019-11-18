@@ -246,6 +246,7 @@ margin_left = 507.0
 margin_right = 680.0
 
 [node name="Page Name" type="ColorRect" parent="VBoxContainer/1st Row"]
+editor/display_folded = true
 margin_left = 676.0
 margin_right = 849.0
 margin_bottom = 103.0
@@ -455,7 +456,9 @@ text = "Part Mark"
 align = 1
 valign = 2
 
-[node name="Change Page Name" type="ConfirmationDialog" parent="."]
+[node name="Change Page Name" type="ConfirmationDialog" parent="." groups=[
+"Popup",
+]]
 visible = true
 margin_left = 391.0
 margin_top = 88.0
