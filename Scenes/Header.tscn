@@ -14,7 +14,7 @@ script/source = "extends ColorRect
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-onready var DateReceived = $\"VBoxContainer/1st Row/Date Recieved/Entry Bg/Entry\"
+onready var DateReceived = $\"VBoxContainer/1st Row/Date Received/Entry Bg/Entry\"
 onready var DateWritten = $\"VBoxContainer/1st Row/Date Written/Entry Bg/Entry\"
 onready var DatePromised = $\"VBoxContainer/1st Row/Date Promised/Entry Bg/Entry\"
 onready var DateCompleted = $\"VBoxContainer/1st Row/Date Completed/Entry Bg/Entry\"
@@ -35,7 +35,7 @@ func _ready():
 #	pass
 func _save():
 	save_dict = {
-		\"VBoxContainer/1st Row/Date Recieved/Entry Bg/Entry\" : DateReceived.text,
+		\"VBoxContainer/1st Row/Date Received/Entry Bg/Entry\" : DateReceived.text,
 		\"VBoxContainer/1st Row/Date Written/Entry Bg/Entry\" : DateWritten.text,
 		\"VBoxContainer/1st Row/Date Promised/Entry Bg/Entry\" : DatePromised.text,
 		\"VBoxContainer/1st Row/Date Completed/Entry Bg/Entry\" : DateCompleted.text,
@@ -231,7 +231,7 @@ margin_bottom = 173.0
 rect_min_size = Vector2( 850, 103 )
 custom_constants/separation = -4
 
-[node name="Date Recieved" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
+[node name="Date Received" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 
 [node name="Date Written" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 margin_left = 169.0
