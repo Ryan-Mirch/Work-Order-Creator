@@ -13,16 +13,19 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
 func _update_label(newText):
 	if Global.state != 1: return
 	$"../Text".text = newText
-	print("test")
-	if pageInstance.get_index() > 1: return #index 1 will always be the first page.
-	
-	for seg in get_tree().get_nodes_in_group("Header Segment"):
-		if seg.name == $"../..".name && seg != $"../..":
-			seg._set_text(newText)
+	if pageInstance.get_index() != 1:#segment is not on page 1
+		for seg in get_tree().get_nodes_in_group("Header Segment"):
+			if seg.get_parent().get_parent().get_parent().get_parent().get_index() == 1:
+				if seg.name == $"../..".name && seg != $"../..":
+					_set_text(seg._get_text())
+				
+	else:#segment is on page 1
+		for seg in get_tree().get_nodes_in_group("Header Segment"):
+			if seg.name == $"../..".name && seg != $"../..":
+				seg._set_text(newText) #set text to what this text is.
 	
 	Global._save()
 	

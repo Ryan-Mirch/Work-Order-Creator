@@ -10,16 +10,28 @@ script/source = "extends ColorRect
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
+onready var pageInstance = $\"../../../../\"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$\"Label Bg/Label\".text = name
+	Global.root.find_node(\"PageList\").connect(\"pagesChanged\", self, \"_set_Entry_Visibility\")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	_set_Entry_Visibility()
 
 func _set_text(s):
-	$\"Entry Bg/Entry\"._set_text(s)"
+	$\"Entry Bg/Entry\"._set_text(s)
+	
+func _get_text():
+	return $\"Entry Bg/Text\".text
+
+func _set_Entry_Visibility():
+	if pageInstance.get_index() != 1:
+		find_node(\"Entry\").visible = false
+	else:
+		find_node(\"Entry\").visible = true"
 
 [sub_resource type="Theme" id=2]
 
