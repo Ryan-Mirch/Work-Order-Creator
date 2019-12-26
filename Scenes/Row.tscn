@@ -39,6 +39,8 @@ onready var LShape = $\"HBoxContainer/Edges/LShape\"
 onready var Rectangle = $\"HBoxContainer/Edges/Rectangle\"
 onready var Square = $\"HBoxContainer/Edges/Square\"
 
+onready var ShapeMenu = $\"HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape\"
+
 onready var Shapes = [Arch, LShape, Rectangle, Square]
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -133,6 +135,7 @@ func _save_shape(n):
 func _load_shape(n, dict):
 	for i in dict.keys():
 		n.get_child(int(i))._set_checked(dict[i])
+	ShapeMenu._on_OptionMenu_Shape_item_selected(ShapeMenu.selected)
 
 "
 
@@ -1119,7 +1122,6 @@ text = "Remove"
 [node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Edges" groups=[
 "Popup",
 ]]
-editor/display_folded = true
 visible = true
 margin_left = -38.0
 margin_top = -250.0
@@ -1174,6 +1176,7 @@ group = ExtResource( 12 )
 text = "Tall"
 
 [node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
+editor/display_folded = true
 margin_top = 44.0
 margin_right = 285.0
 margin_bottom = 148.0
