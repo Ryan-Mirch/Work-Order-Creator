@@ -71,7 +71,7 @@ onready var pageList = $\"../Side Bar/PageList Background/PageList\"
 
 var folder
 var elapsed_seconds = 0
-var picture_interval = 0.1
+var picture_interval = 0.2
 var screenshotsNeeded = 0
 var pageIndex = 0
 # Called when the node enters the scene tree for the first time.
@@ -103,7 +103,9 @@ func _take_screenshot(name):
 	var img = PageViewport.get_texture().get_data()
 	img.flip_y()
 	
-	var path = folder + \"/\" +  name + \".png\"
+	var datetime = Global._get_date_and_time()
+	print(datetime)
+	var path = folder + \"/\" +  name + \" - \" + datetime + \".png\"
 	img.save_png(path)
 	
 	screenshotsNeeded -= 1
@@ -146,10 +148,8 @@ var currentProject = \"\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	var files = files_in_directory(\"user://\")
-	for n in files:
-		n = n.replace(\".save\",\"\")
-		$\"ItemList\".add_item(n)
+	_update_ItemList(\"All Customers\")
+	
 	$\"ItemList\".select(0)
 	popup()
 	rect_position.x = 350
@@ -160,13 +160,48 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func _update_ItemList(customer):
+	$\"ItemList\".clear()
+	var files = files_in_directory(\"user://\")
+	for n in files:
+		n = n.replace(\".save\",\"\")
+		$\"ItemList\".add_item(n)
+		
+	_set_Projects_Metadata()
+	if customer == \"All Customers\": return
+	
+	var itemCount = $\"ItemList\".get_item_count() - 1
+	
+	var index = itemCount
+	while index >= 0:
+		if $\"ItemList\".get_item_metadata(index) != customer:
+			$\"ItemList\".remove_item(index)
+		index -= 1
+			
+func _set_Projects_Metadata():
+	for i in range(0, $\"ItemList\".get_item_count()):
+		var save_file = File.new()
+		
+		save_file.open(\"user://\" + $\"ItemList\".get_item_text(i) + \".save\", File.READ)
+		
+		var customer = \"\"
+		var current_line = parse_json(save_file.get_line())			
+		if current_line == null: break
+		customer = current_line[\"Customer\"]
+			
+		save_file.close()
+		$\"ItemList\".set_item_metadata(i, customer)
+
+	
 func _on_Projects_about_to_show():
 	Global._popup_start()
-	
+	_update_ItemList(\"All Customers\")
+	$OptionButton._update()
 	
 	
 func _on_Projects_pressed():
 	popup()
+	
 	
 	
 func _on_Projects_popup_hide():
@@ -224,7 +259,7 @@ func _set_current_project(n):
 	
 func _save(n):
 	var save_file = File.new()
-	save_file.open(\"user://\" + n + \".save\", File.WRITE)
+	save_file.open(\"user://\" + n +\".save\", File.WRITE)
 	var pages = get_tree().get_nodes_in_group(\"Page Instance\")
 	
 	for i in pages:
@@ -232,6 +267,7 @@ func _save(n):
 		save_file.store_line(to_json(page_data))
 	
 	save_file.close()
+	
 	print(n + \" saved\")
 
 
@@ -440,6 +476,17 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _update():
+	clear()
+	add_item(\"All Customers\")
+	for i in range(0, $\"../ItemList\".get_item_count()):
+		var customer = $\"../ItemList\".get_item_metadata(i)
+		if customer != \"\" && customer != null:
+			add_item(customer)
+
+func _on_OptionButton_item_selected(ID):
+	get_parent()._update_ItemList(get_item_text(ID))
 "
 
 [sub_resource type="GDScript" id=8]
@@ -589,7 +636,6 @@ current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
-editor/display_folded = true
 visible = true
 margin_left = 1241.0
 margin_top = 30.0
@@ -604,13 +650,14 @@ script = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 30.0
-margin_top = 30.0
+margin_top = 42.0
 margin_right = -30.0
 margin_bottom = -50.0
 custom_constants/vseparation = 10
 custom_constants/hseparation = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Projects"]
+editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -654,7 +701,6 @@ rect_min_size = Vector2( 90, 0 )
 text = "Open"
 
 [node name="Rename" type="Button" parent="Projects/HBoxContainer"]
-editor/display_folded = true
 margin_left = 226.0
 margin_right = 316.0
 margin_bottom = 30.0
@@ -694,13 +740,13 @@ anchor_right = 1.0
 margin_left = 50.0
 margin_top = 5.0
 margin_right = -50.0
+margin_bottom = 36.0
 text = "All Customers"
 items = [ "All Customers", null, false, 0, null ]
 selected = 0
 script = SubResource( 7 )
 
 [node name="Page View" type="ScrollContainer" parent="."]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -913,6 +959,7 @@ script = SubResource( 11 )
 [connection signal="pressed" from="Projects/HBoxContainer/Rename" to="Projects/HBoxContainer/Rename/Rename Popup" method="_on_Rename_pressed"]
 [connection signal="confirmed" from="Projects/HBoxContainer/Rename/Rename Popup" to="Projects/HBoxContainer/Rename/Rename Popup" method="_on_Rename_Popup_confirmed"]
 [connection signal="pressed" from="Projects/HBoxContainer/Delete" to="Projects/HBoxContainer/Delete" method="_on_Delete_pressed"]
+[connection signal="item_selected" from="Projects/OptionButton" to="Projects/OptionButton" method="_on_OptionButton_item_selected"]
 [connection signal="renamed" from="Page View/ViewportContainer/Viewport/Page Instance" to="Side Bar/PageList Background/PageList" method="_on_Page_Instance_renamed"]
 [connection signal="pressed" from="Side Bar/HBoxContainer/Add Page" to="Side Bar/PageList Background/PageList" method="_on_Add_Page_pressed"]
 [connection signal="pressed" from="Side Bar/HBoxContainer/Remove Page" to="Side Bar/PageList Background/PageList" method="_on_Remove_Page_pressed"]

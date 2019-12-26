@@ -63,6 +63,7 @@ func _save():
 			rows_dict[n.get_position_in_parent()] = n._save()
 	
 	var save_dict = {
+		\"Customer\" : find_node(\"Customer\")._get_text(),
 		\"Header\" : $\"Header\"._save(),
 		\"Rows\" : rows_dict
 	}
