@@ -2,7 +2,7 @@ extends Node
 
 
 onready var companyName = "Company Name Placeholder"
-onready var softwareVersion = "WOC - " + companyName + " - 1.0.2"
+onready var softwareVersion = "WOC - " + companyName + " - 1.0.3"
 
 var state = 0
 var root = null
