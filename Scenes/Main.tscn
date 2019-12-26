@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Fonts/Roboto26.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Scenes/Page Instance.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Fonts/Roboto16.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Theme/theme.tres" type="Theme" id=1]
+[ext_resource path="res://Fonts/Roboto26.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scenes/Page Instance.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Fonts/Roboto16.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -495,7 +496,6 @@ script/source = "extends ItemList
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-signal pagesChanged
 
 onready var pageViewport = $\"../../../Page View/ViewportContainer/Viewport\"
 onready var selected = 0
@@ -524,7 +524,6 @@ func _open_page(index):
 	if index < get_item_count():
 		select(index)
 		_on_ItemList_item_selected(index)
-	emit_signal(\"pagesChanged\")
 
 func _on_ItemList_item_selected(index):
 	selected = index
@@ -540,7 +539,6 @@ func _on_Add_Page_pressed():
 	var page_instance = page.instance()
 	pageViewport.add_child(page_instance)
 	Global._save()
-	emit_signal(\"pagesChanged\")
 
 func _on_Remove_Page_pressed():
 	if get_item_count() <= 1:
@@ -558,8 +556,7 @@ func _on_Remove_Page_pressed():
 	
 	_open_page(index - 1)
 				
-	Global._save()
-	emit_signal(\"pagesChanged\")"
+	Global._save()"
 
 [sub_resource type="GDScript" id=9]
 script/source = "extends Button
@@ -642,6 +639,7 @@ margin_top = 30.0
 margin_right = 1687.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 446, 200 )
+theme = ExtResource( 1 )
 window_title = "Projects"
 resizable = true
 script = SubResource( 3 )
@@ -657,7 +655,6 @@ custom_constants/vseparation = 10
 custom_constants/hseparation = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Projects"]
-editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -687,7 +684,7 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 240.0
 margin_bottom = 50.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 placeholder_text = "New Project Name"
 placeholder_alpha = 0.25
 caret_blink = true
@@ -720,7 +717,7 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 240.0
 margin_bottom = 50.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 placeholder_text = "Project Name"
 placeholder_alpha = 0.25
 caret_blink = true
@@ -780,7 +777,7 @@ margin_bottom = 1200.0
 mouse_filter = 2
 color = Color( 0.870588, 0.870588, 0.870588, 1 )
 
-[node name="Page Instance" parent="Page View/ViewportContainer/Viewport" instance=ExtResource( 2 )]
+[node name="Page Instance" parent="Page View/ViewportContainer/Viewport" instance=ExtResource( 3 )]
 visible = false
 
 [node name="Side Bar" type="ColorRect" parent="."]
@@ -863,7 +860,7 @@ margin_right = 110.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 0 )
 mouse_filter = 1
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "Projects"
 
 [node name="Export" type="Button" parent="Top Bar/Viewport/Top Bar Background/VBox/TopRow"]
@@ -872,23 +869,25 @@ margin_right = 220.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 0 )
 mouse_filter = 1
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "Export"
 
 [node name="Settings" type="Button" parent="Top Bar/Viewport/Top Bar Background/VBox/TopRow"]
+visible = false
 margin_left = 220.0
 margin_right = 330.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 0 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "Settings"
 
 [node name="Files" type="Button" parent="Top Bar/Viewport/Top Bar Background/VBox/TopRow"]
-margin_left = 330.0
-margin_right = 440.0
+visible = false
+margin_left = 220.0
+margin_right = 330.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 0 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "Files"
 script = SubResource( 9 )
 
@@ -906,7 +905,7 @@ margin_left = 20.0
 margin_top = 1.0
 margin_right = 65.0
 margin_bottom = 20.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Saved"
 
@@ -919,7 +918,7 @@ custom_constants/separation = 8
 [node name="Project" type="Label" parent="Top Bar/Viewport/Top Bar Background/VBox/BottomRow/Project Title"]
 margin_right = 127.0
 margin_bottom = 22.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0.247059, 0.247059, 0.247059, 1 )
 text = "Current Project:"
 align = 1
@@ -929,7 +928,7 @@ margin_left = 135.0
 margin_right = 485.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 350, 0 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 autowrap = true
