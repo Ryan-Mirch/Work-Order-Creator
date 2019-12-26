@@ -121,7 +121,7 @@ func _load(dict):
 			_load_shape(Square, dict[i])
 			
 		else:
-			get_node(i).text =  dict[i]
+			get_node(i).text = dict[i]
 			
 func _save_shape(n):	
 	var save_dict = {}
@@ -692,6 +692,7 @@ margin_right = 484.5
 margin_bottom = 52.0
 
 [node name="Edges" type="ColorRect" parent="HBoxContainer"]
+editor/display_folded = true
 margin_left = 484.0
 margin_right = 724.0
 margin_bottom = 52.0

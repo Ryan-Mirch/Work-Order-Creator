@@ -12,18 +12,14 @@ script/source = "extends LineEdit
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.connect(\"text_changed\", self, \"_update_label\")
 	max_length = get_parent().rect_size.x / 11
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _update_label(newText):
-	get_parent().get_node(\"Entry Text\").text = newText
-	Global._save()
-"
+func _process(delta):
+	if get_parent().get_node(\"Entry Text\").text != text:
+		get_parent().get_node(\"Entry Text\").text = text
+		Global._save()"
 
 [node name="Box" type="ColorRect"]
 margin_right = 121.5
@@ -66,3 +62,4 @@ align = 1
 max_length = 15
 caret_blink = true
 script = SubResource( 1 )
+[connection signal="text_changed" from="LineEdit" to="LineEdit" method="_on_LineEdit_text_changed"]
