@@ -144,6 +144,7 @@ script/source = " extends WindowDialog
 signal currentProjectSet(n)
 
 onready var pageList = $\"../Side Bar/PageList Background/PageList\"
+onready var pageInstances = $\"../Page View/ViewportContainer/Viewport/Page Instances\"
 
 var currentProject = \"\"
 # Called when the node enters the scene tree for the first time.
@@ -256,7 +257,7 @@ func _load(n):
 		if current_line == null: break
 		
 		var pageInstance = page.instance()
-		$\"../Page View/ViewportContainer/Viewport\".add_child(pageInstance)
+		pageInstances.add_child(pageInstance)
 		
 		pageInstance._load(current_line)
 		
@@ -303,7 +304,7 @@ func _on_NewProject_newProject(n):
 	var pageInstance = page.instance()	
 	pageInstance.name = \"Page 1\"
 	
-	$\"../Page View/ViewportContainer/Viewport\".add_child(pageInstance)
+	pageInstances.add_child(pageInstance)
 	pageInstance._add_row(0)
 	_save(n)
 	
@@ -518,7 +519,7 @@ script/source = "extends ItemList
 # var a = 2
 # var b = \"text\"
 
-onready var pageViewport = $\"../../../Page View/ViewportContainer/Viewport\"
+onready var pageViewport = $\"../../../Page View/ViewportContainer/Viewport/Page Instances\"
 onready var selected = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -654,6 +655,7 @@ current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
+editor/display_folded = true
 visible = true
 margin_left = 1241.0
 margin_top = 29.05
@@ -814,7 +816,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="Page Instance" parent="Page View/ViewportContainer/Viewport" instance=ExtResource( 3 )]
+[node name="Page Instances" type="Node" parent="Page View/ViewportContainer/Viewport"]
+editor/display_folded = true
+
+[node name="Page Instance" parent="Page View/ViewportContainer/Viewport/Page Instances" instance=ExtResource( 3 )]
 visible = false
 
 [node name="Side Bar" type="ColorRect" parent="."]
@@ -995,7 +1000,7 @@ script = SubResource( 11 )
 [connection signal="pressed" from="Projects/HBoxContainer/Rename" to="Projects/HBoxContainer/Rename/Rename Popup" method="_on_Rename_pressed"]
 [connection signal="confirmed" from="Projects/HBoxContainer/Rename/Rename Popup" to="Projects/HBoxContainer/Rename/Rename Popup" method="_on_Rename_Popup_confirmed"]
 [connection signal="pressed" from="Projects/HBoxContainer/Delete" to="Projects/HBoxContainer/Delete" method="_on_Delete_pressed"]
-[connection signal="renamed" from="Page View/ViewportContainer/Viewport/Page Instance" to="Side Bar/PageList Background/PageList" method="_on_Page_Instance_renamed"]
+[connection signal="renamed" from="Page View/ViewportContainer/Viewport/Page Instances/Page Instance" to="Side Bar/PageList Background/PageList" method="_on_Page_Instance_renamed"]
 [connection signal="pressed" from="Side Bar/HBoxContainer/Add Page" to="Side Bar/PageList Background/PageList" method="_on_Add_Page_pressed"]
 [connection signal="pressed" from="Side Bar/HBoxContainer/Remove Page" to="Side Bar/PageList Background/PageList" method="_on_Remove_Page_pressed"]
 [connection signal="item_selected" from="Side Bar/PageList Background/PageList" to="Side Bar/PageList Background/PageList" method="_on_ItemList_item_selected"]

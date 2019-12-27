@@ -9,7 +9,7 @@ script/source = "extends VBoxContainer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-onready var pageList = $\"../../../../Side Bar/PageList Background/PageList\"
+onready var pageList = $\"../../../../../Side Bar/PageList Background/PageList\"
 onready var buttons = $\"Add Row Buttons\"
 
 onready var rowScene = load(\"res://Scenes/Row.tscn\")
