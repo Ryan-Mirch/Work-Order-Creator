@@ -206,7 +206,9 @@ func _set_Projects_Metadata():
 		var customer = \"\"
 		var current_line = parse_json(save_file.get_line())			
 		if current_line == null: break
-		customer = current_line[\"Customer\"]
+		
+		if current_line.has(\"Customer\"):
+			customer = current_line[\"Customer\"]
 			
 		save_file.close()
 		$\"ItemList\".set_item_metadata(i, customer)
@@ -654,8 +656,8 @@ resizable = true
 mode_overrides_title = false
 mode = 2
 access = 2
-current_dir = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator"
-current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
+current_dir = "D:/Projects/Godot/Work-Order-Creator"
+current_path = "D:/Projects/Godot/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
