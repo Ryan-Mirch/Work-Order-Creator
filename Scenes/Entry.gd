@@ -16,9 +16,9 @@ func _ready():
 func _update_label(newText):
 	if Global.state != 1: return
 	$"../Text".text = newText
-	if pageInstance.get_index() != 1:#segment is not on page 1
+	if pageInstance.get_index() != 2:#segment is not on page 1
 		for seg in get_tree().get_nodes_in_group("Header Segment"):
-			if seg.get_parent().get_parent().get_parent().get_parent().get_index() == 1:
+			if seg.get_parent().get_parent().get_parent().get_parent().get_index() == 2:
 				if seg.name == $"../..".name && seg != $"../..":
 					_set_text(seg._get_text())
 				

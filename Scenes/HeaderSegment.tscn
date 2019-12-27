@@ -27,7 +27,7 @@ func _get_text():
 	return $\"Entry Bg/Text\".text
 
 func _set_Entry_Visibility():
-	if pageInstance.get_index() != 1:
+	if pageInstance.get_index() != 2: #there are 2 nodes in the parent node, so the first index is 2
 		find_node(\"Entry\").visible = false
 		return
 		
