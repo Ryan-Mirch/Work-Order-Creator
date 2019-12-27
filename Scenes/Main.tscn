@@ -164,21 +164,21 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _filter_Itemlist(s):
-	var customer = $\"OptionButton\".get_item_text($\"OptionButton\".selected)
-	var search = $\"LineEdit\".text
+		
 	
-	print(\"search: \" + search)
-	print(\"customer: \" + customer)
 	
+func _reset_Itemlist():
 	$\"ItemList\".clear()
 	var names = _get_all_project_names()
 	for n in names:
 		n = n.replace(\".save\",\"\")
 		$\"ItemList\".add_item(n)
-		
 	_set_Projects_Metadata()
-	
+
+func _filter_Itemlist(s):
+	var customer = $\"OptionButton\".get_item_text($\"OptionButton\".selected)
+	var search = $\"LineEdit\".text
+	_reset_Itemlist()
 	if customer != \"All Customers\":
 		var itemCount = $\"ItemList\".get_item_count() - 1		
 		var index = itemCount
@@ -214,8 +214,10 @@ func _set_Projects_Metadata():
 	
 func _on_Projects_about_to_show():
 	Global._popup_start()
-	_filter_Itemlist(1)
+	_reset_Itemlist()
 	$OptionButton._update()
+	_filter_Itemlist(1)
+	
 	
 	
 func _on_Projects_pressed():
@@ -506,10 +508,12 @@ func _ready():
 func _update():
 	clear()
 	add_item(\"All Customers\")
+	var itemsAdded = []
 	for i in range(0, $\"../ItemList\".get_item_count()):
 		var customer = $\"../ItemList\".get_item_metadata(i)
-		if customer != \"\" && customer != null:
+		if customer != \"\" && customer != null && !itemsAdded.has(customer):
 			add_item(customer)
+			itemsAdded.append(customer)
 "
 
 [sub_resource type="GDScript" id=8]
@@ -655,7 +659,6 @@ current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
-editor/display_folded = true
 visible = true
 margin_left = 1241.0
 margin_top = 29.05
