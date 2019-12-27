@@ -2,7 +2,7 @@ extends Node
 
 
 onready var companyName = "Company Name Placeholder"
-onready var softwareVersion = "WOC - " + companyName + " - 1.0.3"
+onready var softwareVersion = "WOC - " + companyName + " - 1.0.4"
 
 var state = 0
 var root = null
@@ -56,7 +56,6 @@ func _get_date_and_time():
 	var time = OS.get_datetime()
 	var result = ""
 	var day = time["day"]
-	var dst = time["dst"]
 	var hour = time["hour"]
 	var minute = time["minute"]
 	var month = time["month"]
