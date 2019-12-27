@@ -106,7 +106,7 @@ func _ready():
 
 [sub_resource type="Theme" id=4]
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=5]
 script/source = "extends ConfirmationDialog
 
 # Declare member variables here. Examples:
@@ -140,7 +140,7 @@ func _on_Change_Page_Name_about_to_show():
 	lineEdit.text = pageName.text
 "
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -464,7 +464,7 @@ margin_top = 24.3499
 margin_right = 1143.25
 margin_bottom = 145.35
 window_title = "Change Page Name"
-script = SubResource( 7 )
+script = SubResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Change Page Name"]
 anchor_right = 1.0
@@ -491,7 +491,7 @@ margin_right = 265.0
 margin_bottom = 75.0
 custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.901961, 0.521569, 0.521569, 1 )
-script = SubResource( 8 )
+script = SubResource( 6 )
 [connection signal="gui_input" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_gui_input"]
 [connection signal="text_entered" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_text_entered"]
 [connection signal="about_to_show" from="Change Page Name" to="Change Page Name" method="_on_Change_Page_Name_about_to_show"]

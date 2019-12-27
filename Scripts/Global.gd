@@ -28,6 +28,9 @@ func _editing_start():
 	for viewport in get_tree().get_nodes_in_group("Viewport"):
 		viewport.gui_disable_input = false
 		
+	for ItemList in get_tree().get_nodes_in_group("Background"):
+		ItemList.visible = true
+		
 	
 	
 func _exporting_start():
@@ -40,6 +43,9 @@ func _exporting_start():
 		
 	for viewport in get_tree().get_nodes_in_group("Viewport"):
 		viewport.gui_disable_input = true
+		
+	for ItemList in get_tree().get_nodes_in_group("Background"):
+		ItemList.visible = false
 	
 func _popup_start():
 	state = 3

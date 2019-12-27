@@ -633,6 +633,7 @@ current_path = "C:/Users/rwmir/Development/Godot/Projects/Work-Order-Creator/"
 script = SubResource( 2 )
 
 [node name="Projects" type="WindowDialog" parent="."]
+editor/display_folded = true
 visible = true
 margin_left = 1241.0
 margin_top = 30.0
@@ -655,6 +656,7 @@ custom_constants/vseparation = 10
 custom_constants/hseparation = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Projects"]
+editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -683,7 +685,7 @@ script = SubResource( 4 )
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 240.0
-margin_bottom = 50.0
+margin_bottom = 49.9996
 custom_fonts/font = ExtResource( 2 )
 placeholder_text = "New Project Name"
 placeholder_alpha = 0.25
@@ -716,7 +718,7 @@ script = SubResource( 5 )
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 240.0
-margin_bottom = 50.0
+margin_bottom = 49.9996
 custom_fonts/font = ExtResource( 2 )
 placeholder_text = "Project Name"
 placeholder_alpha = 0.25
@@ -771,11 +773,17 @@ disable_3d = true
 usage = 0
 render_target_update_mode = 3
 
-[node name="ColorRect" type="ColorRect" parent="Page View/ViewportContainer/Viewport"]
+[node name="bg Exporting" type="ColorRect" parent="Page View/ViewportContainer/Viewport"]
 margin_right = 900.0
 margin_bottom = 1200.0
 mouse_filter = 2
-color = Color( 0.870588, 0.870588, 0.870588, 1 )
+
+[node name="bg Editing" type="ItemList" parent="Page View/ViewportContainer/Viewport" groups=[
+"Background",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="Page Instance" parent="Page View/ViewportContainer/Viewport" instance=ExtResource( 3 )]
 visible = false
