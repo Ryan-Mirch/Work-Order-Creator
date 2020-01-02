@@ -441,6 +441,10 @@ func _on_Rename_Popup_confirmed():
 		print(\"cant rename to blank name\")
 		return
 		
+	if !(newName.replace(\" \", \"_\")).is_valid_identifier():
+		print(\"name can only be letters or numbers\")
+		return
+		
 	itemList.set_item_text(index, newName)
 	var dir = Directory.new()
 	dir.rename(oldNameDir,newNameDir)
@@ -683,7 +687,6 @@ custom_constants/vseparation = 10
 custom_constants/hseparation = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Projects"]
-editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -782,6 +785,7 @@ margin_bottom = 39.0
 placeholder_text = "Search Projects"
 
 [node name="Page View" type="ScrollContainer" parent="."]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -828,6 +832,7 @@ editor/display_folded = true
 visible = false
 
 [node name="Side Bar" type="ColorRect" parent="."]
+editor/display_folded = true
 margin_right = 200.0
 margin_bottom = 850.0
 color = Color( 0.478431, 0.478431, 0.478431, 1 )
