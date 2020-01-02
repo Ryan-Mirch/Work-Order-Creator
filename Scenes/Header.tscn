@@ -6,7 +6,7 @@
 [ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/PageName.gd" type="Script" id=5]
 [ext_resource path="res://Fonts/Roboto30.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Fonts/Roboto16.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Fonts/Roboto13.tres" type="DynamicFont" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -160,6 +160,10 @@ func _on_LineEdit_text_changed(new_text):
 		text = \"Page name can not be blank\"
 		return
 	
+	if !(new_text.replace(\" \", \"_\")).is_valid_identifier():
+		text = \"Page name can only be letters or numbers\"
+		return
+	
 	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
 		if pageInstance.name == new_text && pageInstance.name != page.text:
 			text = \"Page name must be unique\"
@@ -225,6 +229,7 @@ autowrap = true
 script = SubResource( 2 )
 
 [node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
 margin_top = 70.0
 margin_right = 850.0
 margin_bottom = 173.0
@@ -305,6 +310,7 @@ align = 1
 valign = 1
 
 [node name="2nd Row" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
 margin_top = 168.0
 margin_right = 850.0
 margin_bottom = 271.0
@@ -321,6 +327,7 @@ margin_right = 850.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="3rd Row" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
 margin_top = 266.0
 margin_right = 850.0
 margin_bottom = 369.0
@@ -337,6 +344,7 @@ margin_right = 850.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="Header Row" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
 margin_top = 364.0
 margin_right = 850.0
 margin_bottom = 399.0
@@ -459,10 +467,10 @@ valign = 2
 "Popup",
 ]]
 visible = true
-margin_left = 861.251
-margin_top = 24.3499
-margin_right = 1143.25
-margin_bottom = 145.35
+margin_left = 861.0
+margin_top = 24.0
+margin_right = 1143.0
+margin_bottom = 143.0
 window_title = "Change Page Name"
 script = SubResource( 5 )
 
@@ -476,7 +484,7 @@ margin_bottom = -36.0
 custom_constants/separation = 10
 
 [node name="LineEdit" type="LineEdit" parent="Change Page Name/VBoxContainer"]
-margin_right = 265.0
+margin_right = 266.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 0, 40 )
 custom_fonts/font = ExtResource( 6 )
@@ -487,8 +495,8 @@ caret_blink = true
 
 [node name="Warning" type="Label" parent="Change Page Name/VBoxContainer"]
 margin_top = 56.0
-margin_right = 265.0
-margin_bottom = 75.0
+margin_right = 266.0
+margin_bottom = 73.0
 custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.901961, 0.521569, 0.521569, 1 )
 script = SubResource( 6 )
