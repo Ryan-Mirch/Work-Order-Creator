@@ -15,8 +15,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Work Order Creator"
+config/name="Work Order Creator - Test Version"
 run/main_scene="res://Scenes/Main.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="WOC"
 boot_splash/image="res://Splash.png"
 boot_splash/fullsize=false
 config/icon="res://icon.png"
