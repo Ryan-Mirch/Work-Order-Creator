@@ -1,8 +1,10 @@
 extends Node
 
 
-onready var companyName = "Company Name Placeholder"
-onready var softwareVersion = "WOC - " + companyName + " - 1.0.5"
+onready var companyName = "Test Company Name"
+#onready var companyName = "Delaware River Basin Stone Co."
+
+onready var softwareVersion = "WOC - " + companyName
 
 var state = 0
 var root = null
