@@ -602,15 +602,15 @@ func _on_Remove_Page_pressed():
 				
 	Global._save()"
 
-[sub_resource type="StyleBoxFlat" id=13]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.752941, 0.752941, 0.752941, 0.196078 )
 
-[sub_resource type="StyleBoxFlat" id=15]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.756863, 0.756863, 0.756863, 1 )
 
-[sub_resource type="StyleBoxEmpty" id=14]
+[sub_resource type="StyleBoxEmpty" id=11]
 
-[sub_resource type="GDScript" id=16]
+[sub_resource type="GDScript" id=12]
 script/source = "extends Button
 
 # Declare member variables here. Examples:
@@ -630,7 +630,7 @@ func _on_Help_pressed():
 	#OS.shell_open(\"mailto:rwmirch@gmail.com\")
 	$\"../../../../../../Message\"._show_alert(0)"
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=13]
 script/source = "extends Button
 
 # Declare member variables here. Examples:
@@ -650,7 +650,7 @@ func _on_Files_pressed():
 	OS.shell_open(str(\"file://\", absoluteDirPath))
 "
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=14]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -670,7 +670,7 @@ func _on_Projects_currentProjectSet(n):
 	text = n
 "
 
-[sub_resource type="GDScript" id=12]
+[sub_resource type="GDScript" id=15]
 script/source = "extends AcceptDialog
 
 # Declare member variables here. Examples:
@@ -975,9 +975,9 @@ margin_right = 110.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 25 )
 mouse_filter = 1
-custom_styles/hover = SubResource( 13 )
-custom_styles/pressed = SubResource( 15 )
-custom_styles/normal = SubResource( 14 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
@@ -989,9 +989,9 @@ margin_right = 220.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 25 )
 mouse_filter = 1
-custom_styles/hover = SubResource( 13 )
-custom_styles/pressed = SubResource( 15 )
-custom_styles/normal = SubResource( 14 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
@@ -1003,9 +1003,9 @@ margin_left = 220.0
 margin_right = 330.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 25 )
-custom_styles/hover = SubResource( 13 )
-custom_styles/pressed = SubResource( 15 )
-custom_styles/normal = SubResource( 14 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
@@ -1016,14 +1016,14 @@ margin_left = 220.0
 margin_right = 330.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 25 )
-custom_styles/hover = SubResource( 13 )
-custom_styles/pressed = SubResource( 15 )
-custom_styles/normal = SubResource( 14 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Help"
-script = SubResource( 16 )
+script = SubResource( 12 )
 
 [node name="Files" type="Button" parent="Top Bar/Viewport/Top Bar Background/VBox/TopRow"]
 visible = false
@@ -1031,14 +1031,14 @@ margin_left = 220.0
 margin_right = 330.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 110, 25 )
-custom_styles/hover = SubResource( 13 )
-custom_styles/pressed = SubResource( 15 )
-custom_styles/normal = SubResource( 14 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Files"
-script = SubResource( 9 )
+script = SubResource( 13 )
 
 [node name="BottomRow" type="HBoxContainer" parent="Top Bar/Viewport/Top Bar Background/VBox"]
 margin_top = 29.0
@@ -1081,7 +1081,7 @@ custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 valign = 1
 autowrap = true
-script = SubResource( 10 )
+script = SubResource( 14 )
 
 [node name="Alert" type="AcceptDialog" parent="."]
 visible = true
@@ -1090,7 +1090,7 @@ margin_top = 464.995
 margin_right = 1542.41
 margin_bottom = 558.995
 popup_exclusive = true
-script = SubResource( 12 )
+script = SubResource( 15 )
 
 [node name="Alert Text" type="Label" parent="Alert"]
 anchor_right = 1.0
@@ -1112,7 +1112,7 @@ margin_top = 464.995
 margin_right = 1542.41
 margin_bottom = 558.995
 window_title = "Message"
-script = SubResource( 12 )
+script = SubResource( 15 )
 
 [node name="Alert Text" type="Label" parent="Message"]
 anchor_right = 1.0
