@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=2]
@@ -11,6 +11,7 @@ script/source = "extends ColorRect
 # var a = 2
 # var b = \"text\"
 onready var pageInstance = $\"../../../../\"
+onready var editable = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +20,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	_set_Entry_Visibility()
+	
+func _set_editable(b):
+	editable = b
+	$\"Label Bg/Editable Toggle\".pressed = editable
 
 func _set_text(s):
 	$\"Entry Bg/Entry\"._set_text(s)
@@ -27,12 +32,41 @@ func _get_text():
 	return $\"Entry Bg/Text\".text
 
 func _set_Entry_Visibility():
-	if pageInstance.get_index() != 0:
+	if pageInstance.get_index() != 0 && !editable:
 		find_node(\"Entry\").visible = false
 		return
 		
 	if Global.state != 2:
 		find_node(\"Entry\").visible = true"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends CheckButton
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var sceneRoot = $\"../..\"
+onready var pageInstance = $\"../../../../../../\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	if sceneRoot.name != \"PO#\" && sceneRoot.name != \"Material\" && sceneRoot.name != \"Notes\":
+		queue_free()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	_set_Visibility()
+	
+func _set_Visibility():
+	if pageInstance.get_index() != 0:
+		visible = true
+		return
+	else:
+		visible = false
+
+
+func _on_Editable_Toggle_pressed():
+	sceneRoot.editable = pressed
+	Global._save()"
 
 [node name="Date Recieved" type="ColorRect" groups=[
 "Header Segment",
@@ -90,3 +124,19 @@ custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
+
+[node name="Editable Toggle" type="CheckButton" parent="Label Bg" groups=[
+"Editor Only",
+]]
+margin_left = -3.9014
+margin_top = -4.08801
+margin_right = 100.099
+margin_bottom = 35.912
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Edit"
+script = SubResource( 2 )
+[connection signal="pressed" from="Label Bg/Editable Toggle" to="Label Bg/Editable Toggle" method="_on_Editable_Toggle_pressed"]

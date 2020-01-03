@@ -45,7 +45,12 @@ func _save():
 		\"VBoxContainer/3rd Row/Material/Entry Bg/Entry\" : _Material.text,
 		\"VBoxContainer/3rd Row/Notes/Entry Bg/Entry\" : Notes.text,
 		
-		\"Page Name\" : get_parent().name
+		\"Page Name\" : get_parent().name,
+		
+		\"PO#\" : PO.sceneRoot.editable,		
+		\"Material\" : _Material.sceneRoot.editable,
+		\"Notes\" : Notes.sceneRoot.editable
+		
 	}
 	return save_dict
 
@@ -56,6 +61,15 @@ func _load(dict):
 	for i in dict.keys():
 		if i == \"Page Name\":
 			get_parent().name = dict[i]
+		
+		elif i ==\"PO#\":
+			PO.sceneRoot._set_editable(dict[i])
+			
+		elif i ==\"Material\":
+			_Material.sceneRoot._set_editable(dict[i])
+			
+		elif i ==\"Notes\":
+			Notes.sceneRoot._set_editable(dict[i])
 			
 		else: 
 			get_node(i)._set_text(dict[i])
@@ -172,7 +186,6 @@ margin_right = -3.0
 margin_bottom = -3.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 320 )
@@ -289,7 +302,6 @@ align = 1
 valign = 1
 
 [node name="2nd Row" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_top = 168.0
 margin_right = 850.0
 margin_bottom = 271.0
@@ -306,7 +318,6 @@ margin_right = 850.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="3rd Row" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_top = 266.0
 margin_right = 850.0
 margin_bottom = 369.0
