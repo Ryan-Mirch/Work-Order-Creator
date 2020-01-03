@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Fonts/Roboto40.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/PageName.gd" type="Script" id=5]
 [ext_resource path="res://Fonts/Roboto30.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Fonts/Roboto13.tres" type="DynamicFont" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -118,7 +117,6 @@ onready var pageName = $\"../VBoxContainer/1st Row/Page Name/Entry Bg/Entry\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	register_text_enter($\"VBoxContainer/LineEdit\")
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -127,10 +125,25 @@ func _ready():
 
 func _on_Change_Page_Name_confirmed():
 	var PageListNode = get_tree().get_root().get_node(\"Main\").PageList
-	if warning.text == \"\":
-		var index = PageListNode.selected
-		var newName = lineEdit.text
-		PageListNode._rename_item(index, newName)
+	var alert = $\"../../../../../../../Alert\"
+	var new_text = lineEdit.text
+	
+	if new_text == \"\":
+		alert._show_alert(0)
+		return
+	
+	if !(new_text.replace(\" \", \"_\")).is_valid_identifier():
+		alert._show_alert(1)
+		return
+	
+	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
+		if pageInstance.name == new_text && pageInstance.name != pageName.text:
+			alert._show_alert(2)
+			return 
+	
+	var index = PageListNode.selected
+	var newName = lineEdit.text
+	PageListNode._rename_item(index, newName)
 		
 	Global._save()
 		
@@ -138,39 +151,6 @@ func _on_Change_Page_Name_confirmed():
 
 func _on_Change_Page_Name_about_to_show():
 	lineEdit.text = pageName.text
-"
-
-[sub_resource type="GDScript" id=6]
-script/source = "extends Label
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-onready var page = $\"../../../VBoxContainer/1st Row/Page Name/Entry Bg/Entry Text\"
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func _on_LineEdit_text_changed(new_text):
-	if new_text == \"\":
-		text = \"Page name can not be blank\"
-		return
-	
-	if !(new_text.replace(\" \", \"_\")).is_valid_identifier():
-		text = \"Page name can only be letters or numbers\"
-		return
-	
-	for pageInstance in get_tree().get_nodes_in_group(\"Page Instance\"):
-		if pageInstance.name == new_text && pageInstance.name != page.text:
-			text = \"Page name must be unique\"
-			return  
-	
-	text = \"\"
-	
 "
 
 [node name="Header" type="ColorRect"]
@@ -192,6 +172,7 @@ margin_right = -3.0
 margin_bottom = -3.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 320 )
@@ -229,7 +210,6 @@ autowrap = true
 script = SubResource( 2 )
 
 [node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_top = 70.0
 margin_right = 850.0
 margin_bottom = 173.0
@@ -251,7 +231,6 @@ margin_left = 507.0
 margin_right = 680.0
 
 [node name="Page Name" type="ColorRect" parent="VBoxContainer/1st Row"]
-editor/display_folded = true
 margin_left = 676.0
 margin_right = 849.0
 margin_bottom = 103.0
@@ -468,9 +447,9 @@ valign = 2
 ]]
 visible = true
 margin_left = 861.0
-margin_top = 24.0
+margin_top = 25.0
 margin_right = 1143.0
-margin_bottom = 143.0
+margin_bottom = 115.0
 window_title = "Change Page Name"
 script = SubResource( 5 )
 
@@ -481,7 +460,7 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -36.0
-custom_constants/separation = 10
+custom_constants/separation = 0
 
 [node name="LineEdit" type="LineEdit" parent="Change Page Name/VBoxContainer"]
 margin_right = 266.0
@@ -492,16 +471,7 @@ max_length = 30
 placeholder_text = "New Page Name"
 placeholder_alpha = 0.25
 caret_blink = true
-
-[node name="Warning" type="Label" parent="Change Page Name/VBoxContainer"]
-margin_top = 56.0
-margin_right = 266.0
-margin_bottom = 73.0
-custom_fonts/font = ExtResource( 7 )
-custom_colors/font_color = Color( 0.901961, 0.521569, 0.521569, 1 )
-script = SubResource( 6 )
 [connection signal="gui_input" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_gui_input"]
 [connection signal="text_entered" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_text_entered"]
 [connection signal="about_to_show" from="Change Page Name" to="Change Page Name" method="_on_Change_Page_Name_about_to_show"]
 [connection signal="confirmed" from="Change Page Name" to="Change Page Name" method="_on_Change_Page_Name_confirmed"]
-[connection signal="text_changed" from="Change Page Name/VBoxContainer/LineEdit" to="Change Page Name/VBoxContainer/Warning" method="_on_LineEdit_text_changed"]

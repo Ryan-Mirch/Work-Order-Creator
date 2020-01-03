@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://Fonts/Roboto26.tres" type="DynamicFont" id=2]
@@ -161,10 +161,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-		
+func _process(delta):
+	if $\"ItemList\".get_selected_items().size() == 0 && $\"ItemList\".get_item_count() > 0:
+		$\"ItemList\".select(0)		
 	
 	
 func _reset_Itemlist():
@@ -242,7 +241,7 @@ func _remove_all_pages():
 	
 func _load(n):
 	if $\"ItemList\".get_item_count() == 0:
-		print(\"no projects available. Please create a project\")
+		$\"../Alert\"._show_alert(3)
 		return
 	var save_file = File.new()
 	if not save_file.file_exists(\"user://\"+ n + \".save\"):
@@ -366,6 +365,7 @@ signal newProject(n)
 
 onready var lineEdit = $\"LineEdit\"
 onready var itemList = $\"../../../ItemList\"
+onready var alert = $\"../../../../Alert\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	register_text_enter($\"LineEdit\")
@@ -386,11 +386,18 @@ func _on_NewProject_confirmed():
 	
 	for n in nameList:
 		if n == newName:
-			print(\"name cant be same as existing name\")
+			print(\"name cant be the same as an existing name\")
+			alert._show_alert(2)
 			return
 	
 	if newName == \"\" || newName == null:
-		print(\"name cant be blank name\")
+		print(\"name cant be blank\")
+		alert._show_alert(0)
+		return
+		
+	if !(newName.replace(\" \", \"_\")).is_valid_identifier():
+		print(\"name can only be letters or numbers\")
+		alert._show_alert(1)
 		return
 		
 	emit_signal(\"newProject\", newName)
@@ -405,6 +412,7 @@ script/source = "extends ConfirmationDialog
 # var b = \"text\"
 onready var lineEdit = $\"LineEdit\"
 onready var itemList = $\"../../../ItemList\"
+onready var alert = $\"../../../../Alert\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -415,7 +423,7 @@ func _ready():
 #	pass
 func _on_Rename_pressed():
 	if itemList.get_item_count() == 0:
-		print(\"no projects available. Please create a project\")
+		alert._show_alert(3)
 		return
 		
 	popup()
@@ -435,14 +443,17 @@ func _on_Rename_Popup_confirmed():
 	for i in range(itemList.get_item_count()):
 		if itemList.get_item_text(i) == newName:
 			print(\"cant rename to existing name\")
+			alert._show_alert(2)
 			return
 	
 	if newName == \"\" || newName == null:
 		print(\"cant rename to blank name\")
+		alert._show_alert(0)
 		return
 		
 	if !(newName.replace(\" \", \"_\")).is_valid_identifier():
 		print(\"name can only be letters or numbers\")
+		alert._show_alert(1)
 		return
 		
 	itemList.set_item_text(index, newName)
@@ -461,7 +472,8 @@ script/source = "extends Button
 # var b = \"text\"
 onready var itemList = $\"../../ItemList\"
 onready var projects = $\"../..\"
-onready var currentProjectLabel = $\"../../../Top Bar/Viewport/Top Bar Background/Left/Project Title/Current Project Name\"
+onready var currentProjectLabel = $\"../../../Top Bar/Viewport/Top Bar Background/VBox/BottomRow/Project Title/Current Project Name\"
+onready var alert = $\"../../../Alert\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -472,7 +484,7 @@ func _ready():
 
 func _on_Delete_pressed():
 	if itemList.get_item_count() == 0:
-		print(\"no projects available. Please create a project\")
+		alert._show_alert(3)
 		return
 		
 	var index = itemList.get_selected_items()[0]
@@ -644,6 +656,44 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+"
+
+[sub_resource type="GDScript" id=12]
+script/source = "extends AcceptDialog
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var alertText = $\"Alert Text\"
+var previousState = 0
+var errors = [	\"Name cannot be blank.\", 
+				\"Name can only contain letters, numbers, spaces, and underscores.\",
+				\"Name must be unique\",
+				\"No project selected, please create a new project.\"]
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	visible = false
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _show_alert(index):
+	alertText.text = errors[index]
+	popup()
+	previousState = Global.state
+	Global._popup_start()
+
+
+
+func _on_Alert_popup_hide():
+	if previousState == 1:
+		Global._editing_start()
+
+
+func _on_Alert_about_to_show():
+	rect_position.x = get_viewport().get_mouse_position().x - rect_size.x/2
+	rect_position.y = get_viewport().get_mouse_position().y - rect_size.y - 30
 "
 
 [node name="Main" type="Node2D"]
@@ -826,7 +876,6 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="Page Instances" type="Node" parent="Page View/ViewportContainer/Viewport"]
-editor/display_folded = true
 
 [node name="Page Instance" parent="Page View/ViewportContainer/Viewport/Page Instances" instance=ExtResource( 3 )]
 visible = false
@@ -876,7 +925,6 @@ custom_constants/hseparation = 100
 script = SubResource( 8 )
 
 [node name="Top Bar" type="ViewportContainer" parent="."]
-editor/display_folded = true
 margin_right = 1195.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 850, 50 )
@@ -996,6 +1044,28 @@ margin_right = -20.0
 text = "test"
 align = 2
 script = SubResource( 11 )
+
+[node name="Alert" type="AcceptDialog" parent="."]
+visible = true
+margin_left = 1240.41
+margin_top = 464.995
+margin_right = 1542.41
+margin_bottom = 558.995
+popup_exclusive = true
+script = SubResource( 12 )
+
+[node name="Alert Text" type="Label" parent="Alert"]
+anchor_right = 1.0
+anchor_bottom = 0.7
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 0.301961, 0.301961, 1 )
+align = 1
+valign = 1
+autowrap = true
 [connection signal="dir_selected" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_dir_selected"]
 [connection signal="modal_closed" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_FileDialog_modal_closed"]
 [connection signal="popup_hide" from="Save Pages As PNG" to="Save Pages As PNG" method="_on_Save_Pages_As_PNG_popup_hide"]
@@ -1017,3 +1087,5 @@ script = SubResource( 11 )
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/VBox/TopRow/Projects" to="Projects" method="_on_Projects_pressed"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/VBox/TopRow/Export" to="Save Pages As PNG" method="_on_Export_pressed"]
 [connection signal="pressed" from="Top Bar/Viewport/Top Bar Background/VBox/TopRow/Files" to="Top Bar/Viewport/Top Bar Background/VBox/TopRow/Files" method="_on_Files_pressed"]
+[connection signal="about_to_show" from="Alert" to="Alert" method="_on_Alert_about_to_show"]
+[connection signal="popup_hide" from="Alert" to="Alert" method="_on_Alert_popup_hide"]

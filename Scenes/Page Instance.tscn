@@ -11,11 +11,11 @@ script/source = "extends VBoxContainer
 # var b = \"text\"
 onready var pageList = $\"../../../../../Side Bar/PageList Background/PageList\"
 onready var buttons = $\"Add Row Buttons\"
+onready var alert = $\"../../../../../Alert\"
 
 onready var rowScene = load(\"res://Scenes/Row.tscn\")
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	
 	if Global.state == 3: return
 	
