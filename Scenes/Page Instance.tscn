@@ -131,15 +131,16 @@ func _on_Add_Tall_Row_pressed():
 	return rowInstance
 	Global._save()"
 
-[node name="Page Instance" type="VBoxContainer" groups=[
-"Page Instance",
-]]
+[node name="Page Instance" type="VBoxContainer" groups=["Page Instance"]]
 margin_right = 850.0
 margin_bottom = 623.0
 rect_min_size = Vector2( 850, 0 )
 mouse_filter = 2
 custom_constants/separation = 0
 script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Header" parent="." instance=ExtResource( 1 )]
 rect_min_size = Vector2( 850, 400 )
@@ -165,9 +166,7 @@ rect_min_size = Vector2( 850, 30 )
 custom_constants/separation = 18
 alignment = 1
 
-[node name="Add Short Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=[
-"Editor Only",
-]]
+[node name="Add Short Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
 margin_left = 16.0
 margin_right = 416.0
 margin_bottom = 40.0
@@ -175,9 +174,7 @@ rect_min_size = Vector2( 400, 40 )
 custom_fonts/font = ExtResource( 2 )
 text = "Add Short Row"
 
-[node name="Add Tall Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=[
-"Editor Only",
-]]
+[node name="Add Tall Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
 margin_left = 434.0
 margin_right = 834.0
 margin_bottom = 40.0
@@ -185,5 +182,6 @@ rect_min_size = Vector2( 400, 30 )
 custom_fonts/font = ExtResource( 2 )
 text = "Add Tall Row"
 clip_text = true
+
 [connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Short Row" to="Add Row Buttons" method="_on_Add_Short_Row_pressed"]
 [connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Tall Row" to="Add Row Buttons" method="_on_Add_Tall_Row_pressed"]

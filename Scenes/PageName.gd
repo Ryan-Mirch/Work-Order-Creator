@@ -27,6 +27,7 @@ func _update_text():
 func _update_label(newText):
 	get_parent().get_node("Entry Text").text = newText
 
+
 func _on_Entry_text_entered(new_text):
 	_update_label(new_text)
 

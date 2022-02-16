@@ -2,7 +2,7 @@ extends Node
 
 
 #onready var companyName = "Company Name Placeholder"
-onready var companyName = "Delaware River Basin Stone Co."
+onready var companyName = "Stone Curators"
 
 var state = 0
 var root = null

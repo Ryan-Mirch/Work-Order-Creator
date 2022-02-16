@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Fonts/Roboto40.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/PageName.gd" type="Script" id=5]
 [ext_resource path="res://Fonts/Roboto30.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Images/Logo.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Entry.gd" type="Script" id=8]
+[ext_resource path="res://Fonts/Roboto-Medium.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ColorRect
@@ -84,7 +86,8 @@ func _load(dict):
 	
 	
 	
-	"
+	
+"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Label
@@ -102,24 +105,129 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="GDScript" id=3]
-script/source = "extends ColorRect
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Panel
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var pageInstance = $\"../../../../\"
+onready var editable = false
+onready var labelText = $\"Label Control/Text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	labelText.text = name
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	_set_Entry_Visibility()
+	
+func _set_editable(b):
+	editable = b
+	$\"Label Control/Editable Toggle\".pressed = editable
+
+func _set_text(s):
+	$\"Entry Bg/Entry\"._set_text(s)
+	
+func _get_text():
+	return $\"Entry Bg/Text\".text
+
+func _set_Entry_Visibility():
+	if pageInstance.get_index() != 0 && !editable:
+		find_node(\"Entry\").visible = false
+		return
+		
+	if Global.state != 2:
+		find_node(\"Entry\").visible = true
+"
+
+[sub_resource type="DynamicFont" id=4]
+size = 12
+font_data = ExtResource( 9 )
+
+[sub_resource type="GDScript" id=12]
+script/source = "extends CheckButton
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var sceneRoot = $\"../..\"
+onready var pageInstance = $\"../../../../../../\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	if sceneRoot.name != \"PO#\" && sceneRoot.name != \"Material\" && sceneRoot.name != \"Notes\":
+		queue_free()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	_set_Visibility()
+	
+func _set_Visibility():
+	if pageInstance.get_index() != 0:
+		visible = true
+		return
+	else:
+		visible = false
+
+
+func _on_Editable_Toggle_pressed():
+	sceneRoot.editable = pressed
+	Global._save()
+"
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="GDScript" id=13]
+script/source = "extends Control
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$\"Label Bg/Label\".text = name
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 "
 
-[sub_resource type="Theme" id=4]
+[sub_resource type="DynamicFont" id=14]
+size = 20
+font_data = ExtResource( 9 )
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=10]
 script/source = "extends ConfirmationDialog
 
 # Declare member variables here. Examples:
@@ -170,34 +278,28 @@ func _on_Change_Page_Name_about_to_show():
 margin_right = 850.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 0, 350 )
-color = Color( 0, 0, 0, 1 )
 script = SubResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ -107.126 ]
+"_edit_horizontal_guides_": [ -107.126 ],
+"_edit_use_anchors_": false
 }
-
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 0, 320 )
-custom_constants/separation = -5
+custom_constants/separation = -2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Company Name" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
 margin_right = 850.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 850, 75 )
 custom_constants/separation = -4
 
 [node name="Company Name Bg" type="ColorRect" parent="VBoxContainer/Company Name"]
+visible = false
 margin_right = 850.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 850, 0 )
@@ -206,262 +308,388 @@ color = Color( 0, 0, 0, 1 )
 [node name="Entry Bg" type="ColorRect" parent="VBoxContainer/Company Name/Company Name Bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
 margin_bottom = -3.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Entry Text" type="Label" parent="VBoxContainer/Company Name/Company Name Bg/Entry Bg"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
 align = 1
 valign = 1
 autowrap = true
 script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="Sprite" parent="VBoxContainer/Company Name"]
+position = Vector2( 425.306, 35.1861 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
 
 [node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 70.0
+margin_top = 73.0
 margin_right = 850.0
-margin_bottom = 173.0
-rect_min_size = Vector2( 850, 103 )
-custom_constants/separation = -4
+margin_bottom = 123.0
+rect_min_size = Vector2( 850, 50 )
+custom_constants/separation = -1
 
 [node name="Date Received" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
+margin_right = 300.0
+rect_min_size = Vector2( 300, 0 )
 
 [node name="Date Written" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
-margin_left = 169.0
-margin_right = 342.0
+margin_left = 299.0
+margin_right = 425.0
+rect_min_size = Vector2( 126, 0 )
 
 [node name="Date Promised" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
-margin_left = 338.0
-margin_right = 511.0
+margin_left = 424.0
+margin_right = 724.0
+rect_min_size = Vector2( 300, 0 )
 
 [node name="Date Completed" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
-margin_left = 507.0
-margin_right = 680.0
+visible = false
+margin_left = 747.0
+margin_right = 947.0
 
-[node name="Page Name" type="ColorRect" parent="VBoxContainer/1st Row"]
-margin_left = 676.0
-margin_right = 849.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 173, 0 )
-color = Color( 0, 0, 0, 1 )
-script = SubResource( 3 )
+[node name="Date Completed2" type="Panel" parent="VBoxContainer/1st Row" groups=["Header Segment"]]
+visible = false
+margin_left = 723.0
+margin_right = 923.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 0 )
+custom_styles/panel = SubResource( 3 )
+script = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/1st Row/Page Name"]
+[node name="Label Control" type="Control" parent="VBoxContainer/1st Row/Date Completed2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 38.0
-margin_right = -3.0
-margin_bottom = -6.0
+margin_bottom = -35.0
+rect_min_size = Vector2( 0, 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/1st Row/Date Completed2/Label Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "Label Text"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Editable Toggle" type="CheckButton" parent="VBoxContainer/1st Row/Date Completed2/Label Control" groups=["Editor Only"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -48.9994
+margin_right = 55.0006
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 0.5 )
+focus_mode = 0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+enabled_focus_mode = 0
+text = "Edit"
+script = SubResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Entry Bg" type="Control" parent="VBoxContainer/1st Row/Date Completed2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 17.0
+rect_min_size = Vector2( 0, 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="VBoxContainer/1st Row/Date Completed2/Entry Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "this is a test"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Entry" type="LineEdit" parent="VBoxContainer/1st Row/Date Completed2/Entry Bg" groups=["Editor Only"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/normal = SubResource( 8 )
+text = "Entry Text"
+align = 1
+max_length = 15
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page Name" type="Panel" parent="VBoxContainer/1st Row"]
+margin_left = 723.0
+margin_right = 849.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 126, 0 )
+custom_styles/panel = SubResource( 11 )
+script = SubResource( 13 )
+
+[node name="Entry Bg" type="Control" parent="VBoxContainer/1st Row/Page Name"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 17.0
+margin_right = -1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Entry Text" type="Label" parent="VBoxContainer/1st Row/Page Name/Entry Bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 3 )
+margin_top = -7.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
 align = 1
 valign = 1
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Entry" type="LineEdit" parent="VBoxContainer/1st Row/Page Name/Entry Bg" groups=[
-"Editor Only",
-]]
+[node name="Entry" type="LineEdit" parent="VBoxContainer/1st Row/Page Name/Entry Bg" groups=["Editor Only"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-theme = SubResource( 4 )
-custom_fonts/font = ExtResource( 4 )
+margin_left = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/normal = SubResource( 8 )
+text = "Entry Text"
 align = 1
 max_length = 15
-editable = false
 caret_blink = true
+caret_blink_speed = 0.5
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Label Bg" type="ColorRect" parent="VBoxContainer/1st Row/Page Name"]
+[node name="Label Control" type="Control" parent="VBoxContainer/1st Row/Page Name"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 6.0
-margin_right = -3.0
-margin_bottom = -67.0
+margin_bottom = -35.0
+rect_min_size = Vector2( 0, 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Label" type="Label" parent="VBoxContainer/1st Row/Page Name/Label Bg"]
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/1st Row/Page Name/Label Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-align = 1
-valign = 1
+margin_left = 2.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "Page"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="2nd Row" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 168.0
+margin_top = 121.0
 margin_right = 850.0
-margin_bottom = 271.0
-rect_min_size = Vector2( 850, 103 )
-custom_constants/separation = 0
+margin_bottom = 171.0
+rect_min_size = Vector2( 850, 50 )
+custom_constants/separation = -1
 
 [node name="Customer" parent="VBoxContainer/2nd Row" instance=ExtResource( 2 )]
 margin_right = 425.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="PO#" parent="VBoxContainer/2nd Row" instance=ExtResource( 2 )]
-margin_left = 425.0
-margin_right = 850.0
+margin_left = 424.0
+margin_right = 849.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="3rd Row" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 266.0
+visible = false
+margin_top = 189.0
 margin_right = 850.0
-margin_bottom = 369.0
+margin_bottom = 292.0
 rect_min_size = Vector2( 850, 103 )
-custom_constants/separation = 0
+custom_constants/separation = -1
 
 [node name="Material" parent="VBoxContainer/3rd Row" instance=ExtResource( 2 )]
 margin_right = 425.0
+margin_bottom = 103.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="Notes" parent="VBoxContainer/3rd Row" instance=ExtResource( 2 )]
-margin_left = 425.0
-margin_right = 850.0
+margin_left = 424.0
+margin_right = 849.0
+margin_bottom = 103.0
 rect_min_size = Vector2( 425, 0 )
 
 [node name="Header Row" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
-margin_top = 364.0
+margin_top = 169.0
 margin_right = 850.0
-margin_bottom = 399.0
+margin_bottom = 204.0
 rect_min_size = Vector2( 0, 35 )
 custom_constants/separation = 0
 
 [node name="Quantity" type="Label" parent="VBoxContainer/Header Row"]
 margin_top = 4.0
 margin_right = 121.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Quantity"
 align = 1
-valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Quantity"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_right = 124.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 3, 0 )
+margin_top = -2.376
+margin_right = 122.0
+margin_bottom = -9.077
+rect_min_size = Vector2( 1, 0 )
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Thickness" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 121.0
 margin_top = 4.0
 margin_right = 242.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Thickness"
 align = 1
-valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Thickness"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_right = 124.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 3, 0 )
+margin_top = -2.376
+margin_right = 122.0
+margin_bottom = -9.077
+rect_min_size = Vector2( 1, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Width" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 242.0
 margin_top = 4.0
 margin_right = 363.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Width"
 align = 1
-valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Width"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_right = 124.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 3, 0 )
+margin_top = -2.376
+margin_right = 122.0
+margin_bottom = -9.077
+rect_min_size = Vector2( 1, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Length" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 363.0
 margin_top = 4.0
 margin_right = 484.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Length"
 align = 1
-valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Length"]
 anchor_bottom = 1.0
 margin_left = 121.0
-margin_right = 124.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 3, 0 )
+margin_top = -2.376
+margin_right = 122.0
+margin_bottom = -9.077
+rect_min_size = Vector2( 1, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Edges" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 484.0
 margin_top = 4.0
 margin_right = 724.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 240, 26 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Edges"
 align = 1
-valign = 2
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header Row/Edges"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 3.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 3, 0 )
+margin_top = -2.376
+margin_right = 1.0
+margin_bottom = -9.077
+rect_min_size = Vector2( 1, 0 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Part Mark" type="Label" parent="VBoxContainer/Header Row"]
 margin_left = 724.0
 margin_top = 4.0
 margin_right = 845.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 121, 26 )
-custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Part Mark"
 align = 1
-valign = 2
 
-[node name="Change Page Name" type="ConfirmationDialog" parent="." groups=[
-"Popup",
-]]
+[node name="Change Page Name" type="ConfirmationDialog" parent="." groups=["Popup"]]
 visible = true
-margin_left = 861.0
-margin_top = 25.0
-margin_right = 1143.0
-margin_bottom = 115.0
+margin_left = 1071.83
+margin_top = 25.5297
+margin_right = 1353.83
+margin_bottom = 115.53
 window_title = "Change Page Name"
-script = SubResource( 5 )
+script = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Change Page Name"]
 anchor_right = 1.0
@@ -471,6 +699,9 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -36.0
 custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="LineEdit" type="LineEdit" parent="Change Page Name/VBoxContainer"]
 margin_right = 266.0
@@ -481,6 +712,8 @@ max_length = 30
 placeholder_text = "New Page Name"
 placeholder_alpha = 0.25
 caret_blink = true
+
+[connection signal="pressed" from="VBoxContainer/1st Row/Date Completed2/Label Control/Editable Toggle" to="VBoxContainer/1st Row/Date Completed2/Label Control/Editable Toggle" method="_on_Editable_Toggle_pressed"]
 [connection signal="gui_input" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_gui_input"]
 [connection signal="text_entered" from="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" to="VBoxContainer/1st Row/Page Name/Entry Bg/Entry" method="_on_Entry_text_entered"]
 [connection signal="about_to_show" from="Change Page Name" to="Change Page Name" method="_on_Change_Page_Name_about_to_show"]

@@ -645,15 +645,16 @@ func _on_OptionMenu_Shape_item_selected(ID):
 	Global._save()
 "
 
-[node name="Row" type="ColorRect" groups=[
-"Row",
-]]
+[node name="Row" type="ColorRect" groups=["Row"]]
 margin_right = 850.0
 margin_bottom = 52.7672
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Row = SubResource( 2 )
@@ -692,7 +693,6 @@ margin_right = 484.5
 margin_bottom = 52.0
 
 [node name="Edges" type="ColorRect" parent="HBoxContainer"]
-editor/display_folded = true
 margin_left = 484.0
 margin_right = 724.0
 margin_bottom = 52.0
@@ -709,10 +709,7 @@ margin_right = -0.184631
 margin_bottom = -2.9557
 mouse_filter = 2
 
-[node name="Arch" type="TextureRect" parent="HBoxContainer/Edges" groups=[
-"Shape",
-]]
-editor/display_folded = true
+[node name="Arch" type="TextureRect" parent="HBoxContainer/Edges" groups=["Shape"]]
 visible = false
 margin_left = 83.6127
 margin_top = 4.58229
@@ -743,7 +740,6 @@ margin_right = 159.721
 margin_bottom = 31.0754
 
 [node name="CheckBox Custom 5" parent="HBoxContainer/Edges/Arch" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 216.334
 margin_top = 95.5759
 margin_right = 256.334
@@ -771,16 +767,13 @@ margin_right = -147.0
 margin_bottom = -152.0
 rect_rotation = 30.4087
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 align = 2
 valign = 1
 clip_text = true
 
-[node name="LShape" type="TextureRect" parent="HBoxContainer/Edges" groups=[
-"Shape",
-]]
-editor/display_folded = true
+[node name="LShape" type="TextureRect" parent="HBoxContainer/Edges" groups=["Shape"]]
 visible = false
 margin_left = 94.0
 margin_top = 2.29719
@@ -793,42 +786,36 @@ stretch_mode = 6
 script = SubResource( 4 )
 
 [node name="CheckBox Custom" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 250.186
 margin_top = 148.078
 margin_right = 290.186
 margin_bottom = 188.078
 
 [node name="CheckBox Custom2" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 60.9082
 margin_top = 101.444
 margin_right = 100.908
 margin_bottom = 141.444
 
 [node name="CheckBox Custom3" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 156.233
 margin_top = 194.712
 margin_right = 196.233
 margin_bottom = 234.712
 
 [node name="CheckBox Custom4" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 157.604
 margin_top = 54.1248
 margin_right = 197.604
 margin_bottom = 94.1249
 
 [node name="CheckBox Custom5" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 200.123
 margin_top = 100.758
 margin_right = 240.123
 margin_bottom = 140.759
 
 [node name="CheckBox Custom6" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 108.228
 margin_top = 6.8053
 margin_right = 148.228
@@ -842,7 +829,6 @@ margin_bottom = 181.782
 rect_scale = Vector2( 1, 1 )
 
 [node name="Dimensions Length Top" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 5 )]
-editor/display_folded = true
 margin_left = 180.0
 margin_top = 15.0
 margin_right = 340.0
@@ -857,13 +843,12 @@ margin_right = 176.256
 margin_bottom = 112.142
 rect_rotation = -180.0
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 valign = 1
 clip_text = true
 
 [node name="Dimensions Length" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 5 )]
-editor/display_folded = true
 margin_left = 81.0
 margin_top = 222.0
 margin_right = 393.0
@@ -877,14 +862,13 @@ margin_top = 22.0
 margin_right = 199.0
 margin_bottom = 58.0
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 align = 1
 valign = 1
 clip_text = true
 
 [node name="Dimensions Width Right" parent="HBoxContainer/Edges/LShape" instance=ExtResource( 5 )]
-editor/display_folded = true
 margin_left = 281.0
 margin_top = 215.0
 margin_right = 437.0
@@ -899,8 +883,8 @@ margin_right = 310.0
 margin_bottom = 73.0
 rect_rotation = 89.9999
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 valign = 1
 clip_text = true
 
@@ -919,16 +903,13 @@ margin_right = 268.0
 margin_bottom = 370.0
 rect_rotation = -89.9999
 rect_scale = Vector2( 2.5, 2.5 )
-custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 9 )
 align = 2
 valign = 1
 clip_text = true
 
-[node name="Rectangle" type="TextureRect" parent="HBoxContainer/Edges" groups=[
-"Shape",
-]]
-editor/display_folded = true
+[node name="Rectangle" type="TextureRect" parent="HBoxContainer/Edges" groups=["Shape"]]
 visible = false
 margin_left = 85.2076
 margin_top = -1.24542
@@ -941,28 +922,24 @@ stretch_mode = 4
 script = SubResource( 5 )
 
 [node name="CheckBox Custom8" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 152.729
 margin_top = 19.7622
 margin_right = 192.729
 margin_bottom = 59.7623
 
 [node name="CheckBox Custom10" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 7.90063
 margin_top = 79.9879
 margin_right = 47.9006
 margin_bottom = 119.988
 
 [node name="CheckBox Custom11" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 151.295
 margin_top = 145.949
 margin_right = 191.295
 margin_bottom = 185.949
 
 [node name="CheckBox Custom12" parent="HBoxContainer/Edges/Rectangle" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 286.086
 margin_top = 82.8558
 margin_right = 326.086
@@ -990,8 +967,8 @@ margin_right = 322.0
 margin_bottom = 66.0
 rect_rotation = 89.9999
 rect_scale = Vector2( 2.4, 2.5 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 valign = 1
 clip_text = true
 
@@ -1008,16 +985,13 @@ margin_top = 32.4171
 margin_right = 244.323
 margin_bottom = 68.4171
 rect_scale = Vector2( 2.5, 2.5 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 align = 1
 valign = 1
 clip_text = true
 
-[node name="Square" type="TextureRect" parent="HBoxContainer/Edges" groups=[
-"Shape",
-]]
-editor/display_folded = true
+[node name="Square" type="TextureRect" parent="HBoxContainer/Edges" groups=["Shape"]]
 visible = false
 margin_left = 105.965
 margin_top = 3.47629
@@ -1030,7 +1004,6 @@ stretch_mode = 4
 script = SubResource( 6 )
 
 [node name="CheckBox Custom13" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 127.802
 margin_top = -7.88842
 margin_right = 167.802
@@ -1038,7 +1011,6 @@ margin_bottom = 32.1117
 rect_scale = Vector2( 2, 2 )
 
 [node name="CheckBox Custom15" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = -14.0596
 margin_top = 121.456
 margin_right = 25.9404
@@ -1046,7 +1018,6 @@ margin_bottom = 161.456
 rect_scale = Vector2( 2, 2 )
 
 [node name="CheckBox Custom16" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 125.716
 margin_top = 265.404
 margin_right = 165.716
@@ -1054,7 +1025,6 @@ margin_bottom = 305.404
 rect_scale = Vector2( 2, 2 )
 
 [node name="CheckBox Custom17" parent="HBoxContainer/Edges/Square" instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_left = 269.664
 margin_top = 121.456
 margin_right = 309.664
@@ -1075,14 +1045,13 @@ margin_top = 12.0
 margin_right = 180.0
 margin_bottom = 48.0
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 align = 1
 valign = 1
 clip_text = true
 
 [node name="Dimensions Width" parent="HBoxContainer/Edges/Square" instance=ExtResource( 8 )]
-editor/display_folded = true
 margin_left = 334.0
 margin_top = 311.0
 margin_right = 616.0
@@ -1096,23 +1065,19 @@ margin_right = 359.0
 margin_bottom = 61.0
 rect_rotation = 89.9999
 rect_scale = Vector2( 1.6, 1.8 )
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
 valign = 1
 clip_text = true
 
-[node name="Edit" type="Button" parent="HBoxContainer/Edges" groups=[
-"Editor Only",
-]]
+[node name="Edit" type="Button" parent="HBoxContainer/Edges" groups=["Editor Only"]]
 margin_left = 4.63138
 margin_top = 1.67378
 margin_right = 16.6314
 margin_bottom = 21.6738
 text = "Edit"
 
-[node name="Remove Row" type="Button" parent="HBoxContainer/Edges" groups=[
-"Editor Only",
-]]
+[node name="Remove Row" type="Button" parent="HBoxContainer/Edges" groups=["Editor Only"]]
 margin_left = 174.0
 margin_top = 1.0
 margin_right = 238.0
@@ -1120,9 +1085,7 @@ margin_bottom = 21.0
 rect_min_size = Vector2( 30, 0 )
 text = "Remove"
 
-[node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Edges" groups=[
-"Popup",
-]]
+[node name="ConfirmationDialog" type="AcceptDialog" parent="HBoxContainer/Edges" groups=["Popup"]]
 visible = true
 margin_left = -38.0
 margin_top = -250.0
@@ -1177,7 +1140,6 @@ group = ExtResource( 12 )
 text = "Tall"
 
 [node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
-editor/display_folded = true
 margin_top = 44.0
 margin_right = 285.0
 margin_bottom = 148.0
@@ -1271,6 +1233,7 @@ caret_blink = true
 margin_left = 724.0
 margin_right = 845.5
 margin_bottom = 52.0
+
 [connection signal="pressed" from="HBoxContainer/Edges/Edit" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Edges/Remove Row" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="HBoxContainer/Edges/ConfirmationDialog" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_ConfirmationDialog_about_to_show"]

@@ -7,6 +7,7 @@ onready var pageInstance = $"../../../../../../"
 onready var sceneRoot = $"../.."
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	text = ""
 	self.connect("text_changed", self, "_update_label")
 	max_length = $"../..".rect_size.x / 6
 	_update_label(text)

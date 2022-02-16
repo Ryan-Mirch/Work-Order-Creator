@@ -1,21 +1,29 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Fonts/Roboto22.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Fonts/Roboto-Medium.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scenes/Entry.gd" type="Script" id=3]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends ColorRect
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Panel
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
 onready var pageInstance = $\"../../../../\"
 onready var editable = false
+onready var labelText = $\"Label Control/Text\"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$\"Label Bg/Label\".text = name
+	labelText.text = name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -23,7 +31,7 @@ func _process(delta):
 	
 func _set_editable(b):
 	editable = b
-	$\"Label Bg/Editable Toggle\".pressed = editable
+	$\"Label Control/Editable Toggle\".pressed = editable
 
 func _set_text(s):
 	$\"Entry Bg/Entry\"._set_text(s)
@@ -37,9 +45,14 @@ func _set_Entry_Visibility():
 		return
 		
 	if Global.state != 2:
-		find_node(\"Entry\").visible = true"
+		find_node(\"Entry\").visible = true
+"
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="DynamicFont" id=4]
+size = 12
+font_data = ExtResource( 2 )
+
+[sub_resource type="GDScript" id=12]
 script/source = "extends CheckButton
 
 # Declare member variables here. Examples:
@@ -66,77 +79,122 @@ func _set_Visibility():
 
 func _on_Editable_Toggle_pressed():
 	sceneRoot.editable = pressed
-	Global._save()"
+	Global._save()
+"
 
-[node name="Date Recieved" type="ColorRect" groups=[
-"Header Segment",
-]]
+[sub_resource type="DynamicFont" id=13]
+size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Customer" type="Panel" groups=["Header Segment"]]
 margin_right = 173.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 173, 0 )
-color = Color( 0, 0, 0, 1 )
-script = SubResource( 1 )
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+custom_styles/panel = SubResource( 3 )
+script = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Entry Bg" type="ColorRect" parent="."]
+[node name="Label Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -35.0
+rect_min_size = Vector2( 0, 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="Label Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
-margin_top = 38.0
-margin_right = -3.0
-margin_bottom = -6.0
+margin_top = 2.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "Label Text"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Text" type="Label" parent="Entry Bg"]
+[node name="Editable Toggle" type="CheckButton" parent="Label Control" groups=["Editor Only"]]
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-align = 1
-valign = 1
-autowrap = true
-
-[node name="Entry" type="LineEdit" parent="Entry Bg" groups=[
-"Editor Only",
-]]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_fonts/font = ExtResource( 2 )
-align = 1
-max_length = 15
-caret_blink = true
-script = ExtResource( 3 )
-
-[node name="Label Bg" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 6.0
-margin_right = -3.0
-margin_bottom = -67.0
-
-[node name="Label" type="Label" parent="Label Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-align = 1
-valign = 1
-
-[node name="Editable Toggle" type="CheckButton" parent="Label Bg" groups=[
-"Editor Only",
-]]
-margin_left = -3.9014
-margin_top = -4.08801
-margin_right = 100.099
-margin_bottom = 35.912
+margin_left = -48.9994
+margin_right = 55.0006
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 0.5 )
+focus_mode = 0
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+enabled_focus_mode = 0
 text = "Edit"
-script = SubResource( 2 )
-[connection signal="pressed" from="Label Bg/Editable Toggle" to="Label Bg/Editable Toggle" method="_on_Editable_Toggle_pressed"]
+script = SubResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Entry Bg" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 30 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Entry Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 18.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "this is a test"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Entry" type="LineEdit" parent="Entry Bg" groups=["Editor Only"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 16.0
+margin_right = -4.0
+margin_bottom = -3.0
+custom_colors/cursor_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/normal = SubResource( 8 )
+text = "Entry Text"
+align = 1
+max_length = 15
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Label Control/Editable Toggle" to="Label Control/Editable Toggle" method="_on_Editable_Toggle_pressed"]
