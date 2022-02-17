@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Header.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Theme/Button Theme.tres" type="Theme" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends VBoxContainer
@@ -157,6 +157,42 @@ func can_place_tall_row():
 	return true
 "
 
+[sub_resource type="GDScript" id=5]
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var totalPrice = $\"..\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	totalPrice.visible = Global.showTotalPrice
+	if Global.hidePricing:
+		totalPrice.visible = false
+	var total = 0
+	for pe in findNodeDescendantsInGroup($\"../../../..\", \"Pricing\"):
+		var number = int(pe.get_node(\"Entry Text\").text)
+		total += number
+	text = str(total)
+
+
+func findNodeDescendantsInGroup(node: Node, groupName: String) -> Array:
+	var descendantsInGroup := []
+	for child in node.get_children():
+		if child.is_in_group(groupName):
+			descendantsInGroup.append(child)
+		descendantsInGroup += findNodeDescendantsInGroup(child, groupName)
+	return descendantsInGroup
+"
+
 [sub_resource type="GDScript" id=4]
 script/source = "extends HBoxContainer
 
@@ -176,16 +212,15 @@ func _process(delta):
 	visible = get_global_rect().position.y < 1000
 "
 
-[sub_resource type="Theme" id=3]
-
 [node name="Page Instance" type="VBoxContainer" groups=["Page Instance"]]
-margin_left = 5.0
+margin_left = 10.0
 margin_top = 5.0
-margin_right = 855.0
+margin_right = 859.0
 margin_bottom = 628.0
 rect_min_size = Vector2( 850, 0 )
-rect_scale = Vector2( 0.99, 0.99 )
+rect_scale = Vector2( 0.98, 0.98 )
 mouse_filter = 2
+theme = ExtResource( 3 )
 custom_constants/separation = -1
 script = SubResource( 1 )
 __meta__ = {
@@ -197,49 +232,78 @@ __meta__ = {
 [node name="Add Row Buttons" type="VBoxContainer" parent="."]
 margin_top = 194.0
 margin_right = 850.0
-margin_bottom = 237.0
+margin_bottom = 232.0
 rect_min_size = Vector2( 0, 30 )
 custom_constants/separation = -2
 script = SubResource( 2 )
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Add Row Buttons"]
 margin_right = 850.0
-margin_bottom = 5.0
-rect_min_size = Vector2( 0, 5 )
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Total Price" type="Control" parent="Add Row Buttons/ReferenceRect" groups=["Total Price"]]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Total Price Label" type="Label" parent="Add Row Buttons/ReferenceRect/Total Price"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 624.909
+margin_top = 10.364
+margin_right = 655.909
+margin_bottom = 14.364
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Price:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Total Price Number" type="Label" parent="Add Row Buttons/ReferenceRect/Total Price"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 700.827
+margin_top = 9.90459
+margin_right = 731.827
+margin_bottom = 13.9046
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Price:"
+script = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Add Row Buttons"]
-margin_top = 3.0
+margin_top = 8.0
 margin_right = 850.0
-margin_bottom = 43.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 850, 30 )
 custom_constants/separation = 18
-alignment = 1
 script = SubResource( 4 )
 
 [node name="Add Short Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
-margin_left = 107.0
-margin_right = 307.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 40 )
-theme = SubResource( 3 )
-custom_fonts/font = ExtResource( 2 )
+margin_right = 150.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 150, 0 )
 text = "Add Short Row"
+clip_text = true
 
 [node name="Add Tall Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
-margin_left = 325.0
-margin_right = 525.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 30 )
-custom_fonts/font = ExtResource( 2 )
+margin_left = 168.0
+margin_right = 318.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 150, 0 )
 text = "Add Tall Row"
 clip_text = true
 
 [node name="Copy Previous Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
-margin_left = 543.0
-margin_right = 743.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 30 )
-custom_fonts/font = ExtResource( 2 )
+margin_left = 336.0
+margin_right = 486.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 150, 0 )
 text = "Copy Previous Row"
 clip_text = true
 

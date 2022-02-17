@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
+[ext_resource path="res://Fonts/RobotoLight.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Column Label.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/PageName.gd" type="Script" id=5]
@@ -79,6 +80,55 @@ func _load(dict):
 	
 "
 
+[sub_resource type="GDScript" id=16]
+script/source = "extends CheckButton
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Hide_Pricing_toggled(button_pressed):
+	Global.hidePricing = button_pressed
+"
+
+[sub_resource type="GDScript" id=17]
+script/source = "extends CheckButton
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Show_Total_Price_toggled(button_pressed):
+	Global.showTotalPrice = button_pressed
+"
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0, 0, 0, 1 )
+
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 1, 1, 1, 1 )
 border_width_left = 1
@@ -102,26 +152,6 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="DynamicFont" id=14]
-size = 20
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 18
-font_data = ExtResource( 9 )
-
-[sub_resource type="StyleBoxFlat" id=8]
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0, 0, 0, 1 )
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
 [sub_resource type="DynamicFont" id=4]
 size = 12
 font_data = ExtResource( 9 )
@@ -133,7 +163,7 @@ script/source = "extends ConfirmationDialog
 # var a = 2
 # var b = \"text\"
 onready var lineEdit = $\"VBoxContainer/LineEdit\"
-onready var pageName = $\"../VBoxContainer/1st Row/Page Name/Entry Bg/Entry\"
+onready var pageName = $\"../VBoxContainer/1st Row/Page/Entry Bg/Entry\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	register_text_enter($\"VBoxContainer/LineEdit\")
@@ -170,7 +200,7 @@ func _on_Change_Page_Name_confirmed():
 
 
 func _on_Change_Page_Name_about_to_show():
-	lineEdit.text = pageName.text
+	$\"VBoxContainer/LineEdit\".text = pageName.text
 "
 
 [node name="Header" type="ColorRect"]
@@ -192,21 +222,62 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Company Name" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Company Name" type="Control" parent="VBoxContainer"]
 margin_right = 850.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 850, 75 )
-custom_constants/separation = -4
 
 [node name="Logo" type="Sprite" parent="VBoxContainer/Company Name"]
 position = Vector2( 425.306, 35.1861 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 7 )
 
-[node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Hide Pricing" type="CheckButton" parent="VBoxContainer/Company Name" groups=["Editor Only"]]
+margin_left = 694.794
+margin_top = 0.332275
+margin_right = 854.794
+margin_bottom = 40.3323
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Hide Pricing"
+script = SubResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Show Total Price" type="CheckButton" parent="VBoxContainer/Company Name" groups=["Editor Only"]]
+margin_left = 670.983
+margin_top = 28.9055
+margin_right = 854.983
+margin_bottom = 68.9055
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+pressed = true
+text = "Show Total Price"
+script = SubResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Panel" parent="VBoxContainer"]
 margin_top = 75.0
 margin_right = 850.0
-margin_bottom = 125.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 3 )
+custom_styles/panel = SubResource( 15 )
+
+[node name="1st Row" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 78.0
+margin_right = 850.0
+margin_bottom = 128.0
 rect_min_size = Vector2( 850, 50 )
 custom_constants/separation = -1
 
@@ -250,7 +321,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -7.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = ExtResource( 1 )
 align = 1
 valign = 1
 autowrap = true
@@ -263,11 +334,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = -1.0
-margin_right = -4.0
+margin_right = -5.0
 margin_bottom = -8.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_styles/normal = SubResource( 8 )
+focus_mode = 0
 text = "Entry Text"
 align = 1
 max_length = 15
@@ -290,7 +359,7 @@ __meta__ = {
 [node name="Text" type="RichTextLabel" parent="VBoxContainer/1st Row/Page/Label Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
+margin_left = 5.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 text = "Page"
@@ -300,9 +369,9 @@ __meta__ = {
 }
 
 [node name="2nd Row" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 125.0
+margin_top = 128.0
 margin_right = 850.0
-margin_bottom = 175.0
+margin_bottom = 178.0
 rect_min_size = Vector2( 850, 50 )
 custom_constants/separation = -1
 
@@ -318,9 +387,9 @@ rect_min_size = Vector2( 426, 0 )
 title = "Face Finish / Edge Notes"
 
 [node name="Header Row" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 175.0
+margin_top = 178.0
 margin_right = 850.0
-margin_bottom = 195.0
+margin_bottom = 198.0
 rect_min_size = Vector2( 0, 20 )
 custom_constants/separation = -1
 
@@ -389,6 +458,8 @@ placeholder_text = "New Page Name"
 placeholder_alpha = 0.25
 caret_blink = true
 
+[connection signal="toggled" from="VBoxContainer/Company Name/Hide Pricing" to="VBoxContainer/Company Name/Hide Pricing" method="_on_Hide_Pricing_toggled"]
+[connection signal="toggled" from="VBoxContainer/Company Name/Show Total Price" to="VBoxContainer/Company Name/Show Total Price" method="_on_Show_Total_Price_toggled"]
 [connection signal="gui_input" from="VBoxContainer/1st Row/Page/Entry Bg/Entry" to="VBoxContainer/1st Row/Page/Entry Bg/Entry" method="_on_Entry_gui_input"]
 [connection signal="text_entered" from="VBoxContainer/1st Row/Page/Entry Bg/Entry" to="VBoxContainer/1st Row/Page/Entry Bg/Entry" method="_on_Entry_text_entered"]
 [connection signal="about_to_show" from="Change Page Name" to="Change Page Name" method="_on_Change_Page_Name_about_to_show"]

@@ -6,6 +6,9 @@ onready var companyName = "Stone Curators"
 
 var state = 0
 var root = null
+var hidePricing = false
+var showTotalPrice = true
+
 func _ready():
 	root = get_tree().get_root().get_node("Main")
 
@@ -34,6 +37,14 @@ func _editing_start():
 	for ItemList in get_tree().get_nodes_in_group("Background"):
 		ItemList.visible = true
 		
+	for pricingEntry in get_tree().get_nodes_in_group("Pricing"):
+			pricingEntry.get_node("Entry Text").visible = true
+	
+	
+	for totalPrice in get_tree().get_nodes_in_group("Total Price"):
+		totalPrice.visible = showTotalPrice
+	
+		
 	
 	
 func _exporting_start():
@@ -52,6 +63,15 @@ func _exporting_start():
 		
 	for ItemList in get_tree().get_nodes_in_group("Background"):
 		ItemList.visible = false
+		
+	if hidePricing:
+		for pricingEntry in get_tree().get_nodes_in_group("Pricing"):
+			pricingEntry.get_node("Entry Text").visible = false
+			
+	for totalPrice in get_tree().get_nodes_in_group("Total Price"):
+		totalPrice.visible = showTotalPrice
+		if hidePricing:
+			totalPrice.visible = false
 	
 func _popup_start():
 	state = 3

@@ -20,7 +20,8 @@ func _get_checked():
 	return $\"CheckBox\".pressed
 	
 func _set_checked(b):
-	$\"CheckBox\".pressed = b"
+	$\"CheckBox\".pressed = b
+"
 
 [sub_resource type="DynamicFont" id=5]
 size = 60
@@ -60,28 +61,25 @@ margin_right = 40.0
 margin_bottom = 40.0
 script = SubResource( 4 )
 
-[node name="Label" type="Label" parent="." groups=[
-"Export Only",
-]]
+[node name="Label" type="Label" parent="." groups=["Export Only"]]
 margin_left = 3.96972
 margin_top = -8.46681
 margin_right = 41.9697
 margin_bottom = 62.5332
 rect_scale = Vector2( 0.8, 0.8 )
-custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
 text = "X"
 align = 1
 valign = 1
 script = SubResource( 3 )
 
-[node name="CheckBox" type="CheckBox" parent="." groups=[
-"Editor Only",
-]]
-margin_left = -11.2165
-margin_top = -11.2165
-margin_right = 12.7835
-margin_bottom = 12.7835
+[node name="CheckBox" type="CheckBox" parent="." groups=["Editor Only"]]
+margin_left = -1.23086
+margin_top = -10.2705
+margin_right = 22.7691
+margin_bottom = 13.7295
 rect_scale = Vector2( 2.5, 2.5 )
+
 [connection signal="toggled" from="CheckBox" to="Label" method="_on_CheckBox_toggled"]
 [connection signal="visibility_changed" from="CheckBox" to="Label" method="_on_CheckBox_visibility_changed"]
