@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Header.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=2]
@@ -103,6 +103,7 @@ script/source = "extends VBoxContainer
 # var b = \"text\"
 # Called when the node enters the scene tree for the first time.
 onready var rowScene = load(\"res://Scenes/Row.tscn\")
+onready var rowButtons = $HBoxContainer
 func _ready():
 	pass # Replace with function body.
 
@@ -124,6 +125,8 @@ func _on_Add_Short_Row_pressed():
 
 
 func _on_Add_Tall_Row_pressed():
+	if !can_place_tall_row():
+		return
 	var rowInstance = rowScene.instance()
 	get_parent().add_child(rowInstance)
 	rowInstance._init_size(1)
@@ -134,10 +137,43 @@ func _on_Add_Tall_Row_pressed():
 func _on_Copy_Previous_Row_pressed():
 	var index = get_parent().get_child_count() - 2
 	var duplicate = get_parent().get_child(index).duplicate()
+	
+	if duplicate.ID == 1 and !can_place_tall_row():
+		return
+		
 	get_parent().add_child(duplicate)
 	_fix_index()
 	return duplicate
 	Global._save()
+
+func can_place_short_row():
+	if rowButtons.get_global_rect().position.y > 1000:
+		return false
+	return true
+	
+func can_place_tall_row():
+	if rowButtons.get_global_rect().position.y > 890:
+		return false
+	return true
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends HBoxContainer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	visible = get_global_rect().position.y < 1000
 "
 
 [sub_resource type="Theme" id=3]
@@ -178,6 +214,7 @@ margin_bottom = 43.0
 rect_min_size = Vector2( 850, 30 )
 custom_constants/separation = 18
 alignment = 1
+script = SubResource( 4 )
 
 [node name="Add Short Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
 margin_left = 107.0

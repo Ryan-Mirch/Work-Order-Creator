@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/RowSegment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Images/Arch.png" type="Texture" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://Fonts/Roboto24.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Images/Rectangle.png" type="Texture" id=10]
 [ext_resource path="res://Images/Square.png" type="Texture" id=11]
-[ext_resource path="res://Button Groups/ShortTall.tres" type="ButtonGroup" id=12]
 [ext_resource path="res://Scenes/Column Label.tscn" type="PackedScene" id=13]
 
 [sub_resource type="GDScript" id=1]
@@ -57,17 +56,7 @@ func _init_size(n):
 	if ID == 1:
 		$\"AnimationPlayer\".play(\"Row\")
 
-func _on_Tall_pressed():
-	if ID == 0:
-		$\"AnimationPlayer\".play(\"Row\")
-		ID = 1
-	Global._save()
 
-func _on_Short_pressed():
-	if ID == 1:
-		$\"AnimationPlayer\".play_backwards(\"Row\")
-		ID = 0
-	Global._save()
 
 
 func _on_Button_pressed():
@@ -138,6 +127,28 @@ func _load_shape(n, dict):
 		n.get_child(int(i))._set_checked(dict[i])
 	ShapeMenu._on_OptionMenu_Shape_item_selected(ShapeMenu.selected)
 
+
+
+func _on_ShortTall_toggled(button_pressed):
+	if button_pressed:
+		$\"AnimationPlayer\".play(\"Row\")
+		ID = 1
+	else:
+		$\"AnimationPlayer\".play_backwards(\"Row\")
+		ID = 0	
+	Global._save()
+	
+func _on_Tall_pressed():
+	if ID == 0:
+		$\"AnimationPlayer\".play(\"Row\")
+		ID = 1
+	Global._save()
+
+func _on_Short_pressed():
+	if ID == 1:
+		$\"AnimationPlayer\".play_backwards(\"Row\")
+		ID = 0
+	Global._save()
 "
 
 [sub_resource type="Animation" id=2]
@@ -272,15 +283,13 @@ script/source = "extends TextureRect
 # var b = \"text\"
 onready var dimensions = [$\"Dimensions Width\"]
 # Called when the node enters the scene tree for the first time.
-onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
-onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+onready var ShortTall = $\"../ConfirmationDialog/VBox/Row2/ShortTall\"
 
 onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
 onready var widthLabel = $\"Dimensions Width/Width Label\"
 
 func _ready():
-	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
-	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	ShortTall.connect(\"toggled\",self,\"_on_ShorTall_pressed\")
 	
 	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
 	
@@ -293,13 +302,13 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _on_tall_pressed():
-	_set_dimension_visibility()
-	
-func _on_short_pressed():
-	if short.pressed:
+func _on_ShorTall_pressed(toggleOn):
+	if toggleOn:
+		_set_dimension_visibility()
+	else:
 		for d in dimensions:
 			d.visible = false
+		
 			
 func _width_text_changed(t):
 	widthLabel.text = t
@@ -327,8 +336,7 @@ script/source = "extends TextureRect
 # var b = \"text\"
 onready var dimensions = [$\"Dimensions Length\", $\"Dimensions Width\",$\"Dimensions Length Top\" ,$\"Dimensions Width Right\" ]
 # Called when the node enters the scene tree for the first time.
-onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
-onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+onready var ShortTall = $\"../ConfirmationDialog/VBox/Row2/ShortTall\"
 
 onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
 onready var widthLabel = $\"Dimensions Width/Width Label\"
@@ -343,8 +351,7 @@ onready var lengthTopEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Fina
 onready var lengthTopLabel = $\"Dimensions Length Top/Length Top Label\"
 
 func _ready():
-	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
-	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	ShortTall.connect(\"toggled\",self,\"_on_ShorTall_pressed\")
 	
 	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
 	lengthEntry.connect(\"text_changed\", self, \"_length_text_changed\")
@@ -361,11 +368,10 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _on_tall_pressed():
-	_set_dimension_visibility()
-			
-func _on_short_pressed():
-	if short.pressed:
+func _on_ShorTall_pressed(toggleOn):
+	if toggleOn:
+		_set_dimension_visibility()
+	else:
 		for d in dimensions:
 			d.visible = false
 			
@@ -413,7 +419,8 @@ func _set_dimension_visibility():
 	Global._save()
 
 	
-	"
+	
+"
 
 [sub_resource type="GDScript" id=5]
 script/source = "extends TextureRect
@@ -423,8 +430,7 @@ script/source = "extends TextureRect
 # var b = \"text\"
 onready var dimensions = [$\"Dimensions Length\", $\"Dimensions Width\"]
 # Called when the node enters the scene tree for the first time.
-onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
-onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+onready var ShortTall = $\"../ConfirmationDialog/VBox/Row2/ShortTall\"
 
 onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
 onready var widthLabel = $\"Dimensions Width/Width Label\"
@@ -433,8 +439,7 @@ onready var lengthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final L
 onready var lengthLabel = $\"Dimensions Length/Length Label\"
 
 func _ready():
-	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
-	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	ShortTall.connect(\"toggled\",self,\"_on_ShorTall_pressed\")
 	
 	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
 	lengthEntry.connect(\"text_changed\", self, \"_length_text_changed\")
@@ -448,11 +453,10 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _on_tall_pressed():
-	_set_dimension_visibility()
-			
-func _on_short_pressed():
-	if short.pressed:
+func _on_ShorTall_pressed(toggleOn):
+	if toggleOn:
+		_set_dimension_visibility()
+	else:
 		for d in dimensions:
 			d.visible = false
 			
@@ -490,8 +494,7 @@ script/source = "extends TextureRect
 # var b = \"text\"
 onready var dimensions = [$\"Dimensions Length\", $\"Dimensions Width\"]
 # Called when the node enters the scene tree for the first time.
-onready var tall = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Tall\"
-onready var short = $\"../ConfirmationDialog/VBox/Row2/ShortTall/Short\"
+onready var ShortTall = $\"../ConfirmationDialog/VBox/Row2/ShortTall\"
 
 onready var widthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final Width Entry/LineEdit\"
 onready var widthLabel = $\"Dimensions Width/Width Label\"
@@ -500,8 +503,7 @@ onready var lengthEntry = $\"../ConfirmationDialog/VBox/Final Dimensions/Final L
 onready var lengthLabel = $\"Dimensions Length/Length Label\"
 
 func _ready():
-	tall.connect(\"pressed\",self,\"_on_tall_pressed\")
-	short.connect(\"pressed\",self,\"_on_short_pressed\")
+	ShortTall.connect(\"toggled\",self,\"_on_ShorTall_pressed\")
 	
 	widthEntry.connect(\"text_changed\", self, \"_width_text_changed\")
 	lengthEntry.connect(\"text_changed\", self, \"_length_text_changed\")
@@ -516,11 +518,10 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _on_tall_pressed():
-	_set_dimension_visibility()
-			
-func _on_short_pressed():
-	if short.pressed:
+func _on_ShorTall_pressed(toggleOn):
+	if toggleOn:
+		_set_dimension_visibility()
+	else:
 		for d in dimensions:
 			d.visible = false
 			
@@ -558,8 +559,7 @@ script/source = "extends AcceptDialog
 # var a = 2
 # var b = \"text\"
 onready var row = $\"../../..\"
-onready var short = $\"VBox/Row2/ShortTall/Short\"
-onready var tall = $\"VBox/Row2/ShortTall/Tall\"
+onready var ShortTall = $\"VBox/Row2/ShortTall\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -576,12 +576,9 @@ func _on_Button_pressed():
 
 
 func _on_ConfirmationDialog_about_to_show():
-	short.pressed = false
-	tall.pressed = false
-	if row.ID == 0:
-		short.pressed = true
+	ShortTall.pressed = false
 	if row.ID == 1:
-		tall.pressed = true
+		ShortTall.pressed = true
 "
 
 [sub_resource type="GDScript" id=8]
@@ -1123,14 +1120,14 @@ custom_constants/separation = 20
 
 [node name="Row2" type="HBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
 margin_right = 285.0
-margin_bottom = 24.0
+margin_bottom = 40.0
 custom_constants/separation = 26
 alignment = 1
 
 [node name="OptionMenu Shape" type="OptionButton" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2"]
-margin_left = 12.0
-margin_right = 132.0
-margin_bottom = 24.0
+margin_left = 18.0
+margin_right = 138.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 120, 0 )
 text = "Square"
 clip_text = true
@@ -1138,30 +1135,17 @@ items = [ "Square", null, false, 0, null, "Rectangle", null, false, 1, null, "L"
 selected = 0
 script = SubResource( 8 )
 
-[node name="ShortTall" type="HBoxContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2"]
-margin_left = 158.0
-margin_right = 273.0
-margin_bottom = 24.0
-alignment = 1
-
-[node name="Short" type="CheckBox" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall"]
-margin_right = 61.0
-margin_bottom = 24.0
-pressed = true
-group = ExtResource( 12 )
-text = "Short"
-
-[node name="Tall" type="CheckBox" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall"]
-margin_left = 65.0
-margin_right = 115.0
-margin_bottom = 24.0
-group = ExtResource( 12 )
+[node name="ShortTall" type="CheckButton" parent="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2"]
+margin_left = 164.0
+margin_right = 266.0
+margin_bottom = 40.0
 text = "Tall"
+align = 1
 
 [node name="Final Dimensions" type="GridContainer" parent="HBoxContainer/Edges/ConfirmationDialog/VBox"]
-margin_top = 44.0
+margin_top = 60.0
 margin_right = 285.0
-margin_bottom = 148.0
+margin_bottom = 164.0
 custom_constants/vseparation = 20
 custom_constants/hseparation = 70
 columns = 2
@@ -1308,5 +1292,4 @@ rect_min_size = Vector2( 195, 0 )
 [connection signal="pressed" from="HBoxContainer/Edges/Remove Row" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="HBoxContainer/Edges/ConfirmationDialog" to="HBoxContainer/Edges/ConfirmationDialog" method="_on_ConfirmationDialog_about_to_show"]
 [connection signal="item_selected" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape" to="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/OptionMenu Shape" method="_on_OptionMenu_Shape_item_selected"]
-[connection signal="pressed" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall/Short" to="." method="_on_Short_pressed"]
-[connection signal="pressed" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall/Tall" to="." method="_on_Tall_pressed"]
+[connection signal="toggled" from="HBoxContainer/Edges/ConfirmationDialog/VBox/Row2/ShortTall" to="." method="_on_ShortTall_toggled"]

@@ -888,23 +888,36 @@ margin_right = 900.0
 margin_bottom = 1200.0
 mouse_filter = 2
 
-[node name="bg Editing" type="ItemList" parent="Page View/ViewportContainer/Viewport" groups=["Background"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Border" type="Panel" parent="Page View/ViewportContainer/Viewport"]
+margin_left = 5.0
+margin_top = 78.0
+margin_right = 846.0
+margin_bottom = 1031.0
 mouse_filter = 2
+custom_styles/panel = SubResource( 16 )
+
+[node name="Signature" type="RichTextLabel" parent="Page View/ViewportContainer/Viewport"]
+margin_left = 30.0
+margin_top = 1060.0
+margin_right = 630.0
+margin_bottom = 1260.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "____________________________________________________
+Signature"
+
+[node name="Date" type="RichTextLabel" parent="Page View/ViewportContainer/Viewport"]
+margin_left = 400.0
+margin_top = 1060.0
+margin_right = 1000.0
+margin_bottom = 1260.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "______________________
+Date"
 
 [node name="Page Instances" type="Node" parent="Page View/ViewportContainer/Viewport"]
 
 [node name="Page Instance" parent="Page View/ViewportContainer/Viewport/Page Instances" instance=ExtResource( 3 )]
 visible = false
-
-[node name="Panel" type="Panel" parent="Page View/ViewportContainer/Viewport"]
-margin_left = 5.0
-margin_top = 78.0
-margin_right = 846.0
-margin_bottom = 1088.0
-mouse_filter = 2
-custom_styles/panel = SubResource( 16 )
 
 [node name="Side Bar" type="ColorRect" parent="."]
 margin_right = 200.0
