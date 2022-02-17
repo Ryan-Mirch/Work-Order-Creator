@@ -1,15 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Fonts/Roboto.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Fonts/Roboto-Medium.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 1, 1, 1, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
-border_width_bottom = 1
+border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 14
+font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=8]
 border_width_left = 1
@@ -32,18 +36,20 @@ script/source = "extends LineEdit
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	max_length = get_parent().rect_size.x / 11
+	max_length = get_parent().rect_size.x / 7
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if get_parent().get_node(\"Entry Text\").text != text:
 		get_parent().get_node(\"Entry Text\").text = text
-		Global._save()"
+		Global._save()
+"
 
 [node name="Box" type="Panel"]
+margin_top = -0.314972
 margin_right = 121.5
-margin_bottom = 150.0
+margin_bottom = 149.685
 rect_min_size = Vector2( 121.5, 50 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 9 )
@@ -63,16 +69,17 @@ __meta__ = {
 }
 
 [node name="LineEdit" type="LineEdit" parent="." groups=["Editor Only"]]
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = -12.0
+margin_right = -3.5
+margin_bottom = 13.0
 mouse_filter = 1
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = SubResource( 10 )
 custom_styles/normal = SubResource( 8 )
 align = 1
 max_length = 15

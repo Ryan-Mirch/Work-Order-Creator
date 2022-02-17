@@ -21,9 +21,11 @@ onready var pageInstance = $\"../../../../\"
 onready var editable = false
 onready var labelText = $\"Label Control/Text\"
 
+export var title = \"\"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	labelText.text = name
+	labelText.text = title
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -72,8 +74,10 @@ func _process(delta):
 func _set_Visibility():
 	if pageInstance.get_index() != 0:
 		visible = true
-		return
 	else:
+		visible = false
+		
+	if Global.state == 2:
 		visible = false
 
 
@@ -171,7 +175,6 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 13 )
 text = "this is a test"
 align = 1
-autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -189,7 +192,6 @@ custom_fonts/font = SubResource( 5 )
 custom_styles/normal = SubResource( 8 )
 text = "Entry Text"
 align = 1
-max_length = 15
 caret_blink = true
 caret_blink_speed = 0.5
 script = ExtResource( 3 )

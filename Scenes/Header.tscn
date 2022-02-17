@@ -1,6 +1,5 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Fonts/Roboto40.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/HeaderSegment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Column Label.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/PageName.gd" type="Script" id=5]
@@ -78,22 +77,6 @@ func _load(dict):
 	
 	
 	
-"
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends Label
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	text = Global.companyName
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 "
 
 [sub_resource type="StyleBoxFlat" id=11]
@@ -215,35 +198,6 @@ margin_bottom = 75.0
 rect_min_size = Vector2( 850, 75 )
 custom_constants/separation = -4
 
-[node name="Company Name Bg" type="ColorRect" parent="VBoxContainer/Company Name"]
-visible = false
-margin_right = 850.0
-margin_bottom = 75.0
-rect_min_size = Vector2( 850, 0 )
-color = Color( 0, 0, 0, 1 )
-
-[node name="Entry Bg" type="ColorRect" parent="VBoxContainer/Company Name/Company Name Bg"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = -3.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Entry Text" type="Label" parent="VBoxContainer/Company Name/Company Name Bg/Entry Bg"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-align = 1
-valign = 1
-autowrap = true
-script = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Logo" type="Sprite" parent="VBoxContainer/Company Name"]
 position = Vector2( 425.306, 35.1861 )
 scale = Vector2( 0.2, 0.2 )
@@ -259,22 +213,25 @@ custom_constants/separation = -1
 [node name="Customer" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 margin_right = 300.0
 rect_min_size = Vector2( 300, 0 )
+title = "Customer"
 
 [node name="Date" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 margin_left = 299.0
 margin_right = 425.0
 rect_min_size = Vector2( 126, 0 )
+title = "Date"
 
 [node name="PO" parent="VBoxContainer/1st Row" instance=ExtResource( 2 )]
 margin_left = 424.0
 margin_right = 724.0
 rect_min_size = Vector2( 300, 0 )
+title = "Job Name / PO#"
 
 [node name="Page" type="Panel" parent="VBoxContainer/1st Row"]
 margin_left = 723.0
-margin_right = 849.0
+margin_right = 850.0
 margin_bottom = 50.0
-rect_min_size = Vector2( 126, 0 )
+rect_min_size = Vector2( 127, 0 )
 custom_styles/panel = SubResource( 11 )
 script = SubResource( 13 )
 
@@ -352,11 +309,13 @@ custom_constants/separation = -1
 [node name="Material" parent="VBoxContainer/2nd Row" instance=ExtResource( 2 )]
 margin_right = 425.0
 rect_min_size = Vector2( 425, 0 )
+title = "Material"
 
 [node name="Notes" parent="VBoxContainer/2nd Row" instance=ExtResource( 2 )]
 margin_left = 424.0
-margin_right = 849.0
-rect_min_size = Vector2( 425, 0 )
+margin_right = 850.0
+rect_min_size = Vector2( 426, 0 )
+title = "Face Finish / Edge Notes"
 
 [node name="Header Row" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 175.0
@@ -393,8 +352,8 @@ rect_min_size = Vector2( 60, 0 )
 
 [node name="Pricing" parent="VBoxContainer/Header Row" instance=ExtResource( 3 )]
 margin_left = 654.0
-margin_right = 849.0
-rect_min_size = Vector2( 195, 0 )
+margin_right = 850.0
+rect_min_size = Vector2( 196, 0 )
 
 [node name="Change Page Name" type="ConfirmationDialog" parent="." groups=["Popup"]]
 visible = true

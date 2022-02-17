@@ -9,7 +9,7 @@ onready var sceneRoot = $"../.."
 func _ready():
 	text = ""
 	self.connect("text_changed", self, "_update_label")
-	max_length = $"../..".rect_size.x / 6
+	max_length = $"../..".rect_size.x / 7
 	_update_label(text)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
