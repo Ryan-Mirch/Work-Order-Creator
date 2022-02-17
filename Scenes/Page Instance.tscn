@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Header.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Fonts/Roboto18.tres" type="DynamicFont" id=2]
@@ -130,7 +130,17 @@ func _on_Add_Tall_Row_pressed():
 	_fix_index()
 	return rowInstance
 	Global._save()
+
+func _on_Copy_Previous_Row_pressed():
+	var index = get_parent().get_child_count() - 2
+	var duplicate = get_parent().get_child(index).duplicate()
+	get_parent().add_child(duplicate)
+	_fix_index()
+	return duplicate
+	Global._save()
 "
+
+[sub_resource type="Theme" id=3]
 
 [node name="Page Instance" type="VBoxContainer" groups=["Page Instance"]]
 margin_left = 5.0
@@ -174,6 +184,7 @@ margin_left = 107.0
 margin_right = 307.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 200, 40 )
+theme = SubResource( 3 )
 custom_fonts/font = ExtResource( 2 )
 text = "Add Short Row"
 
@@ -186,7 +197,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "Add Tall Row"
 clip_text = true
 
-[node name="Add Tall Row2" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
+[node name="Copy Previous Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
 margin_left = 543.0
 margin_right = 743.0
 margin_bottom = 40.0
@@ -197,4 +208,4 @@ clip_text = true
 
 [connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Short Row" to="Add Row Buttons" method="_on_Add_Short_Row_pressed"]
 [connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Tall Row" to="Add Row Buttons" method="_on_Add_Tall_Row_pressed"]
-[connection signal="pressed" from="Add Row Buttons/HBoxContainer/Add Tall Row2" to="Add Row Buttons" method="_on_Add_Tall_Row_pressed"]
+[connection signal="pressed" from="Add Row Buttons/HBoxContainer/Copy Previous Row" to="Add Row Buttons" method="_on_Copy_Previous_Row_pressed"]
