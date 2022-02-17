@@ -213,12 +213,12 @@ func _process(delta):
 "
 
 [node name="Page Instance" type="VBoxContainer" groups=["Page Instance"]]
-margin_left = 10.0
+margin_left = 23.0
 margin_top = 5.0
-margin_right = 859.0
+margin_right = 873.0
 margin_bottom = 628.0
 rect_min_size = Vector2( 850, 0 )
-rect_scale = Vector2( 0.98, 0.98 )
+rect_scale = Vector2( 0.95, 0.95 )
 mouse_filter = 2
 theme = ExtResource( 3 )
 custom_constants/separation = -1
@@ -243,7 +243,7 @@ margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="Total Price" type="Control" parent="Add Row Buttons/ReferenceRect" groups=["Total Price"]]
-margin_right = 40.0
+margin_right = 59.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -252,10 +252,10 @@ __meta__ = {
 [node name="Total Price Label" type="Label" parent="Add Row Buttons/ReferenceRect/Total Price"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 624.909
-margin_top = 10.364
-margin_right = 655.909
-margin_bottom = 14.364
+margin_left = 656.241
+margin_top = 11.7483
+margin_right = 687.241
+margin_bottom = 15.7483
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Total Price:"
 __meta__ = {
@@ -265,10 +265,10 @@ __meta__ = {
 [node name="Total Price Number" type="Label" parent="Add Row Buttons/ReferenceRect/Total Price"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 700.827
-margin_top = 9.90459
-margin_right = 731.827
-margin_bottom = 13.9046
+margin_left = 732.16
+margin_top = 11.2888
+margin_right = 763.16
+margin_bottom = 15.2888
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Total Price:"
 script = SubResource( 5 )
@@ -284,24 +284,28 @@ rect_min_size = Vector2( 850, 30 )
 custom_constants/separation = 18
 script = SubResource( 4 )
 
+[node name="ReferenceRect" type="ReferenceRect" parent="Add Row Buttons/HBoxContainer"]
+margin_bottom = 30.0
+
 [node name="Add Short Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
-margin_right = 150.0
+margin_left = 18.0
+margin_right = 168.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 0 )
 text = "Add Short Row"
 clip_text = true
 
 [node name="Add Tall Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
-margin_left = 168.0
-margin_right = 318.0
+margin_left = 186.0
+margin_right = 336.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 0 )
 text = "Add Tall Row"
 clip_text = true
 
 [node name="Copy Previous Row" type="Button" parent="Add Row Buttons/HBoxContainer" groups=["Editor Only"]]
-margin_left = 336.0
-margin_right = 486.0
+margin_left = 354.0
+margin_right = 504.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 0 )
 text = "Copy Previous Row"

@@ -268,9 +268,9 @@ __meta__ = {
 }
 
 [node name="Spacer" type="Panel" parent="VBoxContainer"]
-margin_top = 75.0
+margin_top = 76.0
 margin_right = 850.0
-margin_bottom = 78.0
+margin_bottom = 79.0
 rect_min_size = Vector2( 0, 3 )
 custom_styles/panel = SubResource( 15 )
 

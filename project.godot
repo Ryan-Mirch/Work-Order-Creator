@@ -14,7 +14,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Work Order Creator v1.06 - Stone Curators"
+config/name="Work Order Creator v1.1 - Stone Curators"
 run/main_scene="res://Scenes/Main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="WOC"
