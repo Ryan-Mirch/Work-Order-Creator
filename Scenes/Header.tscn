@@ -233,17 +233,17 @@ scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 7 )
 
 [node name="Hide Pricing" type="CheckButton" parent="VBoxContainer/Company Name" groups=["Editor Only"]]
-margin_left = 694.794
-margin_top = 0.332275
-margin_right = 854.794
-margin_bottom = 40.3323
+margin_left = 644.737
+margin_top = 4.33681
+margin_right = 854.737
+margin_bottom = 44.3368
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Hide Pricing"
+text = "Hide Pricing Column"
 script = SubResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -268,9 +268,9 @@ __meta__ = {
 }
 
 [node name="Spacer" type="Panel" parent="VBoxContainer"]
-margin_top = 76.0
+margin_top = 75.0
 margin_right = 850.0
-margin_bottom = 79.0
+margin_bottom = 78.0
 rect_min_size = Vector2( 0, 3 )
 custom_styles/panel = SubResource( 15 )
 

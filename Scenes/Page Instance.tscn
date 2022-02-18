@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Header.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Theme/Button Theme.tres" type="Theme" id=3]
@@ -157,6 +157,33 @@ func can_place_tall_row():
 	return true
 "
 
+[sub_resource type="GDScript" id=6]
+script/source = "extends Control
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+onready var pageInstances = $\"../../../..\"
+onready var pageInstance = $\"../../..\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	visible = false
+	if getLastPage().name == pageInstance.name:
+		if Global.showTotalPrice and !Global.hidePricing:
+			visible = true
+		
+		
+func getLastPage():
+	return pageInstances.get_child(pageInstances.get_child_count()-1)
+"
+
 [sub_resource type="GDScript" id=5]
 script/source = "extends Label
 
@@ -164,7 +191,6 @@ script/source = "extends Label
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-onready var totalPrice = $\"..\"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -174,11 +200,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	totalPrice.visible = Global.showTotalPrice
-	if Global.hidePricing:
-		totalPrice.visible = false
 	var total = 0
-	for pe in findNodeDescendantsInGroup($\"../../../..\", \"Pricing\"):
+	for pe in get_tree().get_nodes_in_group(\"Pricing\"):
 		var number = int(pe.get_node(\"Entry Text\").text)
 		total += number
 	text = str(total)
@@ -245,6 +268,7 @@ rect_min_size = Vector2( 0, 10 )
 [node name="Total Price" type="Control" parent="Add Row Buttons/ReferenceRect" groups=["Total Price"]]
 margin_right = 59.0
 margin_bottom = 40.0
+script = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

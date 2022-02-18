@@ -41,9 +41,6 @@ func _editing_start():
 			pricingEntry.get_node("Entry Text").visible = true
 	
 	
-	for totalPrice in get_tree().get_nodes_in_group("Total Price"):
-		totalPrice.visible = showTotalPrice
-	
 		
 	
 	
@@ -68,10 +65,6 @@ func _exporting_start():
 		for pricingEntry in get_tree().get_nodes_in_group("Pricing"):
 			pricingEntry.get_node("Entry Text").visible = false
 			
-	for totalPrice in get_tree().get_nodes_in_group("Total Price"):
-		totalPrice.visible = showTotalPrice
-		if hidePricing:
-			totalPrice.visible = false
 	
 func _popup_start():
 	state = 3
